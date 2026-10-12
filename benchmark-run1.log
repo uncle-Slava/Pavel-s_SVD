@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/root/svd-standalone-20261011/svdbench/__main__.py", line 3, in <module>
+    main()
+  File "/root/svd-standalone-20261011/svdbench/cli.py", line 208, in main
+    torch.cuda.set_device(device)
+  File "/root/svdbench/.venv/lib/python3.12/site-packages/torch/cuda/__init__.py", line 749, in set_device
+    device = _get_device_index(device)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/svdbench/.venv/lib/python3.12/site-packages/torch/cuda/_utils.py", line 634, in _get_device_index
+    return _torch_get_device_index(device, optional, allow_cpu)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/svdbench/.venv/lib/python3.12/site-packages/torch/_utils.py", line 919, in _get_device_index
+    raise ValueError(
+ValueError: Expected a torch.device with a specified index or an integer, but got:cuda

@@ -1,0 +1,6 @@
+timestamp, index, name, utilization.gpu [%], memory.used [MiB], power.draw [W], temperature.gpu, clocks.current.sm [MHz], clocks.current.memory [MHz]
+2026/10/11 13:13:59.771, 0, NVIDIA RTX PRO 4000 Blackwell SFF Edition, 0 %, 2 MiB, 7.36 W, 31, 180 MHz, 405 MHz
+2026/10/11 13:13:59.980, 0, NVIDIA RTX PRO 4000 Blackwell SFF Edition, 0 %, 2 MiB, 7.36 W, 31, 180 MHz, 405 MHz
+2026/10/11 13:14:00.180, 0, NVIDIA RTX PRO 4000 Blackwell SFF Edition, 0 %, 2 MiB, 7.36 W, 31, 180 MHz, 405 MHz
+2026/10/11 13:14:00.380, 0, NVIDIA RTX PRO 4000 Blackwell SFF Edition, 0 %, 2 MiB, 7.36 W, 31, 180 MHz, 405 MHz
+2026/10/11 13:14:00.582, 0, NVIDIA RTX PRO 4000 Blackwell SFF Edition, 0 %, 2 MiB, 7.36 W, 31, 180 MHz, 405 MHz

@@ -1,0 +1,12 @@
+{
+  "algorithms": [
+    {"name": "default"},
+    {"name": "randomized", "rank": 32, "oversample": 16, "iterations": 2}
+  ],
+  "cases": [
+    {"name": "square1024_fp32", "m": 1024, "n": 1024, "family": "gaussian", "dtype": "float32"},
+    {"name": "lowrank1024_k32", "m": 1024, "n": 1024, "family": "low_rank", "rank": 32, "tail": 0.00001, "dtype": "float32"},
+    {"name": "batch64x32", "m": 32, "n": 32, "batch": 64, "family": "gaussian", "dtype": "float32",
+      "algorithms": [{"name":"default"}]}
+  ]
+}

@@ -1,0 +1,190 @@
+square32 {'name': 'svdbench.standalone:factory', 'method': 'bidiag_dc'} ok 87.97251400028472
+square32 {'name': 'svdbench.standalone:factory', 'method': 'block_jacobi'} ok 1134.212133998517
+square32 {'name': 'svdbench.standalone:factory', 'method': 'polar_polynomial'} ok 65.51281599968206
+square32 {'name': 'svdbench.standalone:factory', 'method': 'jacobi'} ok 71.05002399839577
+square32 {'name': 'svdbench.standalone:factory', 'method': 'gram_jacobi'} ok 64.55098400329007
+square32 {'name': 'svdbench.standalone:factory', 'method': 'polar_qdwh'} ok 88.23580399985076
+square32 {'name': 'svdbench.standalone:factory', 'method': 'polar_newton_schulz'} ok 65.49416599955293
+square32 {'name': 'svdbench.standalone:factory', 'method': 'subspace'} ok 100.93205600060173
+square32 {'name': 'svdbench.standalone:factory', 'method': 'randomized'} ok 101.4600070011511
+square32 {'name': 'svdbench.standalone:factory', 'method': 'polar_halley'} ok 93.61755799909588
+square32 {'name': 'svdbench.standalone:factory', 'method': 'bidiag_qr'} ok 548.6660899987328
+square32 {'name': 'svdbench.standalone:factory', 'method': 'qr'} ok 76.25563900000998
+square32 {'name': 'svdbench.standalone:factory', 'method': 'block_krylov'} ok 88.77941999890027
+square32 {'name': 'svdbench.standalone:factory', 'method': 'gram_dc'} ok 78.81337300204905
+square32 {'name': 'svdbench.standalone:factory', 'method': 'tsqr'} ok 76.09551100176759
+square32 {'name': 'svdbench.standalone:factory', 'method': 'lanczos'} ok 75.7199239997135
+square32 {'name': 'gesvd'} ok 0.6095909993746318
+square32 {'name': 'gesvdj'} ok 0.27358100123819895
+tall256x16 {'name': 'svdbench.standalone:factory', 'method': 'bidiag_dc'} ok 42.40077400027076
+tall256x16 {'name': 'svdbench.standalone:factory', 'method': 'block_jacobi'} ok 135.9938739988138
+tall256x16 {'name': 'svdbench.standalone:factory', 'method': 'polar_polynomial'} ok 27.38868999949773
+tall256x16 {'name': 'svdbench.standalone:factory', 'method': 'jacobi'} ok 25.838437999482267
+tall256x16 {'name': 'svdbench.standalone:factory', 'method': 'gram_jacobi'} ok 26.775954000186175
+tall256x16 {'name': 'svdbench.standalone:factory', 'method': 'polar_qdwh'} ok 39.18771900134743
+tall256x16 {'name': 'svdbench.standalone:factory', 'method': 'polar_newton_schulz'} ok 27.576243999646977
+tall256x16 {'name': 'svdbench.standalone:factory', 'method': 'subspace'} ok 41.40391400142107
+tall256x16 {'name': 'svdbench.standalone:factory', 'method': 'randomized'} ok 41.56715299905045
+tall256x16 {'name': 'svdbench.standalone:factory', 'method': 'polar_halley'} ok 36.34928300016327
+tall256x16 {'name': 'svdbench.standalone:factory', 'method': 'bidiag_qr'} ok 166.07755800214363
+tall256x16 {'name': 'svdbench.standalone:factory', 'method': 'qr'} ok 28.93788300207234
+tall256x16 {'name': 'svdbench.standalone:factory', 'method': 'block_krylov'} ok 51.07777800003532
+tall256x16 {'name': 'svdbench.standalone:factory', 'method': 'gram_dc'} ok 38.66302900132723
+tall256x16 {'name': 'svdbench.standalone:factory', 'method': 'tsqr'} ok 47.27988099693903
+tall256x16 {'name': 'svdbench.standalone:factory', 'method': 'lanczos'} ok 28.715844000544166
+tall256x16 {'name': 'gesvd'} ok 0.4196960035187658
+tall256x16 {'name': 'gesvdj'} ok 0.48781599980429746
+wide_complex {'name': 'svdbench.standalone:factory', 'method': 'bidiag_dc'} ok 43.23546499654185
+wide_complex {'name': 'svdbench.standalone:factory', 'method': 'block_jacobi'} ok 169.39954400004353
+wide_complex {'name': 'svdbench.standalone:factory', 'method': 'polar_polynomial'} ok 32.04919999916456
+wide_complex {'name': 'svdbench.standalone:factory', 'method': 'jacobi'} ok 30.520896998496028
+wide_complex {'name': 'svdbench.standalone:factory', 'method': 'gram_jacobi'} ok 31.10690399989835
+wide_complex {'name': 'svdbench.standalone:factory', 'method': 'polar_qdwh'} ok 46.18766600106028
+wide_complex {'name': 'svdbench.standalone:factory', 'method': 'polar_newton_schulz'} ok 32.181941001908854
+wide_complex {'name': 'svdbench.standalone:factory', 'method': 'subspace'} ok 44.20360500080278
+wide_complex {'name': 'svdbench.standalone:factory', 'method': 'randomized'} ok 44.15680400052224
+wide_complex {'name': 'svdbench.standalone:factory', 'method': 'polar_halley'} ok 43.081379000796005
+wide_complex {'name': 'svdbench.standalone:factory', 'method': 'bidiag_qr'} ok 173.6655049971887
+wide_complex {'name': 'svdbench.standalone:factory', 'method': 'qr'} ok 34.21623399844975
+wide_complex {'name': 'svdbench.standalone:factory', 'method': 'block_krylov'} ok 41.720380999322515
+wide_complex {'name': 'svdbench.standalone:factory', 'method': 'gram_dc'} ok 39.17101899787667
+wide_complex {'name': 'svdbench.standalone:factory', 'method': 'tsqr'} ok 34.1185699980997
+wide_complex {'name': 'svdbench.standalone:factory', 'method': 'lanczos'} ok 34.398102998238755
+wide_complex {'name': 'gesvd'} ok 0.48322899965569377
+wide_complex {'name': 'gesvdj'} ok 0.5982949987810571
+batch8x16 {'name': 'svdbench.standalone:factory', 'method': 'bidiag_dc'} ok 285.00807200180134
+batch8x16 {'name': 'svdbench.standalone:factory', 'method': 'block_jacobi'} ok 183.29101400013315
+batch8x16 {'name': 'svdbench.standalone:factory', 'method': 'polar_polynomial'} ok 30.416982997849118
+batch8x16 {'name': 'svdbench.standalone:factory', 'method': 'jacobi'} ok 29.93549299935694
+batch8x16 {'name': 'svdbench.standalone:factory', 'method': 'gram_jacobi'} ok 33.88357299991185
+batch8x16 {'name': 'svdbench.standalone:factory', 'method': 'polar_qdwh'} ok 41.57632699934766
+batch8x16 {'name': 'svdbench.standalone:factory', 'method': 'polar_newton_schulz'} ok 30.67071300029056
+batch8x16 {'name': 'svdbench.standalone:factory', 'method': 'subspace'} ok 45.4501070016704
+batch8x16 {'name': 'svdbench.standalone:factory', 'method': 'randomized'} ok 45.434710998961236
+batch8x16 {'name': 'svdbench.standalone:factory', 'method': 'polar_halley'} ok 44.857249999040505
+batch8x16 {'name': 'svdbench.standalone:factory', 'method': 'bidiag_qr'} ok 159.34906599795795
+batch8x16 {'name': 'svdbench.standalone:factory', 'method': 'qr'} ok 33.100046999607
+batch8x16 {'name': 'svdbench.standalone:factory', 'method': 'block_krylov'} ok 39.94866399807506
+batch8x16 {'name': 'svdbench.standalone:factory', 'method': 'gram_dc'} ok 275.0718509996659
+batch8x16 {'name': 'svdbench.standalone:factory', 'method': 'tsqr'} ok 33.22599800230819
+batch8x16 {'name': 'svdbench.standalone:factory', 'method': 'lanczos'} ok 247.32047500219778
+batch8x16 {'name': 'gesvd'} ok 2.2524300002260134
+batch8x16 {'name': 'gesvdj'} ok 0.20901699826936238
+condition1e8 {'name': 'svdbench.standalone:factory', 'method': 'bidiag_dc'} ok 69.32338700062246
+condition1e8 {'name': 'svdbench.standalone:factory', 'method': 'block_jacobi'} ok 269.777952998993
+condition1e8 {'name': 'svdbench.standalone:factory', 'method': 'polar_polynomial'} ok 47.79744300321909
+condition1e8 {'name': 'svdbench.standalone:factory', 'method': 'jacobi'} ok 51.75594499814906
+condition1e8 {'name': 'svdbench.standalone:factory', 'method': 'gram_jacobi'} ok 49.75340399687411
+condition1e8 {'name': 'svdbench.standalone:factory', 'method': 'polar_qdwh'} ok 60.80242100142641
+condition1e8 {'name': 'svdbench.standalone:factory', 'method': 'polar_newton_schulz'} ok 48.23709400079679
+condition1e8 {'name': 'svdbench.standalone:factory', 'method': 'subspace'} ok 66.73587099794531
+condition1e8 {'name': 'svdbench.standalone:factory', 'method': 'randomized'} ok 66.5972620008688
+condition1e8 {'name': 'svdbench.standalone:factory', 'method': 'polar_halley'} ok 84.93004699994344
+condition1e8 {'name': 'svdbench.standalone:factory', 'method': 'bidiag_qr'} ok 108.10914599642274
+condition1e8 {'name': 'svdbench.standalone:factory', 'method': 'qr'} ok 54.330122999090236
+condition1e8 {'name': 'svdbench.standalone:factory', 'method': 'block_krylov'} ok 70.40802499977872
+condition1e8 {'name': 'svdbench.standalone:factory', 'method': 'gram_dc'} ok 36.32255900083692
+condition1e8 {'name': 'svdbench.standalone:factory', 'method': 'tsqr'} ok 54.152197000803426
+condition1e8 {'name': 'svdbench.standalone:factory', 'method': 'lanczos'} ok 50.21044900058769
+condition1e8 {'name': 'gesvd'} ok 0.6288250006036833
+condition1e8 {'name': 'gesvdj'} ok 1.4971440032240935
+condition1e12 {'name': 'svdbench.standalone:factory', 'method': 'bidiag_dc'} ok 69.27279600131442
+condition1e12 {'name': 'svdbench.standalone:factory', 'method': 'block_jacobi'} ok 261.51568700151984
+condition1e12 {'name': 'svdbench.standalone:factory', 'method': 'polar_polynomial'} ok 57.583587997214636
+condition1e12 {'name': 'svdbench.standalone:factory', 'method': 'jacobi'} ok 59.90141299844254
+condition1e12 {'name': 'svdbench.standalone:factory', 'method': 'gram_jacobi'} ok 41.82666799897561
+condition1e12 {'name': 'svdbench.standalone:factory', 'method': 'polar_qdwh'} ok 69.33159399704891
+condition1e12 {'name': 'svdbench.standalone:factory', 'method': 'polar_newton_schulz'} ok 58.62775100104045
+condition1e12 {'name': 'svdbench.standalone:factory', 'method': 'subspace'} ok 74.80232200032333
+condition1e12 {'name': 'svdbench.standalone:factory', 'method': 'randomized'} ok 74.96883700150647
+condition1e12 {'name': 'svdbench.standalone:factory', 'method': 'polar_halley'} ok 108.76217499753693
+condition1e12 {'name': 'svdbench.standalone:factory', 'method': 'bidiag_qr'} ok 127.46147900179494
+condition1e12 {'name': 'svdbench.standalone:factory', 'method': 'qr'} ok 62.977150999358855
+condition1e12 {'name': 'svdbench.standalone:factory', 'method': 'block_krylov'} ok 78.94855999984429
+condition1e12 {'name': 'svdbench.standalone:factory', 'method': 'gram_dc'} ok 37.601301999529824
+condition1e12 {'name': 'svdbench.standalone:factory', 'method': 'tsqr'} ok 62.595018000138225
+condition1e12 {'name': 'svdbench.standalone:factory', 'method': 'lanczos'} ok 54.15415200332063
+condition1e12 {'name': 'gesvd'} ok 0.5439950000436511
+condition1e12 {'name': 'gesvdj'} ok 1.5228330012178048
+clustered_complex {'name': 'svdbench.standalone:factory', 'method': 'bidiag_dc'} ok 37.72274699804257
+clustered_complex {'name': 'svdbench.standalone:factory', 'method': 'block_jacobi'} ok 247.74691299899132
+clustered_complex {'name': 'svdbench.standalone:factory', 'method': 'polar_polynomial'} ok 43.02952199941501
+clustered_complex {'name': 'svdbench.standalone:factory', 'method': 'jacobi'} ok 60.537140001542866
+clustered_complex {'name': 'svdbench.standalone:factory', 'method': 'gram_jacobi'} ok 46.15547000139486
+clustered_complex {'name': 'svdbench.standalone:factory', 'method': 'polar_qdwh'} ok 61.70603599821334
+clustered_complex {'name': 'svdbench.standalone:factory', 'method': 'polar_newton_schulz'} ok 43.48338599811541
+clustered_complex {'name': 'svdbench.standalone:factory', 'method': 'subspace'} ok 74.4535560006625
+clustered_complex {'name': 'svdbench.standalone:factory', 'method': 'randomized'} ok 74.04745399981039
+clustered_complex {'name': 'svdbench.standalone:factory', 'method': 'polar_halley'} ok 67.87568599975202
+clustered_complex {'name': 'svdbench.standalone:factory', 'method': 'bidiag_qr'} ok 179.7301830010838
+clustered_complex {'name': 'svdbench.standalone:factory', 'method': 'qr'} ok 63.51600099878851
+clustered_complex {'name': 'svdbench.standalone:factory', 'method': 'block_krylov'} ok 83.62724499966134
+clustered_complex {'name': 'svdbench.standalone:factory', 'method': 'gram_dc'} ok 34.57520699885208
+clustered_complex {'name': 'svdbench.standalone:factory', 'method': 'tsqr'} ok 63.651071999629494
+clustered_complex {'name': 'svdbench.standalone:factory', 'method': 'lanczos'} ok 48.669148000044515
+clustered_complex {'name': 'gesvd'} ok 1.0371550015406683
+clustered_complex {'name': 'gesvdj'} ok 7.907606999651762
+rank_deficient {'name': 'svdbench.standalone:factory', 'method': 'bidiag_dc'} ok 54.708251998818014
+rank_deficient {'name': 'svdbench.standalone:factory', 'method': 'block_jacobi'} ok 40.236794000520604
+rank_deficient {'name': 'svdbench.standalone:factory', 'method': 'polar_polynomial'} ok 19.23076799721457
+rank_deficient {'name': 'svdbench.standalone:factory', 'method': 'jacobi'} ok 18.110747001628624
+rank_deficient {'name': 'svdbench.standalone:factory', 'method': 'gram_jacobi'} ok 15.371647998108529
+rank_deficient {'name': 'svdbench.standalone:factory', 'method': 'polar_qdwh'} ok 33.8545790000353
+rank_deficient {'name': 'svdbench.standalone:factory', 'method': 'polar_newton_schulz'} ok 19.49958700060961
+rank_deficient {'name': 'svdbench.standalone:factory', 'method': 'subspace'} ok 29.494656999304425
+rank_deficient {'name': 'svdbench.standalone:factory', 'method': 'randomized'} ok 29.634952999913367
+rank_deficient {'name': 'svdbench.standalone:factory', 'method': 'polar_halley'} ok 48.97254599927692
+rank_deficient {'name': 'svdbench.standalone:factory', 'method': 'bidiag_qr'} ok 72.2090119998029
+rank_deficient {'name': 'svdbench.standalone:factory', 'method': 'qr'} ok 20.342931999039138
+rank_deficient {'name': 'svdbench.standalone:factory', 'method': 'block_krylov'} ok 35.34189200217952
+rank_deficient {'name': 'svdbench.standalone:factory', 'method': 'gram_dc'} ok 37.60830099781742
+rank_deficient {'name': 'svdbench.standalone:factory', 'method': 'tsqr'} ok 20.2509619994089
+rank_deficient {'name': 'svdbench.standalone:factory', 'method': 'lanczos'} ok 26.549794001766713
+rank_deficient {'name': 'gesvd'} ok 0.26722300026449375
+rank_deficient {'name': 'gesvdj'} ok 0.18681399888009764
+zero {'name': 'svdbench.standalone:factory', 'method': 'bidiag_dc'} ok 10.011541002313606
+zero {'name': 'svdbench.standalone:factory', 'method': 'block_jacobi'} ok 6.2367649989028
+zero {'name': 'svdbench.standalone:factory', 'method': 'polar_polynomial'} ok 4.601420998369576
+zero {'name': 'svdbench.standalone:factory', 'method': 'jacobi'} ok 4.252189999533584
+zero {'name': 'svdbench.standalone:factory', 'method': 'gram_jacobi'} ok 4.431671000929782
+zero {'name': 'svdbench.standalone:factory', 'method': 'polar_qdwh'} ok 6.225639997865073
+zero {'name': 'svdbench.standalone:factory', 'method': 'polar_newton_schulz'} ok 4.569828000967391
+zero {'name': 'svdbench.standalone:factory', 'method': 'subspace'} ok 12.276239998755045
+zero {'name': 'svdbench.standalone:factory', 'method': 'randomized'} ok 12.16746700083604
+zero {'name': 'svdbench.standalone:factory', 'method': 'polar_halley'} ok 5.534805997740477
+zero {'name': 'svdbench.standalone:factory', 'method': 'bidiag_qr'} ok 3.529902001901064
+zero {'name': 'svdbench.standalone:factory', 'method': 'qr'} ok 5.837086999235908
+zero {'name': 'svdbench.standalone:factory', 'method': 'block_krylov'} ok 11.515706002683146
+zero {'name': 'svdbench.standalone:factory', 'method': 'gram_dc'} ok 6.646159999945667
+zero {'name': 'svdbench.standalone:factory', 'method': 'tsqr'} ok 5.847565000294708
+zero {'name': 'svdbench.standalone:factory', 'method': 'lanczos'} ok 11.161911999806762
+zero {'name': 'gesvd'} ok 0.15117300063138828
+zero {'name': 'gesvdj'} ok 0.08198099749279208
+lowrank512 {'name': 'svdbench.standalone:factory', 'method': 'randomized', 'rank': 8, 'oversample': 8, 'iterations': 2, 'seed': 31} ok 39.583781002875185
+lowrank512 {'name': 'svdbench.standalone:factory', 'method': 'randomized', 'rank': 8, 'oversample': 8, 'iterations': 2, 'seed': 71} ok 39.779818998795236
+lowrank512 {'name': 'svdbench.standalone:factory', 'method': 'randomized', 'rank': 8, 'oversample': 8, 'iterations': 2, 'seed': 113} ok 39.60894499687129
+lowrank512 {'name': 'svdbench.standalone:factory', 'method': 'subspace', 'rank': 8, 'oversample': 8, 'iterations': 2, 'seed': 31} ok 39.72816199893714
+lowrank512 {'name': 'svdbench.standalone:factory', 'method': 'subspace', 'rank': 8, 'oversample': 8, 'iterations': 2, 'seed': 71} ok 39.63885199846118
+lowrank512 {'name': 'svdbench.standalone:factory', 'method': 'subspace', 'rank': 8, 'oversample': 8, 'iterations': 2, 'seed': 113} ok 39.66479200244066
+lowrank512 {'name': 'svdbench.standalone:factory', 'method': 'block_krylov', 'rank': 8, 'oversample': 8, 'iterations': 2, 'seed': 31} ok 168.49763900245307
+lowrank512 {'name': 'svdbench.standalone:factory', 'method': 'block_krylov', 'rank': 8, 'oversample': 8, 'iterations': 2, 'seed': 71} ok 168.93376699954388
+lowrank512 {'name': 'svdbench.standalone:factory', 'method': 'block_krylov', 'rank': 8, 'oversample': 8, 'iterations': 2, 'seed': 113} ok 155.4130240001541
+lowrank512 {'name': 'svdbench.standalone:factory', 'method': 'lanczos', 'rank': 8, 'oversample': 8, 'iterations': 2, 'seed': 31} ok 65.4317339976842
+lowrank512 {'name': 'svdbench.standalone:factory', 'method': 'lanczos', 'rank': 8, 'oversample': 8, 'iterations': 2, 'seed': 71} ok 71.57951600311208
+lowrank512 {'name': 'svdbench.standalone:factory', 'method': 'lanczos', 'rank': 8, 'oversample': 8, 'iterations': 2, 'seed': 113} ok 65.2265790013189
+lowrank512 {'name': 'randomized', 'rank': 8, 'oversample': 8, 'iterations': 2} ok 0.786240998422727
+lowrank512 {'name': 'gesvd'} ok 10.585983000055421
+flat512 {'name': 'svdbench.standalone:factory', 'method': 'randomized', 'rank': 8, 'oversample': 8, 'iterations': 2, 'seed': 31} ok 41.87972599902423
+flat512 {'name': 'svdbench.standalone:factory', 'method': 'randomized', 'rank': 8, 'oversample': 8, 'iterations': 2, 'seed': 71} ok 41.91176400127006
+flat512 {'name': 'svdbench.standalone:factory', 'method': 'randomized', 'rank': 8, 'oversample': 8, 'iterations': 2, 'seed': 113} ok 41.88672899908852
+flat512 {'name': 'svdbench.standalone:factory', 'method': 'subspace', 'rank': 8, 'oversample': 8, 'iterations': 2, 'seed': 31} ok 41.9280339992838
+flat512 {'name': 'svdbench.standalone:factory', 'method': 'subspace', 'rank': 8, 'oversample': 8, 'iterations': 2, 'seed': 71} ok 41.83043500233907
+flat512 {'name': 'svdbench.standalone:factory', 'method': 'subspace', 'rank': 8, 'oversample': 8, 'iterations': 2, 'seed': 113} ok 41.86172799745691
+flat512 {'name': 'svdbench.standalone:factory', 'method': 'block_krylov', 'rank': 8, 'oversample': 8, 'iterations': 2, 'seed': 31} ok 133.2985720000579
+flat512 {'name': 'svdbench.standalone:factory', 'method': 'block_krylov', 'rank': 8, 'oversample': 8, 'iterations': 2, 'seed': 71} ok 133.9670279994607
+flat512 {'name': 'svdbench.standalone:factory', 'method': 'block_krylov', 'rank': 8, 'oversample': 8, 'iterations': 2, 'seed': 113} ok 133.60787499914295
+flat512 {'name': 'svdbench.standalone:factory', 'method': 'lanczos', 'rank': 8, 'oversample': 8, 'iterations': 2, 'seed': 31} ok 50.71819400109234
+flat512 {'name': 'svdbench.standalone:factory', 'method': 'lanczos', 'rank': 8, 'oversample': 8, 'iterations': 2, 'seed': 71} ok 50.502032001531916
+flat512 {'name': 'svdbench.standalone:factory', 'method': 'lanczos', 'rank': 8, 'oversample': 8, 'iterations': 2, 'seed': 113} ok 50.512656998762395
+flat512 {'name': 'randomized', 'rank': 8, 'oversample': 8, 'iterations': 2} ok 0.8993330011435319
+flat512 {'name': 'gesvd'} ok 11.884954998095054

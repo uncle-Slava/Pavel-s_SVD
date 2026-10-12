@@ -1,0 +1,90 @@
+{
+  "algorithms": [
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "bidiag_dc"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "block_jacobi"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "polar_polynomial"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "jacobi"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "gram_jacobi"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "polar_qdwh"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "polar_newton_schulz"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "subspace"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "randomized"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "polar_halley"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "bidiag_qr"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "qr"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "block_krylov"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "gram_dc"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "tsqr"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "lanczos"
+    },
+    {
+      "name": "gesvd"
+    },
+    {
+      "name": "gesvdj"
+    }
+  ],
+  "cases": [
+    {
+      "name": "square64",
+      "m": 64,
+      "n": 64,
+      "dtype": "float32",
+      "family": "gaussian"
+    },
+    {
+      "name": "tall2048x32",
+      "m": 2048,
+      "n": 32,
+      "dtype": "float32",
+      "family": "gaussian"
+    }
+  ]
+}

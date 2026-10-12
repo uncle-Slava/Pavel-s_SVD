@@ -1,0 +1,374 @@
+{
+  "algorithms": [
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "bidiag_dc"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "block_jacobi"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "polar_polynomial"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "jacobi"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "gram_jacobi"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "polar_qdwh"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "polar_newton_schulz"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "subspace"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "randomized"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "polar_halley"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "bidiag_qr"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "qr"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "block_krylov"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "gram_dc"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "tsqr"
+    },
+    {
+      "name": "svdbench.standalone:factory",
+      "method": "lanczos"
+    },
+    {
+      "name": "gesvd"
+    },
+    {
+      "name": "gesvdj"
+    }
+  ],
+  "cases": [
+    {
+      "name": "square32",
+      "m": 32,
+      "n": 32,
+      "dtype": "float32",
+      "family": "gaussian"
+    },
+    {
+      "name": "tall256x16",
+      "m": 256,
+      "n": 16,
+      "dtype": "float32",
+      "family": "gaussian"
+    },
+    {
+      "name": "wide_complex",
+      "m": 16,
+      "n": 48,
+      "dtype": "complex64",
+      "family": "gaussian"
+    },
+    {
+      "name": "batch8x16",
+      "m": 16,
+      "n": 16,
+      "batch": 8,
+      "dtype": "float32",
+      "family": "gaussian"
+    },
+    {
+      "name": "condition1e8",
+      "m": 32,
+      "n": 16,
+      "dtype": "float64",
+      "family": "geometric",
+      "condition": 100000000.0
+    },
+    {
+      "name": "condition1e12",
+      "m": 32,
+      "n": 16,
+      "dtype": "float64",
+      "family": "geometric",
+      "condition": 1000000000000.0
+    },
+    {
+      "name": "clustered_complex",
+      "m": 32,
+      "n": 16,
+      "dtype": "complex128",
+      "family": "clustered"
+    },
+    {
+      "name": "rank_deficient",
+      "m": 32,
+      "n": 12,
+      "dtype": "float32",
+      "family": "low_rank",
+      "rank": 3,
+      "tail": 0
+    },
+    {
+      "name": "zero",
+      "m": 12,
+      "n": 8,
+      "dtype": "float32",
+      "family": "zero"
+    },
+    {
+      "name": "lowrank512",
+      "m": 512,
+      "n": 256,
+      "dtype": "float32",
+      "family": "low_rank",
+      "rank": 8,
+      "tail": 1e-05,
+      "algorithms": [
+        {
+          "name": "svdbench.standalone:factory",
+          "method": "randomized",
+          "rank": 8,
+          "oversample": 8,
+          "iterations": 2,
+          "seed": 31
+        },
+        {
+          "name": "svdbench.standalone:factory",
+          "method": "randomized",
+          "rank": 8,
+          "oversample": 8,
+          "iterations": 2,
+          "seed": 71
+        },
+        {
+          "name": "svdbench.standalone:factory",
+          "method": "randomized",
+          "rank": 8,
+          "oversample": 8,
+          "iterations": 2,
+          "seed": 113
+        },
+        {
+          "name": "svdbench.standalone:factory",
+          "method": "subspace",
+          "rank": 8,
+          "oversample": 8,
+          "iterations": 2,
+          "seed": 31
+        },
+        {
+          "name": "svdbench.standalone:factory",
+          "method": "subspace",
+          "rank": 8,
+          "oversample": 8,
+          "iterations": 2,
+          "seed": 71
+        },
+        {
+          "name": "svdbench.standalone:factory",
+          "method": "subspace",
+          "rank": 8,
+          "oversample": 8,
+          "iterations": 2,
+          "seed": 113
+        },
+        {
+          "name": "svdbench.standalone:factory",
+          "method": "block_krylov",
+          "rank": 8,
+          "oversample": 8,
+          "iterations": 2,
+          "seed": 31
+        },
+        {
+          "name": "svdbench.standalone:factory",
+          "method": "block_krylov",
+          "rank": 8,
+          "oversample": 8,
+          "iterations": 2,
+          "seed": 71
+        },
+        {
+          "name": "svdbench.standalone:factory",
+          "method": "block_krylov",
+          "rank": 8,
+          "oversample": 8,
+          "iterations": 2,
+          "seed": 113
+        },
+        {
+          "name": "svdbench.standalone:factory",
+          "method": "lanczos",
+          "rank": 8,
+          "oversample": 8,
+          "iterations": 2,
+          "seed": 31
+        },
+        {
+          "name": "svdbench.standalone:factory",
+          "method": "lanczos",
+          "rank": 8,
+          "oversample": 8,
+          "iterations": 2,
+          "seed": 71
+        },
+        {
+          "name": "svdbench.standalone:factory",
+          "method": "lanczos",
+          "rank": 8,
+          "oversample": 8,
+          "iterations": 2,
+          "seed": 113
+        },
+        {
+          "name": "randomized",
+          "rank": 8,
+          "oversample": 8,
+          "iterations": 2
+        },
+        {
+          "name": "gesvd"
+        }
+      ]
+    },
+    {
+      "name": "flat512",
+      "m": 512,
+      "n": 256,
+      "dtype": "float32",
+      "family": "gaussian",
+      "algorithms": [
+        {
+          "name": "svdbench.standalone:factory",
+          "method": "randomized",
+          "rank": 8,
+          "oversample": 8,
+          "iterations": 2,
+          "seed": 31
+        },
+        {
+          "name": "svdbench.standalone:factory",
+          "method": "randomized",
+          "rank": 8,
+          "oversample": 8,
+          "iterations": 2,
+          "seed": 71
+        },
+        {
+          "name": "svdbench.standalone:factory",
+          "method": "randomized",
+          "rank": 8,
+          "oversample": 8,
+          "iterations": 2,
+          "seed": 113
+        },
+        {
+          "name": "svdbench.standalone:factory",
+          "method": "subspace",
+          "rank": 8,
+          "oversample": 8,
+          "iterations": 2,
+          "seed": 31
+        },
+        {
+          "name": "svdbench.standalone:factory",
+          "method": "subspace",
+          "rank": 8,
+          "oversample": 8,
+          "iterations": 2,
+          "seed": 71
+        },
+        {
+          "name": "svdbench.standalone:factory",
+          "method": "subspace",
+          "rank": 8,
+          "oversample": 8,
+          "iterations": 2,
+          "seed": 113
+        },
+        {
+          "name": "svdbench.standalone:factory",
+          "method": "block_krylov",
+          "rank": 8,
+          "oversample": 8,
+          "iterations": 2,
+          "seed": 31
+        },
+        {
+          "name": "svdbench.standalone:factory",
+          "method": "block_krylov",
+          "rank": 8,
+          "oversample": 8,
+          "iterations": 2,
+          "seed": 71
+        },
+        {
+          "name": "svdbench.standalone:factory",
+          "method": "block_krylov",
+          "rank": 8,
+          "oversample": 8,
+          "iterations": 2,
+          "seed": 113
+        },
+        {
+          "name": "svdbench.standalone:factory",
+          "method": "lanczos",
+          "rank": 8,
+          "oversample": 8,
+          "iterations": 2,
+          "seed": 31
+        },
+        {
+          "name": "svdbench.standalone:factory",
+          "method": "lanczos",
+          "rank": 8,
+          "oversample": 8,
+          "iterations": 2,
+          "seed": 71
+        },
+        {
+          "name": "svdbench.standalone:factory",
+          "method": "lanczos",
+          "rank": 8,
+          "oversample": 8,
+          "iterations": 2,
+          "seed": 113
+        },
+        {
+          "name": "randomized",
+          "rank": 8,
+          "oversample": 8,
+          "iterations": 2
+        },
+        {
+          "name": "gesvd"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "svdbench/__init__.py": "05e3abd3f07d3cee000bfb4512d0f5defbf606ddd6ca9198ee2d989563758a2b",
+  "svdbench/__main__.py": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279",
+  "svdbench/algorithms.py": "d7f075652dc05670f834cfe812bdd2e7b9ea74b3009ac533307ff3d697e65a80",
+  "svdbench/cli.py": "1fccdd9e64f07dd8f03e684bf748072da0344bf5bb57890b4102d99b99dfdfa1",
+  "svdbench/legacy_cuda.py": "b554df9664ff2911217c0e58cf48ea13478585f31c08a6cf16771d71049a2a08",
+  "svdbench/matrices.py": "899a4fef71a80934692d731d525e9ed73dece76b49e0afda6f59ae141b54d052",
+  "svdbench/metrics.py": "678d769c9feec6abcce8c166300a1823f2cffced8c993f1554d974df719faa1e",
+  "tools/assess.py": "ab225ab61fd5b0b2e2cfb358aade785b21cd34665ab23d33987aa08bc085c8cc",
+  "tools/plot_pilot.py": "49edae30fc16b611ac52b6e8f3adaf5b3256c52e4c1b26926067ac78dba59e50",
+  "tools/polar_sanity.cpp": "662c2a43cb5a77689d2680eeb13aa51bc52a34e5dc203198b81fcf0d60722964",
+  "tools/run_monitored.py": "09425b773f01c075a1642988d44e3854541f3756126a5460aca3195783953206",
+  "tools/summarize.py": "7656ff9d1ce67c264974702dfc9cfd182533568a4aef3b91a8fcbcf072359a55",
+  "configs/cpu.json": "28b33cd9d74c630577f6024f5ed62c98e80dc5186b5d9f42586f9c2406cc359d",
+  "configs/native.json": "a54c09b3b825cc3afc0d0cb247d9814a4793667a57ff48baa008c43ec69e2198",
+  "configs/pilot.json": "20cb04181be1638a7a78c5f224772c8d8cbbbbc9a3345ed0889b305a88f5a872",
+  "configs/smoke.json": "2e351d8c0c01e16ac14b5ea1002b901dd3f1466af3af53e424c1cb077b15f5df",
+  "tests/test_assessment.py": "eb778164f7c8601a55ac562214b1acc3e1114d5c7ce27efa024252f398fe2771",
+  "tests/test_numerics.py": "a1ebae9f638ae753a75419896a9dc749a7174d6633c613a2f0f2727af7960596",
+  "references/hetzner-cusolver_direct.py": "47848e4160bccfd6228029d1663958d6a7d9af5df6cac6af80e2456643886b6d"
+}

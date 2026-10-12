@@ -1,0 +1,19 @@
+{
+  "algorithms": [
+    {"name": "gesvd"},
+    {"name": "svdbench.legacy_cuda:prepare", "routine": "Xgesvdp"},
+    {"name": "svdbench.legacy_cuda:prepare", "routine": "Xgesvdr", "rank": 32, "oversample": 16, "iterations": 2}
+  ],
+  "cases": [
+    {"name": "square512_fp32", "m": 512, "n": 512, "family": "gaussian", "dtype": "float32"},
+    {"name": "lowrank1024_k32", "m": 1024, "n": 1024, "family": "low_rank", "rank": 32, "tail": 0.00001, "dtype": "float32"},
+    {"name": "ill256_fp32", "m": 256, "n": 256, "family": "geometric", "condition": 1000000, "dtype": "float32"},
+    {"name": "complex256", "m": 256, "n": 128, "family": "gaussian", "dtype": "complex64"},
+    {"name": "batch64x32", "m": 32, "n": 32, "batch": 64, "family": "gaussian", "dtype": "float32",
+      "algorithms": [
+        {"name": "default"},
+        {"name": "svdbench.legacy_cuda:prepare", "routine": "gesvdjBatched"},
+        {"name": "svdbench.legacy_cuda:prepare", "routine": "gesvdaStridedBatched"}
+      ]}
+  ]
+}

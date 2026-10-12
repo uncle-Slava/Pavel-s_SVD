@@ -1,0 +1,1929 @@
+{
+  "limits": {
+    "reconstruction_relative_fro": 0.001,
+    "orthogonality_u_fro_over_sqrt_cols": 0.001,
+    "orthogonality_v_fro_over_sqrt_rows": 0.001,
+    "spectrum_error_over_sigma1": 0.001
+  },
+  "assessments": [
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "square256_fp32",
+        "m": 256,
+        "n": 256,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "square256_fp32",
+        "m": 256,
+        "n": 256,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvdj"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "square256_fp32",
+        "m": 256,
+        "n": 256,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvda"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "square256_fp32",
+        "m": 256,
+        "n": 256,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "qr_svd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "square256_fp32",
+        "m": 256,
+        "n": 256,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "randomized",
+        "rank": 32,
+        "oversample": 16,
+        "iterations": 2
+      },
+      "passed_supplied_limits": false,
+      "reasons": [
+        "reconstruction_relative_fro: 0.799226 > 0.001",
+        "spectrum_error_over_sigma1: 0.0449697 > 0.001"
+      ]
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "square256_fp32",
+        "m": 256,
+        "n": 256,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gram"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "square512_fp32",
+        "m": 512,
+        "n": 512,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "square512_fp32",
+        "m": 512,
+        "n": 512,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvdj"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "square512_fp32",
+        "m": 512,
+        "n": 512,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvda"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "square512_fp32",
+        "m": 512,
+        "n": 512,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "qr_svd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "square512_fp32",
+        "m": 512,
+        "n": 512,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "randomized",
+        "rank": 32,
+        "oversample": 16,
+        "iterations": 2
+      },
+      "passed_supplied_limits": false,
+      "reasons": [
+        "reconstruction_relative_fro: 0.898288 > 0.001",
+        "spectrum_error_over_sigma1: 0.0597839 > 0.001"
+      ]
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "square512_fp32",
+        "m": 512,
+        "n": 512,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gram"
+      },
+      "passed_supplied_limits": false,
+      "reasons": [
+        "orthogonality_u_fro_over_sqrt_cols: 0.0181907 > 0.001"
+      ]
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "square1024_fp32",
+        "m": 1024,
+        "n": 1024,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "square1024_fp32",
+        "m": 1024,
+        "n": 1024,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvdj"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "square1024_fp32",
+        "m": 1024,
+        "n": 1024,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvda"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "square1024_fp32",
+        "m": 1024,
+        "n": 1024,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "qr_svd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "square1024_fp32",
+        "m": 1024,
+        "n": 1024,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "randomized",
+        "rank": 32,
+        "oversample": 16,
+        "iterations": 2
+      },
+      "passed_supplied_limits": false,
+      "reasons": [
+        "reconstruction_relative_fro: 0.948656 > 0.001",
+        "spectrum_error_over_sigma1: 0.0734535 > 0.001"
+      ]
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "square1024_fp32",
+        "m": 1024,
+        "n": 1024,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gram"
+      },
+      "passed_supplied_limits": false,
+      "reasons": [
+        "orthogonality_u_fro_over_sqrt_cols: 0.0144391 > 0.001"
+      ]
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "tall4096x256_fp32",
+        "m": 4096,
+        "n": 256,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "tall4096x256_fp32",
+        "m": 4096,
+        "n": 256,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvdj"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "tall4096x256_fp32",
+        "m": 4096,
+        "n": 256,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvda"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "tall4096x256_fp32",
+        "m": 4096,
+        "n": 256,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "qr_svd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "tall4096x256_fp32",
+        "m": 4096,
+        "n": 256,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "randomized",
+        "rank": 32,
+        "oversample": 16,
+        "iterations": 2
+      },
+      "passed_supplied_limits": false,
+      "reasons": [
+        "reconstruction_relative_fro: 0.916859 > 0.001",
+        "spectrum_error_over_sigma1: 0.0669573 > 0.001"
+      ]
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "tall4096x256_fp32",
+        "m": 4096,
+        "n": 256,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gram"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "wide256x4096_fp32",
+        "m": 256,
+        "n": 4096,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "wide256x4096_fp32",
+        "m": 256,
+        "n": 4096,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvdj"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "wide256x4096_fp32",
+        "m": 256,
+        "n": 4096,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvda"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "wide256x4096_fp32",
+        "m": 256,
+        "n": 4096,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "qr_svd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "wide256x4096_fp32",
+        "m": 256,
+        "n": 4096,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "randomized",
+        "rank": 32,
+        "oversample": 16,
+        "iterations": 2
+      },
+      "passed_supplied_limits": false,
+      "reasons": [
+        "reconstruction_relative_fro: 0.917077 > 0.001",
+        "spectrum_error_over_sigma1: 0.0680801 > 0.001"
+      ]
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "wide256x4096_fp32",
+        "m": 256,
+        "n": 4096,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gram"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "lowrank1024_k32",
+        "m": 1024,
+        "n": 1024,
+        "family": "low_rank",
+        "rank": 32,
+        "tail": 1e-05,
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "lowrank1024_k32",
+        "m": 1024,
+        "n": 1024,
+        "family": "low_rank",
+        "rank": 32,
+        "tail": 1e-05,
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvdj"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "lowrank1024_k32",
+        "m": 1024,
+        "n": 1024,
+        "family": "low_rank",
+        "rank": 32,
+        "tail": 1e-05,
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvda"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "lowrank1024_k32",
+        "m": 1024,
+        "n": 1024,
+        "family": "low_rank",
+        "rank": 32,
+        "tail": 1e-05,
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "qr_svd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "lowrank1024_k32",
+        "m": 1024,
+        "n": 1024,
+        "family": "low_rank",
+        "rank": 32,
+        "tail": 1e-05,
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "randomized",
+        "rank": 32,
+        "oversample": 16,
+        "iterations": 2
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "lowrank1024_k32",
+        "m": 1024,
+        "n": 1024,
+        "family": "low_rank",
+        "rank": 32,
+        "tail": 1e-05,
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gram"
+      },
+      "passed_supplied_limits": false,
+      "reasons": [
+        "orthogonality_u_fro_over_sqrt_cols: 0.99797 > 0.001"
+      ]
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "ill256_fp32",
+        "m": 256,
+        "n": 256,
+        "family": "geometric",
+        "condition": 1000000,
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "ill256_fp32",
+        "m": 256,
+        "n": 256,
+        "family": "geometric",
+        "condition": 1000000,
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvdj"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "ill256_fp32",
+        "m": 256,
+        "n": 256,
+        "family": "geometric",
+        "condition": 1000000,
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvda"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "ill256_fp32",
+        "m": 256,
+        "n": 256,
+        "family": "geometric",
+        "condition": 1000000,
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "qr_svd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "ill256_fp32",
+        "m": 256,
+        "n": 256,
+        "family": "geometric",
+        "condition": 1000000,
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "randomized",
+        "rank": 32,
+        "oversample": 16,
+        "iterations": 2
+      },
+      "passed_supplied_limits": false,
+      "reasons": [
+        "reconstruction_relative_fro: 0.176632 > 0.001"
+      ]
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "ill256_fp32",
+        "m": 256,
+        "n": 256,
+        "family": "geometric",
+        "condition": 1000000,
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gram"
+      },
+      "passed_supplied_limits": false,
+      "reasons": [
+        "orthogonality_u_fro_over_sqrt_cols: 1.16887 > 0.001"
+      ]
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "ill256_fp64",
+        "m": 256,
+        "n": 256,
+        "family": "geometric",
+        "condition": 1000000000000,
+        "dtype": "float64"
+      },
+      "algorithm": {
+        "name": "gesvd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "ill256_fp64",
+        "m": 256,
+        "n": 256,
+        "family": "geometric",
+        "condition": 1000000000000,
+        "dtype": "float64"
+      },
+      "algorithm": {
+        "name": "gesvdj"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "ill256_fp64",
+        "m": 256,
+        "n": 256,
+        "family": "geometric",
+        "condition": 1000000000000,
+        "dtype": "float64"
+      },
+      "algorithm": {
+        "name": "gesvda"
+      },
+      "passed_supplied_limits": false,
+      "reasons": [
+        "_LinAlgError: linalg.svd: The algorithm failed to converge because the input matrix is ill-conditioned or has too many repeated singular values (error code: 224)."
+      ]
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "ill256_fp64",
+        "m": 256,
+        "n": 256,
+        "family": "geometric",
+        "condition": 1000000000000,
+        "dtype": "float64"
+      },
+      "algorithm": {
+        "name": "qr_svd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "ill256_fp64",
+        "m": 256,
+        "n": 256,
+        "family": "geometric",
+        "condition": 1000000000000,
+        "dtype": "float64"
+      },
+      "algorithm": {
+        "name": "randomized",
+        "rank": 32,
+        "oversample": 16,
+        "iterations": 2
+      },
+      "passed_supplied_limits": false,
+      "reasons": [
+        "reconstruction_relative_fro: 0.0311973 > 0.001"
+      ]
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "ill256_fp64",
+        "m": 256,
+        "n": 256,
+        "family": "geometric",
+        "condition": 1000000000000,
+        "dtype": "float64"
+      },
+      "algorithm": {
+        "name": "gram"
+      },
+      "passed_supplied_limits": false,
+      "reasons": [
+        "orthogonality_u_fro_over_sqrt_cols: 0.686022 > 0.001"
+      ]
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "cluster256",
+        "m": 256,
+        "n": 256,
+        "family": "clustered",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "cluster256",
+        "m": 256,
+        "n": 256,
+        "family": "clustered",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvdj"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "cluster256",
+        "m": 256,
+        "n": 256,
+        "family": "clustered",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvda"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "cluster256",
+        "m": 256,
+        "n": 256,
+        "family": "clustered",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "qr_svd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "cluster256",
+        "m": 256,
+        "n": 256,
+        "family": "clustered",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "randomized",
+        "rank": 32,
+        "oversample": 16,
+        "iterations": 2
+      },
+      "passed_supplied_limits": false,
+      "reasons": [
+        "reconstruction_relative_fro: 0.416427 > 0.001",
+        "spectrum_error_over_sigma1: 0.0041958 > 0.001"
+      ]
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "cluster256",
+        "m": 256,
+        "n": 256,
+        "family": "clustered",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gram"
+      },
+      "passed_supplied_limits": false,
+      "reasons": [
+        "orthogonality_u_fro_over_sqrt_cols: 0.0704882 > 0.001"
+      ]
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "rank_deficient256",
+        "m": 256,
+        "n": 256,
+        "family": "low_rank",
+        "rank": 32,
+        "tail": 0,
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "rank_deficient256",
+        "m": 256,
+        "n": 256,
+        "family": "low_rank",
+        "rank": 32,
+        "tail": 0,
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvdj"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "rank_deficient256",
+        "m": 256,
+        "n": 256,
+        "family": "low_rank",
+        "rank": 32,
+        "tail": 0,
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvda"
+      },
+      "passed_supplied_limits": false,
+      "reasons": [
+        "_LinAlgError: linalg.svd: The algorithm failed to converge because the input matrix is ill-conditioned or has too many repeated singular values (error code: 144)."
+      ]
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "rank_deficient256",
+        "m": 256,
+        "n": 256,
+        "family": "low_rank",
+        "rank": 32,
+        "tail": 0,
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "qr_svd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "rank_deficient256",
+        "m": 256,
+        "n": 256,
+        "family": "low_rank",
+        "rank": 32,
+        "tail": 0,
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "randomized",
+        "rank": 32,
+        "oversample": 16,
+        "iterations": 2
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "rank_deficient256",
+        "m": 256,
+        "n": 256,
+        "family": "low_rank",
+        "rank": 32,
+        "tail": 0,
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gram"
+      },
+      "passed_supplied_limits": false,
+      "reasons": [
+        "orthogonality_u_fro_over_sqrt_cols: 0.935414 > 0.001"
+      ]
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "batch64x32",
+        "m": 32,
+        "n": 32,
+        "batch": 64,
+        "family": "gaussian",
+        "dtype": "float32",
+        "algorithms": [
+          {
+            "name": "default"
+          },
+          {
+            "name": "gesvd"
+          },
+          {
+            "name": "gesvdj"
+          },
+          {
+            "name": "gram"
+          }
+        ]
+      },
+      "algorithm": {
+        "name": "default"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "batch64x32",
+        "m": 32,
+        "n": 32,
+        "batch": 64,
+        "family": "gaussian",
+        "dtype": "float32",
+        "algorithms": [
+          {
+            "name": "default"
+          },
+          {
+            "name": "gesvd"
+          },
+          {
+            "name": "gesvdj"
+          },
+          {
+            "name": "gram"
+          }
+        ]
+      },
+      "algorithm": {
+        "name": "gesvd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "batch64x32",
+        "m": 32,
+        "n": 32,
+        "batch": 64,
+        "family": "gaussian",
+        "dtype": "float32",
+        "algorithms": [
+          {
+            "name": "default"
+          },
+          {
+            "name": "gesvd"
+          },
+          {
+            "name": "gesvdj"
+          },
+          {
+            "name": "gram"
+          }
+        ]
+      },
+      "algorithm": {
+        "name": "gesvdj"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "batch64x32",
+        "m": 32,
+        "n": 32,
+        "batch": 64,
+        "family": "gaussian",
+        "dtype": "float32",
+        "algorithms": [
+          {
+            "name": "default"
+          },
+          {
+            "name": "gesvd"
+          },
+          {
+            "name": "gesvdj"
+          },
+          {
+            "name": "gram"
+          }
+        ]
+      },
+      "algorithm": {
+        "name": "gram"
+      },
+      "passed_supplied_limits": false,
+      "reasons": [
+        "orthogonality_u_fro_over_sqrt_cols: 0.0108818 > 0.001"
+      ]
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "batch16x64",
+        "m": 64,
+        "n": 64,
+        "batch": 16,
+        "family": "gaussian",
+        "dtype": "float32",
+        "algorithms": [
+          {
+            "name": "default"
+          },
+          {
+            "name": "gesvd"
+          },
+          {
+            "name": "gesvdj"
+          },
+          {
+            "name": "randomized",
+            "rank": 8,
+            "oversample": 8,
+            "iterations": 2
+          }
+        ]
+      },
+      "algorithm": {
+        "name": "default"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "batch16x64",
+        "m": 64,
+        "n": 64,
+        "batch": 16,
+        "family": "gaussian",
+        "dtype": "float32",
+        "algorithms": [
+          {
+            "name": "default"
+          },
+          {
+            "name": "gesvd"
+          },
+          {
+            "name": "gesvdj"
+          },
+          {
+            "name": "randomized",
+            "rank": 8,
+            "oversample": 8,
+            "iterations": 2
+          }
+        ]
+      },
+      "algorithm": {
+        "name": "gesvd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "batch16x64",
+        "m": 64,
+        "n": 64,
+        "batch": 16,
+        "family": "gaussian",
+        "dtype": "float32",
+        "algorithms": [
+          {
+            "name": "default"
+          },
+          {
+            "name": "gesvd"
+          },
+          {
+            "name": "gesvdj"
+          },
+          {
+            "name": "randomized",
+            "rank": 8,
+            "oversample": 8,
+            "iterations": 2
+          }
+        ]
+      },
+      "algorithm": {
+        "name": "gesvdj"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "batch16x64",
+        "m": 64,
+        "n": 64,
+        "batch": 16,
+        "family": "gaussian",
+        "dtype": "float32",
+        "algorithms": [
+          {
+            "name": "default"
+          },
+          {
+            "name": "gesvd"
+          },
+          {
+            "name": "gesvdj"
+          },
+          {
+            "name": "randomized",
+            "rank": 8,
+            "oversample": 8,
+            "iterations": 2
+          }
+        ]
+      },
+      "algorithm": {
+        "name": "randomized",
+        "rank": 8,
+        "oversample": 8,
+        "iterations": 2
+      },
+      "passed_supplied_limits": false,
+      "reasons": [
+        "reconstruction_relative_fro: 0.802264 > 0.001",
+        "spectrum_error_over_sigma1: 0.0336304 > 0.001"
+      ]
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "complex256",
+        "m": 256,
+        "n": 128,
+        "family": "gaussian",
+        "dtype": "complex64",
+        "algorithms": [
+          {
+            "name": "gesvd"
+          },
+          {
+            "name": "gesvdj"
+          },
+          {
+            "name": "qr_svd"
+          }
+        ]
+      },
+      "algorithm": {
+        "name": "gesvd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "complex256",
+        "m": 256,
+        "n": 128,
+        "family": "gaussian",
+        "dtype": "complex64",
+        "algorithms": [
+          {
+            "name": "gesvd"
+          },
+          {
+            "name": "gesvdj"
+          },
+          {
+            "name": "qr_svd"
+          }
+        ]
+      },
+      "algorithm": {
+        "name": "gesvdj"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "complex256",
+        "m": 256,
+        "n": 128,
+        "family": "gaussian",
+        "dtype": "complex64",
+        "algorithms": [
+          {
+            "name": "gesvd"
+          },
+          {
+            "name": "gesvdj"
+          },
+          {
+            "name": "qr_svd"
+          }
+        ]
+      },
+      "algorithm": {
+        "name": "qr_svd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "output_modes",
+        "m": 512,
+        "n": 128,
+        "family": "gaussian",
+        "dtype": "float32",
+        "algorithms": [
+          {
+            "name": "gesvd",
+            "mode": "full"
+          },
+          {
+            "name": "gesvd",
+            "mode": "reduced"
+          },
+          {
+            "name": "gesvd",
+            "mode": "values"
+          },
+          {
+            "name": "gesvdj",
+            "mode": "full"
+          },
+          {
+            "name": "gesvdj",
+            "mode": "reduced"
+          },
+          {
+            "name": "gesvdj",
+            "mode": "values"
+          }
+        ]
+      },
+      "algorithm": {
+        "name": "gesvd",
+        "mode": "full"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "output_modes",
+        "m": 512,
+        "n": 128,
+        "family": "gaussian",
+        "dtype": "float32",
+        "algorithms": [
+          {
+            "name": "gesvd",
+            "mode": "full"
+          },
+          {
+            "name": "gesvd",
+            "mode": "reduced"
+          },
+          {
+            "name": "gesvd",
+            "mode": "values"
+          },
+          {
+            "name": "gesvdj",
+            "mode": "full"
+          },
+          {
+            "name": "gesvdj",
+            "mode": "reduced"
+          },
+          {
+            "name": "gesvdj",
+            "mode": "values"
+          }
+        ]
+      },
+      "algorithm": {
+        "name": "gesvd",
+        "mode": "reduced"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "output_modes",
+        "m": 512,
+        "n": 128,
+        "family": "gaussian",
+        "dtype": "float32",
+        "algorithms": [
+          {
+            "name": "gesvd",
+            "mode": "full"
+          },
+          {
+            "name": "gesvd",
+            "mode": "reduced"
+          },
+          {
+            "name": "gesvd",
+            "mode": "values"
+          },
+          {
+            "name": "gesvdj",
+            "mode": "full"
+          },
+          {
+            "name": "gesvdj",
+            "mode": "reduced"
+          },
+          {
+            "name": "gesvdj",
+            "mode": "values"
+          }
+        ]
+      },
+      "algorithm": {
+        "name": "gesvd",
+        "mode": "values"
+      },
+      "passed_supplied_limits": false,
+      "reasons": [
+        "reconstruction_relative_fro: not assessed / unavailable",
+        "orthogonality_u_fro_over_sqrt_cols: not assessed / unavailable",
+        "orthogonality_v_fro_over_sqrt_rows: not assessed / unavailable"
+      ]
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "output_modes",
+        "m": 512,
+        "n": 128,
+        "family": "gaussian",
+        "dtype": "float32",
+        "algorithms": [
+          {
+            "name": "gesvd",
+            "mode": "full"
+          },
+          {
+            "name": "gesvd",
+            "mode": "reduced"
+          },
+          {
+            "name": "gesvd",
+            "mode": "values"
+          },
+          {
+            "name": "gesvdj",
+            "mode": "full"
+          },
+          {
+            "name": "gesvdj",
+            "mode": "reduced"
+          },
+          {
+            "name": "gesvdj",
+            "mode": "values"
+          }
+        ]
+      },
+      "algorithm": {
+        "name": "gesvdj",
+        "mode": "full"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "output_modes",
+        "m": 512,
+        "n": 128,
+        "family": "gaussian",
+        "dtype": "float32",
+        "algorithms": [
+          {
+            "name": "gesvd",
+            "mode": "full"
+          },
+          {
+            "name": "gesvd",
+            "mode": "reduced"
+          },
+          {
+            "name": "gesvd",
+            "mode": "values"
+          },
+          {
+            "name": "gesvdj",
+            "mode": "full"
+          },
+          {
+            "name": "gesvdj",
+            "mode": "reduced"
+          },
+          {
+            "name": "gesvdj",
+            "mode": "values"
+          }
+        ]
+      },
+      "algorithm": {
+        "name": "gesvdj",
+        "mode": "reduced"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-pilot.jsonl",
+      "case": {
+        "name": "output_modes",
+        "m": 512,
+        "n": 128,
+        "family": "gaussian",
+        "dtype": "float32",
+        "algorithms": [
+          {
+            "name": "gesvd",
+            "mode": "full"
+          },
+          {
+            "name": "gesvd",
+            "mode": "reduced"
+          },
+          {
+            "name": "gesvd",
+            "mode": "values"
+          },
+          {
+            "name": "gesvdj",
+            "mode": "full"
+          },
+          {
+            "name": "gesvdj",
+            "mode": "reduced"
+          },
+          {
+            "name": "gesvdj",
+            "mode": "values"
+          }
+        ]
+      },
+      "algorithm": {
+        "name": "gesvdj",
+        "mode": "values"
+      },
+      "passed_supplied_limits": false,
+      "reasons": [
+        "reconstruction_relative_fro: not assessed / unavailable",
+        "orthogonality_u_fro_over_sqrt_cols: not assessed / unavailable",
+        "orthogonality_v_fro_over_sqrt_rows: not assessed / unavailable"
+      ]
+    },
+    {
+      "run": "results/hetzner-native.jsonl",
+      "case": {
+        "name": "square512_fp32",
+        "m": 512,
+        "n": 512,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-native.jsonl",
+      "case": {
+        "name": "square512_fp32",
+        "m": 512,
+        "n": 512,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "svdbench.legacy_cuda:prepare",
+        "routine": "Xgesvdp"
+      },
+      "passed_supplied_limits": false,
+      "reasons": [
+        "reconstruction_relative_fro: 26.9742 > 0.001",
+        "spectrum_error_over_sigma1: 13.4223 > 0.001"
+      ]
+    },
+    {
+      "run": "results/hetzner-native.jsonl",
+      "case": {
+        "name": "square512_fp32",
+        "m": 512,
+        "n": 512,
+        "family": "gaussian",
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "svdbench.legacy_cuda:prepare",
+        "routine": "Xgesvdr",
+        "rank": 32,
+        "oversample": 16,
+        "iterations": 2
+      },
+      "passed_supplied_limits": false,
+      "reasons": [
+        "reconstruction_relative_fro: 0.897362 > 0.001",
+        "spectrum_error_over_sigma1: 0.0532168 > 0.001"
+      ]
+    },
+    {
+      "run": "results/hetzner-native.jsonl",
+      "case": {
+        "name": "lowrank1024_k32",
+        "m": 1024,
+        "n": 1024,
+        "family": "low_rank",
+        "rank": 32,
+        "tail": 1e-05,
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-native.jsonl",
+      "case": {
+        "name": "lowrank1024_k32",
+        "m": 1024,
+        "n": 1024,
+        "family": "low_rank",
+        "rank": 32,
+        "tail": 1e-05,
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "svdbench.legacy_cuda:prepare",
+        "routine": "Xgesvdp"
+      },
+      "passed_supplied_limits": false,
+      "reasons": [
+        "reconstruction_relative_fro: 38.1472 > 0.001",
+        "spectrum_error_over_sigma1: 3.19463 > 0.001"
+      ]
+    },
+    {
+      "run": "results/hetzner-native.jsonl",
+      "case": {
+        "name": "lowrank1024_k32",
+        "m": 1024,
+        "n": 1024,
+        "family": "low_rank",
+        "rank": 32,
+        "tail": 1e-05,
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "svdbench.legacy_cuda:prepare",
+        "routine": "Xgesvdr",
+        "rank": 32,
+        "oversample": 16,
+        "iterations": 2
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-native.jsonl",
+      "case": {
+        "name": "ill256_fp32",
+        "m": 256,
+        "n": 256,
+        "family": "geometric",
+        "condition": 1000000,
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "gesvd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-native.jsonl",
+      "case": {
+        "name": "ill256_fp32",
+        "m": 256,
+        "n": 256,
+        "family": "geometric",
+        "condition": 1000000,
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "svdbench.legacy_cuda:prepare",
+        "routine": "Xgesvdp"
+      },
+      "passed_supplied_limits": false,
+      "reasons": [
+        "reconstruction_relative_fro: 19.0736 > 0.001",
+        "spectrum_error_over_sigma1: 3.71932 > 0.001"
+      ]
+    },
+    {
+      "run": "results/hetzner-native.jsonl",
+      "case": {
+        "name": "ill256_fp32",
+        "m": 256,
+        "n": 256,
+        "family": "geometric",
+        "condition": 1000000,
+        "dtype": "float32"
+      },
+      "algorithm": {
+        "name": "svdbench.legacy_cuda:prepare",
+        "routine": "Xgesvdr",
+        "rank": 32,
+        "oversample": 16,
+        "iterations": 2
+      },
+      "passed_supplied_limits": false,
+      "reasons": [
+        "reconstruction_relative_fro: 0.17663 > 0.001"
+      ]
+    },
+    {
+      "run": "results/hetzner-native.jsonl",
+      "case": {
+        "name": "complex256",
+        "m": 256,
+        "n": 128,
+        "family": "gaussian",
+        "dtype": "complex64"
+      },
+      "algorithm": {
+        "name": "gesvd"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-native.jsonl",
+      "case": {
+        "name": "complex256",
+        "m": 256,
+        "n": 128,
+        "family": "gaussian",
+        "dtype": "complex64"
+      },
+      "algorithm": {
+        "name": "svdbench.legacy_cuda:prepare",
+        "routine": "Xgesvdp"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-native.jsonl",
+      "case": {
+        "name": "complex256",
+        "m": 256,
+        "n": 128,
+        "family": "gaussian",
+        "dtype": "complex64"
+      },
+      "algorithm": {
+        "name": "svdbench.legacy_cuda:prepare",
+        "routine": "Xgesvdr",
+        "rank": 32,
+        "oversample": 16,
+        "iterations": 2
+      },
+      "passed_supplied_limits": false,
+      "reasons": [
+        "reconstruction_relative_fro: 0.711282 > 0.001",
+        "spectrum_error_over_sigma1: 0.0193814 > 0.001"
+      ]
+    },
+    {
+      "run": "results/hetzner-native.jsonl",
+      "case": {
+        "name": "batch64x32",
+        "m": 32,
+        "n": 32,
+        "batch": 64,
+        "family": "gaussian",
+        "dtype": "float32",
+        "algorithms": [
+          {
+            "name": "default"
+          },
+          {
+            "name": "svdbench.legacy_cuda:prepare",
+            "routine": "gesvdjBatched"
+          },
+          {
+            "name": "svdbench.legacy_cuda:prepare",
+            "routine": "gesvdaStridedBatched"
+          }
+        ]
+      },
+      "algorithm": {
+        "name": "default"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-native.jsonl",
+      "case": {
+        "name": "batch64x32",
+        "m": 32,
+        "n": 32,
+        "batch": 64,
+        "family": "gaussian",
+        "dtype": "float32",
+        "algorithms": [
+          {
+            "name": "default"
+          },
+          {
+            "name": "svdbench.legacy_cuda:prepare",
+            "routine": "gesvdjBatched"
+          },
+          {
+            "name": "svdbench.legacy_cuda:prepare",
+            "routine": "gesvdaStridedBatched"
+          }
+        ]
+      },
+      "algorithm": {
+        "name": "svdbench.legacy_cuda:prepare",
+        "routine": "gesvdjBatched"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    },
+    {
+      "run": "results/hetzner-native.jsonl",
+      "case": {
+        "name": "batch64x32",
+        "m": 32,
+        "n": 32,
+        "batch": 64,
+        "family": "gaussian",
+        "dtype": "float32",
+        "algorithms": [
+          {
+            "name": "default"
+          },
+          {
+            "name": "svdbench.legacy_cuda:prepare",
+            "routine": "gesvdjBatched"
+          },
+          {
+            "name": "svdbench.legacy_cuda:prepare",
+            "routine": "gesvdaStridedBatched"
+          }
+        ]
+      },
+      "algorithm": {
+        "name": "svdbench.legacy_cuda:prepare",
+        "routine": "gesvdaStridedBatched"
+      },
+      "passed_supplied_limits": true,
+      "reasons": []
+    }
+  ]
+}

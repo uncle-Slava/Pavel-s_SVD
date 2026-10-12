@@ -1,0 +1,36 @@
+square64 {'name': 'svdbench.standalone:factory', 'method': 'bidiag_dc'} ok 184.93761799982167
+square64 {'name': 'svdbench.standalone:factory', 'method': 'block_jacobi'} ok 6188.459619999776
+square64 {'name': 'svdbench.standalone:factory', 'method': 'polar_polynomial'} ok 148.4482650012069
+square64 {'name': 'svdbench.standalone:factory', 'method': 'jacobi'} ok 160.26476600018214
+square64 {'name': 'svdbench.standalone:factory', 'method': 'gram_jacobi'} ok 165.13397400194663
+square64 {'name': 'svdbench.standalone:factory', 'method': 'polar_qdwh'} ok 194.5224609989964
+square64 {'name': 'svdbench.standalone:factory', 'method': 'polar_newton_schulz'} ok 149.02347200040822
+square64 {'name': 'svdbench.standalone:factory', 'method': 'subspace'} ok 219.42430099807098
+square64 {'name': 'svdbench.standalone:factory', 'method': 'randomized'} ok 219.24677199785947
+square64 {'name': 'svdbench.standalone:factory', 'method': 'polar_halley'} ok 213.2108160003554
+square64 {'name': 'svdbench.standalone:factory', 'method': 'bidiag_qr'} ok 2232.4725460021
+square64 {'name': 'svdbench.standalone:factory', 'method': 'qr'} ok 172.1970020007575
+square64 {'name': 'svdbench.standalone:factory', 'method': 'block_krylov'} ok 197.39900499916985
+square64 {'name': 'svdbench.standalone:factory', 'method': 'gram_dc'} ok 169.4603180003469
+square64 {'name': 'svdbench.standalone:factory', 'method': 'tsqr'} ok 171.91360500146402
+square64 {'name': 'svdbench.standalone:factory', 'method': 'lanczos'} ok 153.16850599992904
+square64 {'name': 'gesvd'} ok 1.6059509980550501
+square64 {'name': 'gesvdj'} ok 0.9901060002448503
+tall2048x32 {'name': 'svdbench.standalone:factory', 'method': 'bidiag_dc'} ok 90.22983999966527
+tall2048x32 {'name': 'svdbench.standalone:factory', 'method': 'block_jacobi'} ok 965.3734999992594
+tall2048x32 {'name': 'svdbench.standalone:factory', 'method': 'polar_polynomial'} ok 65.14154999968014
+tall2048x32 {'name': 'svdbench.standalone:factory', 'method': 'jacobi'} ok 61.78959700264386
+tall2048x32 {'name': 'svdbench.standalone:factory', 'method': 'gram_jacobi'} ok 63.982581999880495
+tall2048x32 {'name': 'svdbench.standalone:factory', 'method': 'polar_qdwh'} ok 88.85858299981919
+tall2048x32 {'name': 'svdbench.standalone:factory', 'method': 'polar_newton_schulz'} ok 65.03876100032357
+tall2048x32 {'name': 'svdbench.standalone:factory', 'method': 'subspace'} ok 93.35753599953023
+tall2048x32 {'name': 'svdbench.standalone:factory', 'method': 'randomized'} ok 93.32397099933587
+tall2048x32 {'name': 'svdbench.standalone:factory', 'method': 'polar_halley'} ok 83.76883199889562
+tall2048x32 {'name': 'svdbench.standalone:factory', 'method': 'bidiag_qr'} ok 639.5762960019056
+tall2048x32 {'name': 'svdbench.standalone:factory', 'method': 'qr'} ok 68.50370399843086
+tall2048x32 {'name': 'svdbench.standalone:factory', 'method': 'block_krylov'} ok 112.65066800115164
+tall2048x32 {'name': 'svdbench.standalone:factory', 'method': 'gram_dc'} ok 80.22566699946765
+tall2048x32 {'name': 'svdbench.standalone:factory', 'method': 'tsqr'} ok 251.25677400137647
+tall2048x32 {'name': 'svdbench.standalone:factory', 'method': 'lanczos'} ok 59.27296599838883
+tall2048x32 {'name': 'gesvd'} ok 0.9712350001791492
+tall2048x32 {'name': 'gesvdj'} ok 0.6686670021736063

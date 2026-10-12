@@ -1,0 +1,27 @@
+test_good_metric_passes_explicit_tolerance (test_assessment.AssessmentContract) ... ok
+test_info_success_is_not_numerical_success (test_assessment.AssessmentContract) ... ok
+test_missing_metric_is_not_a_pass (test_assessment.AssessmentContract) ... ok
+test_driver_does_not_fallback_to_cpu (test_numerics.NumericalContract) ... ok
+test_exact_rectangular_complex_and_batches (test_numerics.NumericalContract) ... ok
+test_lowrank_error_compared_with_tail (test_numerics.NumericalContract) ... ok
+test_randomized_recovers_known_rank (test_numerics.NumericalContract) ... ok
+test_signs_and_cluster_rotations_are_valid (test_numerics.NumericalContract) ... ok
+test_spectrum_checks_actual_fp32_input (test_numerics.NumericalContract) ... ok
+test_zero_and_gram_nullspace (test_numerics.NumericalContract) ... ok
+test_all_families_real_complex_tall_wide_batched (test_standalone.Standalone) ... ok
+test_ill_conditioned_accuracy_envelopes (test_standalone.Standalone) ... ok
+test_invalid_input_and_nonconvergence (test_standalone.Standalone) ... ok
+test_low_rank_and_warm_start (test_standalone.Standalone) ... ok
+test_matrix_free_sparse_lanczos_and_breakdown (test_standalone.Standalone) ... ok
+test_multidimensional_batches_and_complex_tensor (test_standalone.Standalone) ... ok
+test_no_vendor_factorizations_and_immutable_input (test_standalone.Standalone) ... ok
+test_secular_deflation_and_recursive_merges (test_standalone.Standalone) ... ok
+test_singleton_and_full_null_bases_values_only (test_standalone.Standalone) ... ok
+test_tucker_sequential_and_tensor_train (test_standalone.Standalone) ... ok
+test_updates_and_column_appends (test_standalone.Standalone) ... ok
+test_zero_identity_rank_deficient_clustered_and_scaled (test_standalone.Standalone) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 3.917s
+
+OK

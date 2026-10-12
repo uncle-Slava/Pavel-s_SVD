@@ -1,0 +1,17 @@
+{
+  "algorithms": [
+    {"name": "default"},
+    {"name": "default", "mode": "values"},
+    {"name": "default", "mode": "full"},
+    {"name": "qr_svd"},
+    {"name": "randomized", "rank": 8, "oversample": 8, "iterations": 2},
+    {"name": "gram"}
+  ],
+  "cases": [
+    {"name": "tall32", "m": 64, "n": 32, "family": "gaussian", "dtype": "float32"},
+    {"name": "wide64", "m": 32, "n": 64, "family": "geometric", "condition": 1000000, "dtype": "float64"},
+    {"name": "batch_lowrank", "m": 32, "n": 32, "batch": 4, "family": "low_rank", "rank": 4, "dtype": "float32"},
+    {"name": "complex", "m": 32, "n": 16, "family": "clustered", "dtype": "complex128"},
+    {"name": "zero", "m": 32, "n": 16, "family": "zero", "dtype": "float32"}
+  ]
+}

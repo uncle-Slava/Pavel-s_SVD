@@ -1,0 +1,30 @@
+{
+  "algorithms": [
+    {"name": "gesvd"},
+    {"name": "gesvdj"},
+    {"name": "gesvda"},
+    {"name": "qr_svd"},
+    {"name": "randomized", "rank": 32, "oversample": 16, "iterations": 2},
+    {"name": "gram"}
+  ],
+  "cases": [
+    {"name": "square256_fp32", "m": 256, "n": 256, "family": "gaussian", "dtype": "float32"},
+    {"name": "square512_fp32", "m": 512, "n": 512, "family": "gaussian", "dtype": "float32"},
+    {"name": "square1024_fp32", "m": 1024, "n": 1024, "family": "gaussian", "dtype": "float32"},
+    {"name": "tall4096x256_fp32", "m": 4096, "n": 256, "family": "gaussian", "dtype": "float32"},
+    {"name": "wide256x4096_fp32", "m": 256, "n": 4096, "family": "gaussian", "dtype": "float32"},
+    {"name": "lowrank1024_k32", "m": 1024, "n": 1024, "family": "low_rank", "rank": 32, "tail": 0.00001, "dtype": "float32"},
+    {"name": "ill256_fp32", "m": 256, "n": 256, "family": "geometric", "condition": 1000000, "dtype": "float32"},
+    {"name": "ill256_fp64", "m": 256, "n": 256, "family": "geometric", "condition": 1000000000000, "dtype": "float64"},
+    {"name": "cluster256", "m": 256, "n": 256, "family": "clustered", "dtype": "float32"},
+    {"name": "rank_deficient256", "m": 256, "n": 256, "family": "low_rank", "rank": 32, "tail": 0, "dtype": "float32"},
+    {"name": "batch64x32", "m": 32, "n": 32, "batch": 64, "family": "gaussian", "dtype": "float32",
+      "algorithms": [{"name":"default"}, {"name":"gesvd"}, {"name":"gesvdj"}, {"name":"gram"}]},
+    {"name": "batch16x64", "m": 64, "n": 64, "batch": 16, "family": "gaussian", "dtype": "float32",
+      "algorithms": [{"name":"default"}, {"name":"gesvd"}, {"name":"gesvdj"}, {"name":"randomized", "rank":8, "oversample":8, "iterations":2}]},
+    {"name": "complex256", "m": 256, "n": 128, "family": "gaussian", "dtype": "complex64",
+      "algorithms": [{"name":"gesvd"}, {"name":"gesvdj"}, {"name":"qr_svd"}]},
+    {"name": "output_modes", "m": 512, "n": 128, "family": "gaussian", "dtype": "float32",
+      "algorithms": [{"name":"gesvd", "mode":"full"}, {"name":"gesvd", "mode":"reduced"}, {"name":"gesvd", "mode":"values"}, {"name":"gesvdj", "mode":"full"}, {"name":"gesvdj", "mode":"reduced"}, {"name":"gesvdj", "mode":"values"}]}
+  ]
+}
