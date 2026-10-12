@@ -1,0 +1,16 @@
+test_budget_every_and_failed_run_survive_reload (test_laboratory.Laboratory) ... ok
+test_custom_spectrum_roundtrip_and_batch (test_laboratory.Laboratory) ... ok
+test_dense_sparse_products_and_custom_template (test_laboratory.Laboratory) ... ok
+test_divergent_checkpoint_retains_arrays (test_laboratory.Laboratory) ... ok
+test_jacobi_real_complex_tall_wide_zero_and_rank_deficient (test_laboratory.Laboratory) ... ok
+test_null_trace_omits_diagnostic_core_solves (test_laboratory.Laboratory) ... ok
+test_partial_sweeps_residual_arrays_and_limits (test_laboratory.Laboratory) ... ok
+test_quality_checks_repeated_boundary_and_wrong_shapes (test_laboratory.Laboratory) ... ok
+test_stage_errors_and_no_observations_in_timer (test_laboratory.Laboratory) ... ok
+test_timing_samples_and_power_integration (test_laboratory.Laboratory) ... ok
+test_tracing_does_not_change_result_and_snapshots_are_immutable (test_laboratory.Laboratory) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.328s
+
+OK

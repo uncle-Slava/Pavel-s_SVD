@@ -1,4 +1,17 @@
-# SVD Lab — research and interactive playground
+# SVD Lab — algorithm laboratory, playground and measurements
+
+For hands-on Python work, start with the [algorithm laboratory](algorithm_laboratory/README.md).
+It provides editable algorithms, prepared matrices, checkpoints with intermediate
+arrays, iteration diagnostics, independent timings, parameter studies and power
+sampling. Edit [my_algorithm.py](algorithm_laboratory/my_algorithm.py) and run:
+
+```bash
+python -m algorithm_laboratory.experiment --algorithm mine
+```
+
+See the [laboratory manual](docs/ALGORITHM_LABORATORY.md) or open the
+[working notebook](algorithm_laboratory/laboratory.ipynb). The web playground is
+also available:
 
 Compare 16 standalone SVD algorithms and vendor controls on matrices you design:
 change sizes, rank, clustered singular values, sparsity, batches and precision.

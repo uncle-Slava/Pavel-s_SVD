@@ -8,3 +8,5 @@ build/
 ._*
 .playground*/
 experiments/
+laboratory_runs/
+.ipynb_checkpoints/

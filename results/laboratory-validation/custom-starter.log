@@ -1,0 +1,4 @@
+Saved laboratory run: /Users/paveluydanov/Sources/SVD/laboratory_runs/custom-starter-smoke
+Uninstrumented median: 18.1148 ms
+Reconstruction: 3.8102e-05
+Open events.jsonl for every stage/checkpoint, snapshots/ for arrays, and trace.png for plots.

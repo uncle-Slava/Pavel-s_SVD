@@ -1,0 +1,114 @@
+{
+  "accuracy": {
+    "worst": {
+      "spectrum_error_over_sigma1": 0.004050549043967979,
+      "singular_values_nonnegative_sorted": true,
+      "resolved_spectrum_max_relative_error": 0.004484248943612201,
+      "reference_tail_relative_fro": 0.8546498849657445,
+      "reconstruction_relative_fro": 0.8551939087084953,
+      "orthogonality_u_fro_over_sqrt_cols": 2.1021354720181084e-15,
+      "orthogonality_v_fro_over_sqrt_rows": 9.230982122201699e-17,
+      "left_triplet_relative_fro": 0.020825157064113767,
+      "right_triplet_relative_fro": 2.9145087765530963e-16,
+      "residual_over_optimal_tail": 1.0006365457391628,
+      "right_subspace_leakage_fro_over_sqrt_k": 0.07034068210311113
+    },
+    "per_matrix": [
+      {
+        "spectrum_error_over_sigma1": 0.004050549043967979,
+        "singular_values_nonnegative_sorted": true,
+        "resolved_spectrum_max_relative_error": 0.004484248943612201,
+        "reference_tail_relative_fro": 0.8546498849657445,
+        "reconstruction_relative_fro": 0.8551939087084953,
+        "orthogonality_u_fro_over_sqrt_cols": 2.1021354720181084e-15,
+        "orthogonality_v_fro_over_sqrt_rows": 9.230982122201699e-17,
+        "left_triplet_relative_fro": 0.020825157064113767,
+        "right_triplet_relative_fro": 2.9145087765530963e-16,
+        "residual_over_optimal_tail": 1.0006365457391628,
+        "right_subspace_leakage_fro_over_sqrt_k": 0.07034068210311113
+      }
+    ]
+  },
+  "benchmark": {
+    "wall_ms": {
+      "n": 5,
+      "samples": [
+        36.876227997709066,
+        36.436918016988784,
+        36.37942500063218,
+        36.5096400200855,
+        36.425646976567805
+      ],
+      "mean": 36.52557160239667,
+      "median": 36.436918016988784,
+      "std_sample": 0.2015049262105276,
+      "mad": 0.05749301635660231,
+      "min": 36.37942500063218,
+      "max": 36.876227997709066,
+      "p10": 36.39791379100643,
+      "p90": 36.72959280665964,
+      "median_bootstrap_95_interval": [
+        36.37942500063218,
+        36.876227997709066
+      ],
+      "interval_note": "Describes these samples only; autocorrelated timings and one seed do not establish general performance."
+    },
+    "device_event_ms": {
+      "n": 5,
+      "samples": [
+        36.829185485839844,
+        36.41680145263672,
+        36.36150360107422,
+        36.49168014526367,
+        36.40915298461914
+      ],
+      "mean": 36.50166473388672,
+      "median": 36.41680145263672,
+      "std_sample": 0.1889278158307155,
+      "mad": 0.0552978515625,
+      "min": 36.36150360107422,
+      "max": 36.829185485839844,
+      "p10": 36.38056335449219,
+      "p90": 36.694183349609375,
+      "median_bootstrap_95_interval": [
+        36.36150360107422,
+        36.829185485839844
+      ],
+      "interval_note": "Describes these samples only; autocorrelated timings and one seed do not establish general performance."
+    },
+    "memory": {
+      "allocator_baseline_bytes": 33574912,
+      "allocator_peak_allocated_bytes": 33641984,
+      "allocator_peak_increment_bytes": 67072,
+      "allocator_peak_reserved_bytes": 35651584,
+      "note": "Torch GPU allocator only; CPU, driver and non-Torch allocations are not measured."
+    },
+    "repeat": 5,
+    "warmup": 1,
+    "inspection_enabled": false
+  },
+  "parameters": {
+    "rank": 4,
+    "oversample": 8,
+    "iterations": 3,
+    "seed": 7,
+    "primitives": "standalone"
+  },
+  "input_sha256": "1a1e78b5588a13fa632163844cef3c998f1cd8e74dd0c1d08a277760cb0d75d7",
+  "power": {
+    "load_seconds": 3.005496039026184,
+    "solver_calls": 83,
+    "device": "cuda:0",
+    "cuda_visible_devices": null,
+    "physical_gpus": [
+      {
+        "uuid": "GPU-a65a2775-0c86-684b-1510-59c5687b3d5e",
+        "samples": 15,
+        "covered_seconds": 2.802233543014154,
+        "gross_energy_joules": 70.11789571316855,
+        "average_power_watts": 25.022145598095992
+      }
+    ],
+    "note": "Coarse whole-device sensor integration over covered samples only; no idle subtraction or per-iteration/per-call energy attribution. All physical GPUs are recorded. Other processes and sampling overhead may contribute."
+  }
+}

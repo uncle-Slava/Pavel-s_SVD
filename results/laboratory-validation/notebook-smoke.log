@@ -1,0 +1,49 @@
+/Users/runner/work/crossbow/crossbow/arrow/cpp/src/arrow/util/cpu_info.cc:239: IOError: sysctlbyname failed for 'hw.l1dcachesize'. Detail: [errno 1] Operation not permitted
+/Users/runner/work/crossbow/crossbow/arrow/cpp/src/arrow/util/cpu_info.cc:239: IOError: sysctlbyname failed for 'hw.l2cachesize'. Detail: [errno 1] Operation not permitted
+/Users/runner/work/crossbow/crossbow/arrow/cpp/src/arrow/util/cpu_info.cc:239: IOError: sysctlbyname failed for 'hw.l3cachesize'. Detail: [errno 1] Operation not permitted
+/Users/runner/work/crossbow/crossbow/arrow/cpp/src/arrow/util/cpu_info.cc:239: IOError: sysctlbyname failed for 'hw.optional.sse4_2'. Detail: [errno 1] Operation not permitted
+/Users/runner/work/crossbow/crossbow/arrow/cpp/src/arrow/util/cpu_info.cc:239: IOError: sysctlbyname failed for 'hw.optional.avx1_0'. Detail: [errno 1] Operation not permitted
+/Users/runner/work/crossbow/crossbow/arrow/cpp/src/arrow/util/cpu_info.cc:239: IOError: sysctlbyname failed for 'hw.optional.avx2_0'. Detail: [errno 1] Operation not permitted
+/Users/runner/work/crossbow/crossbow/arrow/cpp/src/arrow/util/cpu_info.cc:239: IOError: sysctlbyname failed for 'hw.optional.bmi1'. Detail: [errno 1] Operation not permitted
+/Users/runner/work/crossbow/crossbow/arrow/cpp/src/arrow/util/cpu_info.cc:239: IOError: sysctlbyname failed for 'hw.optional.bmi2'. Detail: [errno 1] Operation not permitted
+/Users/runner/work/crossbow/crossbow/arrow/cpp/src/arrow/util/cpu_info.cc:239: IOError: sysctlbyname failed for 'hw.optional.avx512f'. Detail: [errno 1] Operation not permitted
+/Users/runner/work/crossbow/crossbow/arrow/cpp/src/arrow/util/cpu_info.cc:239: IOError: sysctlbyname failed for 'hw.optional.avx512cd'. Detail: [errno 1] Operation not permitted
+/Users/runner/work/crossbow/crossbow/arrow/cpp/src/arrow/util/cpu_info.cc:239: IOError: sysctlbyname failed for 'hw.optional.avx512dq'. Detail: [errno 1] Operation not permitted
+/Users/runner/work/crossbow/crossbow/arrow/cpp/src/arrow/util/cpu_info.cc:239: IOError: sysctlbyname failed for 'hw.optional.avx512bw'. Detail: [errno 1] Operation not permitted
+/Users/runner/work/crossbow/crossbow/arrow/cpp/src/arrow/util/cpu_info.cc:239: IOError: sysctlbyname failed for 'hw.optional.avx512vl'. Detail: [errno 1] Operation not permitted
+          kind  ... tensors.V_gram_error.snapshot_status
+0   checkpoint  ...                                  NaN
+1   checkpoint  ...                                  NaN
+2   checkpoint  ...                                  NaN
+3   checkpoint  ...                                  NaN
+4   checkpoint  ...                                  NaN
+5   checkpoint  ...                                  NaN
+6   checkpoint  ...                                  NaN
+7   checkpoint  ...                                  NaN
+8   checkpoint  ...                                  NaN
+9   checkpoint  ...                                  NaN
+10  checkpoint  ...                                  NaN
+11  checkpoint  ...                                saved
+
+[12 rows x 399 columns]
+First Q entries: [[-0.1948677  -0.05043729 -0.0545915   0.040101  ]
+ [ 0.11788782 -0.2735158   0.12107248  0.21893855]
+ [-0.04075372 -0.26269358 -0.13162988  0.04200143]
+ [ 0.11565303  0.17411136 -0.0964986  -0.08005982]
+ [ 0.15746031 -0.06003766 -0.06315787  0.13826623]
+ [-0.1339855   0.31219203  0.01676705 -0.10592047]]
+Subspace projector change: 1.801176903870932
+{'spectrum_error_over_sigma1': 0.02583401243302142, 'singular_values_nonnegative_sorted': True, 'resolved_spectrum_max_relative_error': 0.030039383694865765, 'reference_tail_relative_fro': 0.8170940017962436, 'reconstruction_relative_fro': 0.8247633313536092, 'orthogonality_u_fro_over_sqrt_cols': 9.485053708294077e-16, 'orthogonality_v_fro_over_sqrt_rows': 6.02588604402246e-16, 'left_triplet_relative_fro': 0.08408271358641305, 'right_triplet_relative_fro': 3.8382683830119425e-16, 'residual_over_optimal_tail': 1.0093861043411234, 'right_subspace_leakage_fro_over_sqrt_k': 0.20288428298077413}
+{'orthogonality_fro_normalized': 3.745185156136376e-16, 'orthogonality_max_entry': 6.661338147750939e-16, 'projection_residual_relative_fro': 0.591013318521816, 'leading_subspace_defined': True, 'largest_principal_angle_radians': 1.4891411585854808}
+Singular values: [1.7367668  1.65625442 1.59731921 1.49359078]
+Relative errors: [0.00044778 0.00058183 0.00057811 0.00047247]
+Residual block: [[ 0.04381807 -0.03675638 -0.07948693 -0.25773705 -0.00370095 -0.2296435 ]
+ [-0.06052304  0.16014589  0.02338541 -0.05091488  0.17217131  0.13119487]
+ [ 0.1122787   0.05359287  0.11877816  0.08072805  0.12331826 -0.11745294]
+ [-0.03596476 -0.1766271  -0.06482752  0.03348863 -0.19569832 -0.23683063]
+ [-0.03469128  0.13369964  0.1035578   0.09776653  0.01674244  0.05301506]
+ [ 0.09577044 -0.10372652 -0.0323954  -0.15918654  0.022541   -0.02118293]]
+{'passed': True, 'failures': [], 'limits': {'residual_over_optimal_tail': 1.05, 'resolved_spectrum_max_relative_error': 0.01}}
+<IPython.core.display.Image object>
+{'wall_ms': {'n': 7, 'samples': [21.61566699999895, 21.578458000000467, 21.20524999999951, 20.98845799999971, 21.16229199999964, 20.96283400000054, 20.983582999999584], 'mean': 21.213791714285485, 'median': 21.16229199999964, 'std_sample': 0.2780771883083969, 'mad': 0.17870900000005463, 'min': 20.96283400000054, 'max': 21.61566699999895, 'p10': 20.975283399999967, 'p90': 21.59334159999986, 'median_bootstrap_95_interval': [20.983582999999584, 21.578458000000467], 'interval_note': 'Describes these samples only; autocorrelated timings and one seed do not establish general performance.'}, 'device_event_ms': None, 'memory': {'allocator_baseline_bytes': None, 'allocator_peak_allocated_bytes': None, 'allocator_peak_increment_bytes': None, 'allocator_peak_reserved_bytes': None, 'note': 'Torch GPU allocator only; CPU, driver and non-Torch allocations are not measured.'}, 'repeat': 7, 'warmup': 2, 'inspection_enabled': False}
+All notebook code cells executed successfully.

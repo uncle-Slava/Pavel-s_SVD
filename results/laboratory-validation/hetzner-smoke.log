@@ -1,0 +1,10 @@
+Saved laboratory run: /root/svd-standalone-20261011/laboratory_runs/hetzner-randomized
+Uninstrumented median: 36.4369 ms
+Reconstruction: 0.855194
+Open events.jsonl for every stage/checkpoint, snapshots/ for arrays, and trace.png for plots.
+Saved laboratory run: /root/svd-standalone-20261011/laboratory_runs/hetzner-jacobi
+Uninstrumented median: 50.1162 ms
+Reconstruction: 1.16436e-15
+Open events.jsonl for every stage/checkpoint, snapshots/ for arrays, and trace.png for plots.
+Saved independent operation comparisons in /root/svd-standalone-20261011/laboratory_runs/hetzner-parts
+Saved 4 trials in /root/svd-standalone-20261011/laboratory_runs/hetzner-study (each retains all timing samples and metrics).
