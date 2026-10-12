@@ -1,0 +1,176 @@
+[
+  {
+    "case": "dense256",
+    "id": "native_Xgesvdp",
+    "method": "native_Xgesvdp"
+  },
+  {
+    "case": "dense512",
+    "id": "native_Xgesvdp",
+    "method": "native_Xgesvdp"
+  },
+  {
+    "case": "dense1024",
+    "id": "native_Xgesvdp",
+    "method": "native_Xgesvdp"
+  },
+  {
+    "case": "dense2048",
+    "id": "vendor_gesvda",
+    "method": "vendor_gesvda"
+  },
+  {
+    "case": "dense1024_top32",
+    "id": "randomized_library_q8",
+    "method": "randomized_library",
+    "iterations": 8,
+    "oversample": 64
+  },
+  {
+    "case": "dense1024_top32",
+    "id": "randomized_library_q16",
+    "method": "randomized_library",
+    "iterations": 16,
+    "oversample": 64
+  },
+  {
+    "case": "dense1024_top32",
+    "id": "native_Xgesvdr_q8",
+    "method": "native_Xgesvdr",
+    "iterations": 8,
+    "oversample": 64
+  },
+  {
+    "case": "sparse2048x1024_d01",
+    "id": "randomized_library_q8",
+    "method": "randomized_library",
+    "iterations": 8,
+    "oversample": 64
+  },
+  {
+    "case": "sparse2048x1024_d01",
+    "id": "randomized_library_q16",
+    "method": "randomized_library",
+    "iterations": 16,
+    "oversample": 64
+  },
+  {
+    "case": "sparse2048x1024_d01",
+    "id": "sparse_randomized_library_q8",
+    "method": "sparse_randomized_library",
+    "iterations": 8,
+    "oversample": 64
+  },
+  {
+    "case": "sparse2048x1024_d01",
+    "id": "sparse_randomized_library_q16",
+    "method": "sparse_randomized_library",
+    "iterations": 16,
+    "oversample": 64
+  },
+  {
+    "case": "sparse2048x1024_d01",
+    "id": "native_Xgesvdr_q8",
+    "method": "native_Xgesvdr",
+    "iterations": 8,
+    "oversample": 64
+  },
+  {
+    "case": "sparse4096x2048_d001",
+    "id": "randomized_library_q8",
+    "method": "randomized_library",
+    "iterations": 8,
+    "oversample": 64
+  },
+  {
+    "case": "sparse4096x2048_d001",
+    "id": "randomized_library_q16",
+    "method": "randomized_library",
+    "iterations": 16,
+    "oversample": 64
+  },
+  {
+    "case": "sparse4096x2048_d001",
+    "id": "sparse_randomized_library_q8",
+    "method": "sparse_randomized_library",
+    "iterations": 8,
+    "oversample": 64
+  },
+  {
+    "case": "sparse4096x2048_d001",
+    "id": "sparse_randomized_library_q16",
+    "method": "sparse_randomized_library",
+    "iterations": 16,
+    "oversample": 64
+  },
+  {
+    "case": "sparse4096x2048_d001",
+    "id": "native_Xgesvdr_q8",
+    "method": "native_Xgesvdr",
+    "iterations": 8,
+    "oversample": 64
+  },
+  {
+    "case": "sparse4096x2048_d01",
+    "id": "randomized_library_q8",
+    "method": "randomized_library",
+    "iterations": 8,
+    "oversample": 64
+  },
+  {
+    "case": "sparse4096x2048_d01",
+    "id": "randomized_library_q16",
+    "method": "randomized_library",
+    "iterations": 16,
+    "oversample": 64
+  },
+  {
+    "case": "sparse4096x2048_d01",
+    "id": "sparse_randomized_library_q8",
+    "method": "sparse_randomized_library",
+    "iterations": 8,
+    "oversample": 64
+  },
+  {
+    "case": "sparse4096x2048_d01",
+    "id": "sparse_randomized_library_q16",
+    "method": "sparse_randomized_library",
+    "iterations": 16,
+    "oversample": 64
+  },
+  {
+    "case": "sparse4096x2048_d01",
+    "id": "native_Xgesvdr_q8",
+    "method": "native_Xgesvdr",
+    "iterations": 8,
+    "oversample": 64
+  },
+  {
+    "case": "lowrank2048x1024_k32",
+    "id": "native_Xgesvdr_q4",
+    "method": "native_Xgesvdr",
+    "iterations": 4,
+    "oversample": 32
+  },
+  {
+    "case": "lowrank2048x1024_k32",
+    "id": "native_Xgesvdr_q8",
+    "method": "native_Xgesvdr",
+    "iterations": 8,
+    "oversample": 64
+  },
+  {
+    "case": "lowrank8192x2048_k64",
+    "id": "native_Xgesvdr_q4",
+    "method": "native_Xgesvdr",
+    "iterations": 4,
+    "oversample": 32
+  },
+  {
+    "case": "lowrank8192x2048_k64",
+    "id": "native_Xgesvdr_q8",
+    "method": "native_Xgesvdr",
+    "iterations": 8,
+    "oversample": 64
+  }
+]

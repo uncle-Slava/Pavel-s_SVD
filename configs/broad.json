@@ -1,0 +1,761 @@
+{
+  "threads": 4,
+  "repeat": 3,
+  "warmup": 1,
+  "worker_timeout_s": 60,
+  "reference_timeout_s": 600,
+  "cases": [
+    {
+      "name": "dense256",
+      "m": 256,
+      "n": 256,
+      "family": "gaussian",
+      "dtype": "float32",
+      "seed": 20261012,
+      "methods": [
+        {
+          "id": "bidiag_qr",
+          "method": "bidiag_qr"
+        },
+        {
+          "id": "bidiag_dc",
+          "method": "bidiag_dc"
+        },
+        {
+          "id": "jacobi",
+          "method": "jacobi"
+        },
+        {
+          "id": "block_jacobi",
+          "method": "block_jacobi"
+        },
+        {
+          "id": "qr",
+          "method": "qr"
+        },
+        {
+          "id": "tsqr",
+          "method": "tsqr"
+        },
+        {
+          "id": "gram_jacobi",
+          "method": "gram_jacobi"
+        },
+        {
+          "id": "gram_dc",
+          "method": "gram_dc"
+        },
+        {
+          "id": "polar_qdwh",
+          "method": "polar_qdwh"
+        },
+        {
+          "id": "polar_newton_schulz",
+          "method": "polar_newton_schulz"
+        },
+        {
+          "id": "polar_halley",
+          "method": "polar_halley"
+        },
+        {
+          "id": "polar_polynomial",
+          "method": "polar_polynomial"
+        },
+        {
+          "id": "randomized",
+          "method": "randomized"
+        },
+        {
+          "id": "subspace",
+          "method": "subspace"
+        },
+        {
+          "id": "block_krylov",
+          "method": "block_krylov"
+        },
+        {
+          "id": "lanczos",
+          "method": "lanczos"
+        },
+        {
+          "id": "vendor_gesvd",
+          "method": "vendor_gesvd"
+        },
+        {
+          "id": "vendor_gesvdj",
+          "method": "vendor_gesvdj"
+        },
+        {
+          "id": "vendor_gesvda",
+          "method": "vendor_gesvda"
+        },
+        {
+          "id": "native_Xgesvdp",
+          "method": "native_Xgesvdp"
+        },
+        {
+          "id": "gram_library",
+          "method": "gram_library"
+        },
+        {
+          "id": "qr_library",
+          "method": "qr_library"
+        }
+      ]
+    },
+    {
+      "name": "dense512",
+      "m": 512,
+      "n": 512,
+      "family": "gaussian",
+      "dtype": "float32",
+      "seed": 20261012,
+      "methods": [
+        {
+          "id": "jacobi",
+          "method": "jacobi"
+        },
+        {
+          "id": "gram_jacobi",
+          "method": "gram_jacobi"
+        },
+        {
+          "id": "polar_newton_schulz",
+          "method": "polar_newton_schulz"
+        },
+        {
+          "id": "bidiag_dc",
+          "method": "bidiag_dc"
+        },
+        {
+          "id": "vendor_gesvd",
+          "method": "vendor_gesvd"
+        },
+        {
+          "id": "vendor_gesvdj",
+          "method": "vendor_gesvdj"
+        },
+        {
+          "id": "vendor_gesvda",
+          "method": "vendor_gesvda"
+        },
+        {
+          "id": "native_Xgesvdp",
+          "method": "native_Xgesvdp"
+        },
+        {
+          "id": "gram_library",
+          "method": "gram_library"
+        },
+        {
+          "id": "qr_library",
+          "method": "qr_library"
+        }
+      ]
+    },
+    {
+      "name": "dense1024",
+      "m": 1024,
+      "n": 1024,
+      "family": "gaussian",
+      "dtype": "float32",
+      "seed": 20261012,
+      "methods": [
+        {
+          "id": "jacobi",
+          "method": "jacobi"
+        },
+        {
+          "id": "gram_jacobi",
+          "method": "gram_jacobi"
+        },
+        {
+          "id": "polar_newton_schulz",
+          "method": "polar_newton_schulz"
+        },
+        {
+          "id": "bidiag_dc",
+          "method": "bidiag_dc"
+        },
+        {
+          "id": "vendor_gesvd",
+          "method": "vendor_gesvd"
+        },
+        {
+          "id": "vendor_gesvdj",
+          "method": "vendor_gesvdj"
+        },
+        {
+          "id": "vendor_gesvda",
+          "method": "vendor_gesvda"
+        },
+        {
+          "id": "native_Xgesvdp",
+          "method": "native_Xgesvdp"
+        },
+        {
+          "id": "gram_library",
+          "method": "gram_library"
+        },
+        {
+          "id": "qr_library",
+          "method": "qr_library"
+        }
+      ]
+    },
+    {
+      "name": "dense2048",
+      "m": 2048,
+      "n": 2048,
+      "family": "gaussian",
+      "dtype": "float32",
+      "seed": 20261012,
+      "methods": [
+        {
+          "id": "jacobi",
+          "method": "jacobi"
+        },
+        {
+          "id": "gram_jacobi",
+          "method": "gram_jacobi"
+        },
+        {
+          "id": "vendor_gesvd",
+          "method": "vendor_gesvd"
+        },
+        {
+          "id": "vendor_gesvdj",
+          "method": "vendor_gesvdj"
+        },
+        {
+          "id": "native_Xgesvdp",
+          "method": "native_Xgesvdp"
+        },
+        {
+          "id": "gram_library",
+          "method": "gram_library"
+        }
+      ]
+    },
+    {
+      "name": "tall8192x512",
+      "m": 8192,
+      "n": 512,
+      "family": "gaussian",
+      "dtype": "float32",
+      "seed": 20261012,
+      "methods": [
+        {
+          "id": "tsqr",
+          "method": "tsqr"
+        },
+        {
+          "id": "qr",
+          "method": "qr"
+        },
+        {
+          "id": "jacobi",
+          "method": "jacobi"
+        },
+        {
+          "id": "gram_jacobi",
+          "method": "gram_jacobi"
+        },
+        {
+          "id": "vendor_gesvd",
+          "method": "vendor_gesvd"
+        },
+        {
+          "id": "vendor_gesvdj",
+          "method": "vendor_gesvdj"
+        },
+        {
+          "id": "vendor_gesvda",
+          "method": "vendor_gesvda"
+        },
+        {
+          "id": "native_Xgesvdp",
+          "method": "native_Xgesvdp"
+        },
+        {
+          "id": "gram_library",
+          "method": "gram_library"
+        },
+        {
+          "id": "qr_library",
+          "method": "qr_library"
+        }
+      ]
+    },
+    {
+      "name": "cluster512_fp32",
+      "m": 512,
+      "n": 512,
+      "family": "clustered",
+      "dtype": "float32",
+      "seed": 20261012,
+      "methods": [
+        {
+          "id": "jacobi",
+          "method": "jacobi"
+        },
+        {
+          "id": "gram_jacobi",
+          "method": "gram_jacobi"
+        },
+        {
+          "id": "polar_newton_schulz",
+          "method": "polar_newton_schulz"
+        },
+        {
+          "id": "bidiag_dc",
+          "method": "bidiag_dc"
+        },
+        {
+          "id": "vendor_gesvd",
+          "method": "vendor_gesvd"
+        },
+        {
+          "id": "vendor_gesvdj",
+          "method": "vendor_gesvdj"
+        },
+        {
+          "id": "vendor_gesvda",
+          "method": "vendor_gesvda"
+        },
+        {
+          "id": "native_Xgesvdp",
+          "method": "native_Xgesvdp"
+        },
+        {
+          "id": "gram_library",
+          "method": "gram_library"
+        },
+        {
+          "id": "qr_library",
+          "method": "qr_library"
+        }
+      ],
+      "cluster_size": 16,
+      "cluster_spread": 0.0001,
+      "condition": 1000.0
+    },
+    {
+      "name": "cluster512_fp64",
+      "m": 512,
+      "n": 512,
+      "family": "clustered",
+      "dtype": "float64",
+      "seed": 20261012,
+      "methods": [
+        {
+          "id": "jacobi",
+          "method": "jacobi"
+        },
+        {
+          "id": "gram_jacobi",
+          "method": "gram_jacobi"
+        },
+        {
+          "id": "polar_newton_schulz",
+          "method": "polar_newton_schulz"
+        },
+        {
+          "id": "bidiag_dc",
+          "method": "bidiag_dc"
+        },
+        {
+          "id": "vendor_gesvd",
+          "method": "vendor_gesvd"
+        },
+        {
+          "id": "vendor_gesvdj",
+          "method": "vendor_gesvdj"
+        },
+        {
+          "id": "vendor_gesvda",
+          "method": "vendor_gesvda"
+        },
+        {
+          "id": "native_Xgesvdp",
+          "method": "native_Xgesvdp"
+        },
+        {
+          "id": "gram_library",
+          "method": "gram_library"
+        },
+        {
+          "id": "qr_library",
+          "method": "qr_library"
+        }
+      ],
+      "cluster_size": 16,
+      "cluster_spread": 0,
+      "condition": 10000000000.0
+    },
+    {
+      "name": "cluster1024_fp64",
+      "m": 1024,
+      "n": 1024,
+      "family": "clustered",
+      "dtype": "float64",
+      "seed": 20261012,
+      "methods": [
+        {
+          "id": "jacobi",
+          "method": "jacobi"
+        },
+        {
+          "id": "gram_jacobi",
+          "method": "gram_jacobi"
+        },
+        {
+          "id": "vendor_gesvd",
+          "method": "vendor_gesvd"
+        },
+        {
+          "id": "vendor_gesvdj",
+          "method": "vendor_gesvdj"
+        },
+        {
+          "id": "native_Xgesvdp",
+          "method": "native_Xgesvdp"
+        },
+        {
+          "id": "gram_library",
+          "method": "gram_library"
+        }
+      ],
+      "cluster_size": 16,
+      "cluster_spread": 1e-06,
+      "condition": 1000000.0
+    },
+    {
+      "name": "lowrank2048x1024_k32",
+      "m": 2048,
+      "n": 1024,
+      "family": "low_rank",
+      "dtype": "float32",
+      "seed": 20261012,
+      "methods": [
+        {
+          "id": "randomized",
+          "method": "randomized"
+        },
+        {
+          "id": "subspace",
+          "method": "subspace"
+        },
+        {
+          "id": "block_krylov",
+          "method": "block_krylov"
+        },
+        {
+          "id": "lanczos",
+          "method": "lanczos"
+        },
+        {
+          "id": "randomized_library",
+          "method": "randomized_library"
+        },
+        {
+          "id": "randomized_library_q4",
+          "method": "randomized_library",
+          "iterations": 4,
+          "oversample": 32
+        },
+        {
+          "id": "native_Xgesvdr",
+          "method": "native_Xgesvdr"
+        },
+        {
+          "id": "vendor_gesvdj",
+          "method": "vendor_gesvdj"
+        },
+        {
+          "id": "gram_library",
+          "method": "gram_library"
+        }
+      ],
+      "rank": 32,
+      "tail": 0.0001,
+      "target_rank": 32
+    },
+    {
+      "name": "lowrank8192x2048_k64",
+      "m": 8192,
+      "n": 2048,
+      "family": "low_rank",
+      "dtype": "float32",
+      "seed": 20261012,
+      "methods": [
+        {
+          "id": "randomized",
+          "method": "randomized"
+        },
+        {
+          "id": "block_krylov",
+          "method": "block_krylov"
+        },
+        {
+          "id": "lanczos",
+          "method": "lanczos"
+        },
+        {
+          "id": "randomized_library",
+          "method": "randomized_library"
+        },
+        {
+          "id": "randomized_library_q4",
+          "method": "randomized_library",
+          "iterations": 4,
+          "oversample": 32
+        },
+        {
+          "id": "native_Xgesvdr",
+          "method": "native_Xgesvdr"
+        },
+        {
+          "id": "vendor_gesvdj",
+          "method": "vendor_gesvdj"
+        },
+        {
+          "id": "gram_library",
+          "method": "gram_library"
+        }
+      ],
+      "rank": 64,
+      "tail": 0.0001,
+      "target_rank": 64
+    },
+    {
+      "name": "dense1024_top32",
+      "m": 1024,
+      "n": 1024,
+      "family": "gaussian",
+      "dtype": "float32",
+      "seed": 20261012,
+      "methods": [
+        {
+          "id": "randomized",
+          "method": "randomized"
+        },
+        {
+          "id": "subspace",
+          "method": "subspace"
+        },
+        {
+          "id": "block_krylov",
+          "method": "block_krylov"
+        },
+        {
+          "id": "lanczos",
+          "method": "lanczos"
+        },
+        {
+          "id": "randomized_library",
+          "method": "randomized_library"
+        },
+        {
+          "id": "randomized_library_q4",
+          "method": "randomized_library",
+          "iterations": 4,
+          "oversample": 32
+        },
+        {
+          "id": "native_Xgesvdr",
+          "method": "native_Xgesvdr"
+        },
+        {
+          "id": "vendor_gesvdj",
+          "method": "vendor_gesvdj"
+        },
+        {
+          "id": "gram_library",
+          "method": "gram_library"
+        }
+      ],
+      "target_rank": 32
+    },
+    {
+      "name": "sparse2048x1024_d01",
+      "m": 2048,
+      "n": 1024,
+      "family": "sparse",
+      "dtype": "float32",
+      "seed": 20261012,
+      "methods": [
+        {
+          "id": "sparse_lanczos",
+          "method": "sparse_lanczos"
+        },
+        {
+          "id": "lanczos",
+          "method": "lanczos"
+        },
+        {
+          "id": "randomized",
+          "method": "randomized"
+        },
+        {
+          "id": "block_krylov",
+          "method": "block_krylov"
+        },
+        {
+          "id": "randomized_library",
+          "method": "randomized_library"
+        },
+        {
+          "id": "randomized_library_q4",
+          "method": "randomized_library",
+          "iterations": 4,
+          "oversample": 32
+        },
+        {
+          "id": "sparse_randomized_library",
+          "method": "sparse_randomized_library"
+        },
+        {
+          "id": "sparse_randomized_library_q4",
+          "method": "sparse_randomized_library",
+          "iterations": 4,
+          "oversample": 32
+        },
+        {
+          "id": "native_Xgesvdr",
+          "method": "native_Xgesvdr"
+        },
+        {
+          "id": "vendor_gesvdj",
+          "method": "vendor_gesvdj"
+        },
+        {
+          "id": "gram_library",
+          "method": "gram_library"
+        }
+      ],
+      "density": 0.01,
+      "target_rank": 32
+    },
+    {
+      "name": "sparse4096x2048_d001",
+      "m": 4096,
+      "n": 2048,
+      "family": "sparse",
+      "dtype": "float32",
+      "seed": 20261012,
+      "methods": [
+        {
+          "id": "sparse_lanczos",
+          "method": "sparse_lanczos"
+        },
+        {
+          "id": "lanczos",
+          "method": "lanczos"
+        },
+        {
+          "id": "randomized",
+          "method": "randomized"
+        },
+        {
+          "id": "block_krylov",
+          "method": "block_krylov"
+        },
+        {
+          "id": "randomized_library",
+          "method": "randomized_library"
+        },
+        {
+          "id": "randomized_library_q4",
+          "method": "randomized_library",
+          "iterations": 4,
+          "oversample": 32
+        },
+        {
+          "id": "sparse_randomized_library",
+          "method": "sparse_randomized_library"
+        },
+        {
+          "id": "sparse_randomized_library_q4",
+          "method": "sparse_randomized_library",
+          "iterations": 4,
+          "oversample": 32
+        },
+        {
+          "id": "native_Xgesvdr",
+          "method": "native_Xgesvdr"
+        },
+        {
+          "id": "vendor_gesvdj",
+          "method": "vendor_gesvdj"
+        },
+        {
+          "id": "gram_library",
+          "method": "gram_library"
+        }
+      ],
+      "density": 0.001,
+      "target_rank": 32
+    },
+    {
+      "name": "sparse4096x2048_d01",
+      "m": 4096,
+      "n": 2048,
+      "family": "sparse",
+      "dtype": "float32",
+      "seed": 20261012,
+      "methods": [
+        {
+          "id": "sparse_lanczos",
+          "method": "sparse_lanczos"
+        },
+        {
+          "id": "lanczos",
+          "method": "lanczos"
+        },
+        {
+          "id": "randomized",
+          "method": "randomized"
+        },
+        {
+          "id": "block_krylov",
+          "method": "block_krylov"
+        },
+        {
+          "id": "randomized_library",
+          "method": "randomized_library"
+        },
+        {
+          "id": "randomized_library_q4",
+          "method": "randomized_library",
+          "iterations": 4,
+          "oversample": 32
+        },
+        {
+          "id": "sparse_randomized_library",
+          "method": "sparse_randomized_library"
+        },
+        {
+          "id": "sparse_randomized_library_q4",
+          "method": "sparse_randomized_library",
+          "iterations": 4,
+          "oversample": 32
+        },
+        {
+          "id": "native_Xgesvdr",
+          "method": "native_Xgesvdr"
+        },
+        {
+          "id": "vendor_gesvdj",
+          "method": "vendor_gesvdj"
+        },
+        {
+          "id": "gram_library",
+          "method": "gram_library"
+        }
+      ],
+      "density": 0.01,
+      "target_rank": 64
+    }
+  ]
+}

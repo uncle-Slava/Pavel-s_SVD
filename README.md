@@ -14,6 +14,11 @@ Open **http://127.0.0.1:8765**. See the [playground guide](docs/PLAYGROUND.md) f
 Hetzner GPU connection, example experiments, accuracy gates and implementation.
 [Importable presets](configs/playground) provide starting configurations.
 
+The [larger-matrix Hetzner benchmark](docs/BROAD_RESULTS.md) adds 166 method/workload
+comparisons on dense, low-rank, clustered and sparse inputs up to 8192×2048,
+with separate speed, memory and accuracy rankings.
+[Reproduce or modify the suite](docs/BROAD_BENCHMARK.md).
+
 ![SVD Lab on the Hetzner GPU](docs/playground-desktop.jpg)
 
 This repository includes the source, exact matrix corpus, raw results, reports and

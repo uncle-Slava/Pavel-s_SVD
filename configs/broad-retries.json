@@ -1,0 +1,17 @@
+[
+  {
+    "case": "dense256",
+    "id": "native_Xgesvdp",
+    "method": "native_Xgesvdp"
+  },
+  {
+    "case": "dense512",
+    "id": "native_Xgesvdp",
+    "method": "native_Xgesvdp"
+  },
+  {
+    "case": "dense1024",
+    "id": "native_Xgesvdp",
+    "method": "native_Xgesvdp"
+  }
+]

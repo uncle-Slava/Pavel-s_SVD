@@ -1,0 +1,36 @@
+test_good_metric_passes_explicit_tolerance (test_assessment.AssessmentContract.test_good_metric_passes_explicit_tolerance) ... ok
+test_info_success_is_not_numerical_success (test_assessment.AssessmentContract.test_info_success_is_not_numerical_success) ... ok
+test_missing_metric_is_not_a_pass (test_assessment.AssessmentContract.test_missing_metric_is_not_a_pass) ... ok
+test_library_controls_real_and_complex (test_broad.BroadBenchmark.test_library_controls_real_and_complex) ... ok
+test_partial_quality_gate_rejects_inaccurate_spectrum (test_broad.BroadBenchmark.test_partial_quality_gate_rejects_inaccurate_spectrum) ... ok
+test_driver_does_not_fallback_to_cpu (test_numerics.NumericalContract.test_driver_does_not_fallback_to_cpu) ... ok
+test_exact_rectangular_complex_and_batches (test_numerics.NumericalContract.test_exact_rectangular_complex_and_batches) ... ok
+test_lowrank_error_compared_with_tail (test_numerics.NumericalContract.test_lowrank_error_compared_with_tail) ... ok
+test_randomized_recovers_known_rank (test_numerics.NumericalContract.test_randomized_recovers_known_rank) ... ok
+test_signs_and_cluster_rotations_are_valid (test_numerics.NumericalContract.test_signs_and_cluster_rotations_are_valid) ... ok
+test_spectrum_checks_actual_fp32_input (test_numerics.NumericalContract.test_spectrum_checks_actual_fp32_input) ... ok
+test_zero_and_gram_nullspace (test_numerics.NumericalContract.test_zero_and_gram_nullspace) ... ok
+test_http_session_and_real_worker (test_playground.PlaygroundLifecycle.test_http_session_and_real_worker) ... ok
+test_sweep_and_cancel_without_solver_threads (test_playground.PlaygroundLifecycle.test_sweep_and_cancel_without_solver_threads) ... ok
+test_timeout_reaps_worker_and_releases_handle (test_playground.PlaygroundLifecycle.test_timeout_reaps_worker_and_releases_handle) ... ok
+test_cluster_generator_and_sparse_reproducibility (test_playground.PlaygroundNumerics.test_cluster_generator_and_sparse_reproducibility) ... ok
+test_configuration_validation (test_playground.PlaygroundNumerics.test_configuration_validation) ... ok
+test_preview_and_topk_baseline (test_playground.PlaygroundNumerics.test_preview_and_topk_baseline) ... ok
+test_sparse_callback_real_complex_batch_and_modes (test_playground.PlaygroundNumerics.test_sparse_callback_real_complex_batch_and_modes) ... ok
+test_all_families_real_complex_tall_wide_batched (test_standalone.Standalone.test_all_families_real_complex_tall_wide_batched) ... ok
+test_ill_conditioned_accuracy_envelopes (test_standalone.Standalone.test_ill_conditioned_accuracy_envelopes) ... ok
+test_invalid_input_and_nonconvergence (test_standalone.Standalone.test_invalid_input_and_nonconvergence) ... ok
+test_low_rank_and_warm_start (test_standalone.Standalone.test_low_rank_and_warm_start) ... ok
+test_matrix_free_sparse_lanczos_and_breakdown (test_standalone.Standalone.test_matrix_free_sparse_lanczos_and_breakdown) ... ok
+test_multidimensional_batches_and_complex_tensor (test_standalone.Standalone.test_multidimensional_batches_and_complex_tensor) ... ok
+test_no_vendor_factorizations_and_immutable_input (test_standalone.Standalone.test_no_vendor_factorizations_and_immutable_input) ... ok
+test_secular_deflation_and_recursive_merges (test_standalone.Standalone.test_secular_deflation_and_recursive_merges) ... ok
+test_singleton_and_full_null_bases_values_only (test_standalone.Standalone.test_singleton_and_full_null_bases_values_only) ... ok
+test_tucker_sequential_and_tensor_train (test_standalone.Standalone.test_tucker_sequential_and_tensor_train) ... ok
+test_updates_and_column_appends (test_standalone.Standalone.test_updates_and_column_appends) ... ok
+test_zero_identity_rank_deficient_clustered_and_scaled (test_standalone.Standalone.test_zero_identity_rank_deficient_clustered_and_scaled) ... ok
+
+----------------------------------------------------------------------
+Ran 31 tests in 12.028s
+
+OK

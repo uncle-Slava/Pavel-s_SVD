@@ -1,0 +1,157 @@
+PREPARE dense256
+dense256 bidiag_qr timeout False None
+dense256 bidiag_dc ok True 793.4979479905451
+dense256 jacobi ok True 882.1140189975267
+dense256 block_jacobi timeout False None
+dense256 qr ok True 927.3226009972859
+dense256 tsqr ok True 917.9576610040385
+dense256 gram_jacobi ok False 775.3523849969497
+dense256 gram_dc ok False 713.7891080055851
+dense256 polar_qdwh ok True 956.923984005698
+dense256 polar_newton_schulz ok True 716.9477370043751
+dense256 polar_halley ok True 1012.1577969985083
+dense256 polar_polynomial ok True 691.6620519914431
+dense256 randomized ok True 1053.5695209982805
+dense256 subspace ok True 1070.9766799991485
+dense256 block_krylov ok True 1029.6064800058957
+dense256 lanczos ok True 1016.6881369950715
+dense256 vendor_gesvd ok True 9.166474992525764
+dense256 vendor_gesvdj ok True 6.942738997167908
+dense256 vendor_gesvda ok True 7.292287991731428
+dense256 native_Xgesvdp unsupported False None
+dense256 gram_library ok False 1.9385649939067662
+dense256 qr_library ok True 6.905646994709969
+PREPARE dense512
+dense512 jacobi ok True 2054.183985994314
+dense512 gram_jacobi ok False 1922.4210739921546
+dense512 polar_newton_schulz ok False 1627.184248995036
+dense512 bidiag_dc ok True 1603.870431004907
+dense512 vendor_gesvd ok True 25.296040999819525
+dense512 vendor_gesvdj ok False 19.753929998842068
+dense512 vendor_gesvda ok True 16.307387995766476
+dense512 native_Xgesvdp unsupported False None
+dense512 gram_library ok False 4.337468999437988
+dense512 qr_library ok False 19.278710999060422
+PREPARE dense1024
+dense1024 jacobi ok False 4883.865285999491
+dense1024 gram_jacobi ok False 4759.656734997407
+dense1024 polar_newton_schulz ok False 3569.46267800231
+dense1024 bidiag_dc ok True 3256.311919991276
+dense1024 vendor_gesvd ok True 75.49399200070184
+dense1024 vendor_gesvdj ok False 63.677178011857904
+dense1024 vendor_gesvda ok True 48.40733599849045
+dense1024 native_Xgesvdp unsupported False None
+dense1024 gram_library ok False 10.16422500833869
+dense1024 qr_library ok False 63.04628599900752
+PREPARE dense2048
+dense2048 jacobi timeout False None
+dense2048 gram_jacobi timeout False None
+dense2048 vendor_gesvd ok True 324.68370100832544
+dense2048 vendor_gesvdj ok False 446.87848100147676
+dense2048 native_Xgesvdp ok False 97.20304800430313
+dense2048 gram_library ok False 37.35558300104458
+PREPARE tall8192x512
+tall8192x512 tsqr ok True 2460.496248997515
+tall8192x512 qr ok True 1705.7750039966777
+tall8192x512 jacobi ok True 2510.3701379994163
+tall8192x512 gram_jacobi ok True 1596.8994069990003
+tall8192x512 vendor_gesvd ok True 39.85794300388079
+tall8192x512 vendor_gesvdj ok False 25.02470499894116
+tall8192x512 vendor_gesvda ok True 32.86733099957928
+tall8192x512 native_Xgesvdp ok True 16.367159987566993
+tall8192x512 gram_library ok True 5.167067996808328
+tall8192x512 qr_library ok False 24.583332997281104
+PREPARE cluster512_fp32
+cluster512_fp32 jacobi ok True 3061.1623309960123
+cluster512_fp32 gram_jacobi ok False 2462.421276009991
+cluster512_fp32 polar_newton_schulz ok True 1805.0861539959442
+cluster512_fp32 bidiag_dc ok True 1516.4361810020637
+cluster512_fp32 vendor_gesvd ok True 27.794333000201732
+cluster512_fp32 vendor_gesvdj ok False 30.658112998935394
+cluster512_fp32 vendor_gesvda ok True 15.911201000562869
+cluster512_fp32 native_Xgesvdp ok True 10.813461994985119
+cluster512_fp32 gram_library ok False 4.141823010286316
+cluster512_fp32 qr_library ok False 26.723112998297438
+PREPARE cluster512_fp64
+cluster512_fp64 jacobi ok True 5861.075349996099
+cluster512_fp64 gram_jacobi ok False 4512.596770000528
+cluster512_fp64 polar_newton_schulz ok True 3676.1559239967028
+cluster512_fp64 bidiag_dc ok True 5725.669317005668
+cluster512_fp64 vendor_gesvd ok True 72.54354500037152
+cluster512_fp64 vendor_gesvdj ok True 785.6393050024053
+cluster512_fp64 vendor_gesvda error False None
+cluster512_fp64 native_Xgesvdp ok True 54.93840800772887
+cluster512_fp64 gram_library ok False 13.617575008538552
+cluster512_fp64 qr_library ok True 618.5978870053077
+PREPARE cluster1024_fp64
+cluster1024_fp64 jacobi ok True 11142.913122006576
+cluster1024_fp64 gram_jacobi ok False 10510.185598992393
+cluster1024_fp64 vendor_gesvd ok True 310.09134599298704
+cluster1024_fp64 vendor_gesvdj ok True 1875.154945999384
+cluster1024_fp64 native_Xgesvdp ok True 184.3751760025043
+cluster1024_fp64 gram_library ok False 43.66636100166943
+PREPARE lowrank2048x1024_k32
+lowrank2048x1024_k32 randomized ok True 133.38709900563117
+lowrank2048x1024_k32 subspace ok True 130.8458350104047
+lowrank2048x1024_k32 block_krylov ok True 595.5302349902922
+lowrank2048x1024_k32 lanczos ok True 639.9599500000477
+lowrank2048x1024_k32 randomized_library ok True 2.177732007112354
+lowrank2048x1024_k32 randomized_library_q4 ok True 4.008173011243343
+lowrank2048x1024_k32 native_Xgesvdr ok False 2.987740997923538
+lowrank2048x1024_k32 vendor_gesvdj ok False 100.98226799163967
+lowrank2048x1024_k32 gram_library ok True 8.628615003544837
+PREPARE lowrank8192x2048_k64
+lowrank8192x2048_k64 randomized ok True 245.19921699538827
+lowrank8192x2048_k64 block_krylov ok True 1104.3216779944487
+lowrank8192x2048_k64 lanczos ok True 1695.6276019918732
+lowrank8192x2048_k64 randomized_library ok True 6.508759994176216
+lowrank8192x2048_k64 randomized_library_q4 ok True 11.277134995907545
+lowrank8192x2048_k64 native_Xgesvdr ok False 7.823678010026924
+lowrank8192x2048_k64 vendor_gesvdj ok False 645.1152430090588
+lowrank8192x2048_k64 gram_library ok True 35.199912992538884
+PREPARE dense1024_top32
+dense1024_top32 randomized ok False 142.81702500011306
+dense1024_top32 subspace ok False 144.4716719997814
+dense1024_top32 block_krylov ok False 510.20041000447236
+dense1024_top32 lanczos ok True 443.3545259962557
+dense1024_top32 randomized_library ok False 2.371260998188518
+dense1024_top32 randomized_library_q4 ok False 3.9282600046135485
+dense1024_top32 native_Xgesvdr ok False 2.52506100514438
+dense1024_top32 vendor_gesvdj ok False 63.39584899251349
+dense1024_top32 gram_library ok True 9.989133002818562
+PREPARE sparse2048x1024_d01
+sparse2048x1024_d01 sparse_lanczos ok True 472.50257500854786
+sparse2048x1024_d01 lanczos ok True 446.552066001459
+sparse2048x1024_d01 randomized ok False 154.12697300780565
+sparse2048x1024_d01 block_krylov ok False 492.2813619923545
+sparse2048x1024_d01 randomized_library ok False 2.4988389923237264
+sparse2048x1024_d01 randomized_library_q4 ok False 4.273161001037806
+sparse2048x1024_d01 sparse_randomized_library ok False 2.559062995715067
+sparse2048x1024_d01 sparse_randomized_library_q4 ok False 4.390204994706437
+sparse2048x1024_d01 native_Xgesvdr ok False 2.738299997872673
+sparse2048x1024_d01 vendor_gesvdj ok False 63.58641100814566
+sparse2048x1024_d01 gram_library ok True 10.020859001087956
+PREPARE sparse4096x2048_d001
+sparse4096x2048_d001 sparse_lanczos ok True 465.5666850012494
+sparse4096x2048_d001 lanczos ok True 438.3967949979706
+sparse4096x2048_d001 randomized ok False 157.4086649925448
+sparse4096x2048_d001 block_krylov ok False 501.04822299908847
+sparse4096x2048_d001 randomized_library ok False 3.0570600065402687
+sparse4096x2048_d001 randomized_library_q4 ok False 5.464428992127068
+sparse4096x2048_d001 sparse_randomized_library ok False 2.7481729921419173
+sparse4096x2048_d001 sparse_randomized_library_q4 ok False 4.8133700038306415
+sparse4096x2048_d001 native_Xgesvdr ok False 3.52328599547036
+sparse4096x2048_d001 vendor_gesvdj ok False 432.27078799100127
+sparse4096x2048_d001 gram_library ok True 35.823439990053885
+PREPARE sparse4096x2048_d01
+sparse4096x2048_d01 sparse_lanczos ok False 905.8187860064209
+sparse4096x2048_d01 lanczos ok False 938.5274660016876
+sparse4096x2048_d01 randomized ok False 261.5820189967053
+sparse4096x2048_d01 block_krylov ok False 851.5995589987142
+sparse4096x2048_d01 randomized_library ok False 5.087956989882514
+sparse4096x2048_d01 randomized_library_q4 ok False 8.570526013500057
+sparse4096x2048_d01 sparse_randomized_library ok False 4.84860000142362
+sparse4096x2048_d01 sparse_randomized_library_q4 ok False 8.343227003933862
+sparse4096x2048_d01 native_Xgesvdr ok False 5.576851006480865
+sparse4096x2048_d01 vendor_gesvdj ok False 418.7910549953813
+sparse4096x2048_d01 gram_library ok True 36.00459700101055

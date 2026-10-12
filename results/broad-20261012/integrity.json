@@ -1,0 +1,134 @@
+{
+  "attempts": 169,
+  "unique_comparisons": 166,
+  "matrix_hashes_verified": true,
+  "source_sha256": "02ecab6a7c6467757ed3744a4702428ca773068c95bf417921a9968b1a792f86",
+  "inputs": {
+    "cluster1024_fp64": {
+      "sha256": "8db6ab3311dd32f5694ca02d2c19ac85be7428bd24c62b4eb703a5ad9561c339",
+      "shape": [
+        1024,
+        1024
+      ],
+      "dtype": "float64",
+      "density": 1.0
+    },
+    "cluster512_fp32": {
+      "sha256": "efc177607fb6d5babedf0b711d5bb65f72b00bc83b5b81c8e6108e6221c2a41d",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32",
+      "density": 1.0
+    },
+    "cluster512_fp64": {
+      "sha256": "7501c135461a67dd3ee12d9ca1f3dd56cd401789bd635a3b3cdcdd70685ca9fd",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float64",
+      "density": 1.0
+    },
+    "dense1024": {
+      "sha256": "771e06c367f3f3128d86828e5fe05fcc06aafc530272c54e6896a9496678c6e4",
+      "shape": [
+        1024,
+        1024
+      ],
+      "dtype": "float32",
+      "density": 1.0
+    },
+    "dense1024_top32": {
+      "sha256": "771e06c367f3f3128d86828e5fe05fcc06aafc530272c54e6896a9496678c6e4",
+      "shape": [
+        1024,
+        1024
+      ],
+      "dtype": "float32",
+      "density": 1.0
+    },
+    "dense2048": {
+      "sha256": "fd8b323f16571b8b5138150ed56b448f25b010fdcf5986938deb09fdb1f7e6f6",
+      "shape": [
+        2048,
+        2048
+      ],
+      "dtype": "float32",
+      "density": 1.0
+    },
+    "dense256": {
+      "sha256": "62a5774329c4e16e43455a961a2595f986958e48704cad9dee1753d2e05f1c09",
+      "shape": [
+        256,
+        256
+      ],
+      "dtype": "float32",
+      "density": 1.0
+    },
+    "dense512": {
+      "sha256": "944cc1faa9ca4ae6db4047a4ee0ea63dc01c2738414efe1c04f49ecada74a90d",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32",
+      "density": 1.0
+    },
+    "lowrank2048x1024_k32": {
+      "sha256": "734644e7dd31e3e83cb6014a61769cfd1a29f8bb677ac63408ffb88b9cb6110e",
+      "shape": [
+        2048,
+        1024
+      ],
+      "dtype": "float32",
+      "density": 1.0
+    },
+    "lowrank8192x2048_k64": {
+      "sha256": "54bdf86f9521468f1fcf25960f15c692404b691b7781159ab6600bfb6007fadd",
+      "shape": [
+        8192,
+        2048
+      ],
+      "dtype": "float32",
+      "density": 1.0
+    },
+    "sparse2048x1024_d01": {
+      "sha256": "106eee1fe1f4b980290b1cda7ca38ddf84d0d3a96e41b9369fadef1711279a08",
+      "shape": [
+        2048,
+        1024
+      ],
+      "dtype": "float32",
+      "density": 0.010016441345214844
+    },
+    "sparse4096x2048_d001": {
+      "sha256": "8d2f36e39e8ab4d04d633b2003e11fdf3bbf93b3aa42d3600c28869166de97f2",
+      "shape": [
+        4096,
+        2048
+      ],
+      "dtype": "float32",
+      "density": 0.000998377799987793
+    },
+    "sparse4096x2048_d01": {
+      "sha256": "564b17305f35e9bb88ddb5626fd8040019408e47b82827a703f3344e32f454d9",
+      "shape": [
+        4096,
+        2048
+      ],
+      "dtype": "float32",
+      "density": 0.00998985767364502
+    },
+    "tall8192x512": {
+      "sha256": "0b27f37acaf5c16fa8c40e7015892c9beefce4be0830a9fcee058c5c2d052e98",
+      "shape": [
+        8192,
+        512
+      ],
+      "dtype": "float32",
+      "density": 1.0
+    }
+  }
+}
