@@ -20,6 +20,9 @@ The browser uses no external services or JavaScript dependencies. A CUDA/ROCm
 PyTorch build exposes the GPU selector; CPU also works. Choose the appropriate
 PyTorch build before installing this project.
 
+If the GPU tunnel already occupies port 8765, start the laptop server with
+`python -m svdbench.playground.server --port 8766` and open port 8766 instead.
+
 ## Use the deployed Hetzner GPU
 
 The server runs as `svd-playground.service`, on the server's loopback port 8765.
@@ -33,6 +36,9 @@ Open **http://127.0.0.1:8765**. The header should show the NVIDIA RTX PRO 4000
 Blackwell SFF Edition. Use the same port on both sides: the application validates
 the HTTP Host and Origin. If a laptop playground already occupies 8765, stop that
 process first, or change the server port and both tunnel ports together.
+
+The tunnel opened during setup runs in the background. To close that specific
+tunnel, run `ssh -S /tmp/svd-playground-ssh.sock -O exit root@62.238.88.41`.
 
 Deployment locations:
 
@@ -148,6 +154,17 @@ the registry or the HTTP server. The engine derives its allowed methods from tha
 registry. Keep vendor calls in separately labeled controls so comparisons remain
 clear. For arbitrary external plugin factories, use the CLI adapter contract in
 [the standalone guide](STANDALONE.md).
+
+When editing on the laptop while using Hetzner for computation, first copy the
+updated Python source to the server (run from the repository root):
+
+```bash
+rsync -az --exclude='__pycache__/' --exclude='._*' svdbench/ \
+  root@62.238.88.41:/root/svd-standalone-20261011/svdbench/
+```
+
+Finish or cancel the current experiment before editing/syncing source. This keeps
+each run's source fingerprint consistent with the code loaded by its workers.
 
 Run `python -m unittest discover -s tests -v`. To exercise the standalone numerical
 suite on CUDA/ROCm, prefix it with `SVD_TEST_DEVICE=cuda`. HTTP tests use an ephemeral
