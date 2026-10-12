@@ -25,6 +25,12 @@ def make_matrix(case):
     for _ in range(b):
         if family == "gaussian":
             a = random((m, n)) / np.sqrt(max(m, n))
+        elif family == "sparse":
+            density = case.get("density", 0.05)
+            if not 0 <= density <= 1:
+                raise ValueError("density must lie in [0,1]")
+            a = random((m, n)) / np.sqrt(max(m, n))
+            a *= rng.random((m, n)) < density
         elif family == "zero":
             a = np.zeros((m, n))
         else:
@@ -33,7 +39,16 @@ def make_matrix(case):
             if family == "geometric":
                 s = np.geomspace(1, 1 / case.get("condition", 1e6), r)
             elif family == "clustered":
-                s = np.repeat(np.geomspace(1, 1e-3, (r + 3) // 4), 4)[:r]
+                cluster = case.get("cluster_size", 4)
+                spread = case.get("cluster_spread", 0.0)
+                condition = case.get("condition", 1e3)
+                if not isinstance(cluster, int) or cluster < 1 or not 0 <= spread < 1 or condition < 1:
+                    raise ValueError("invalid cluster size, spread or condition")
+                centers = np.geomspace(1, 1 / condition, (r + cluster - 1) // cluster)
+                s = np.repeat(centers, cluster)[:r]
+                if spread:
+                    s *= np.tile(np.linspace(1 + spread / 2, 1 - spread / 2, cluster), len(centers))[:r]
+                    s = np.sort(s)[::-1]
             elif family == "low_rank":
                 k = case.get("rank", max(1, r // 8))
                 s = np.zeros(r)

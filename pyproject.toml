@@ -4,13 +4,17 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "svd-research-bench"
-version = "0.2.0"
+version = "0.3.0"
 description = "Reproducible SVD experiments across CPU, CUDA, ROCm and experimental NPU backends"
 requires-python = ">=3.10"
 dependencies = ["numpy>=1.23", "scipy>=1.10", "torch>=2.0", "threadpoolctl>=3", "matplotlib>=3.7"]
 
 [project.scripts]
 svdbench = "svdbench.cli:main"
+svd-playground = "svdbench.playground.server:main"
 
 [tool.setuptools.packages.find]
 include = ["svdbench*"]
+
+[tool.setuptools.package-data]
+"svdbench.playground" = ["static/*.html", "static/*.css", "static/*.js"]

@@ -1,0 +1,21 @@
+{
+  "family": "clustered",
+  "m": 64,
+  "n": 64,
+  "dtype": "float64",
+  "condition": 1000,
+  "cluster_size": 4,
+  "cluster_spread": 0,
+  "output": "reduced",
+  "algorithms": [
+    "jacobi",
+    "bidiag_qr",
+    "gram_jacobi",
+    "vendor_default"
+  ],
+  "device": "cpu",
+  "seed": 20261012,
+  "repeat": 3,
+  "warmup": 1,
+  "timeout": 120
+}

@@ -1,0 +1,7 @@
+all-methods complete 20 rows []
+sparse-complex-batch complete 3 rows []
+size-sweep complete 9 rows []
+clusters complete 4 rows []
+full-wide-batch complete 2 rows []
+values-only complete 2 rows []
+Saved 40 solver comparisons to results/playground-hetzner-validation.json

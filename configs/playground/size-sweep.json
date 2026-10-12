@@ -1,0 +1,25 @@
+{
+  "family": "low_rank",
+  "m": 64,
+  "n": 64,
+  "matrix_rank": 4,
+  "tail": 1e-05,
+  "target_rank": 4,
+  "output": "topk",
+  "sweep_sizes": [
+    16,
+    32,
+    64,
+    128
+  ],
+  "algorithms": [
+    "jacobi",
+    "randomized",
+    "vendor_default"
+  ],
+  "device": "cpu",
+  "seed": 20261012,
+  "repeat": 3,
+  "warmup": 1,
+  "timeout": 120
+}

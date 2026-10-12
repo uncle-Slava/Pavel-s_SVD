@@ -1,0 +1,12 @@
+test_http_session_and_real_worker (test_playground.PlaygroundLifecycle) ... ok
+test_sweep_and_cancel_without_solver_threads (test_playground.PlaygroundLifecycle) ... ok
+test_timeout_reaps_worker_and_releases_handle (test_playground.PlaygroundLifecycle) ... ok
+test_cluster_generator_and_sparse_reproducibility (test_playground.PlaygroundNumerics) ... ok
+test_configuration_validation (test_playground.PlaygroundNumerics) ... ok
+test_preview_and_topk_baseline (test_playground.PlaygroundNumerics) ... ok
+test_sparse_callback_real_complex_batch_and_modes (test_playground.PlaygroundNumerics) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 40.026s
+
+OK

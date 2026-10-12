@@ -1,0 +1,178 @@
+[
+  {
+    "file": "all-methods-0.npy",
+    "input_sha256": "493fa1cc92494d2d0ab430ae61b2be883121155bb7e7656a3562cfdb4bb576ed",
+    "experiment": "5ea9d12f51bb4f2f9d9c8a26ce49797c",
+    "case_index": 0,
+    "case": {
+      "name": "playground",
+      "m": 20,
+      "n": 12,
+      "batch": 1,
+      "dtype": "float64",
+      "family": "gaussian",
+      "rank": 8,
+      "tail": 1e-05,
+      "condition": 1000.0,
+      "density": 0.05,
+      "cluster_size": 4,
+      "cluster_spread": 0.001,
+      "scale": 1.0,
+      "seed": 20261012
+    }
+  },
+  {
+    "file": "sparse-complex-batch-0.npy",
+    "input_sha256": "1193d397bd2cc15f2a229ed6f0178a2e5977875f16e57d6fc9b4fd64f7dd10f6",
+    "experiment": "1f300549aba8484b971551aa390ea094",
+    "case_index": 0,
+    "case": {
+      "name": "playground",
+      "m": 20,
+      "n": 12,
+      "batch": 2,
+      "dtype": "complex128",
+      "family": "sparse",
+      "rank": 8,
+      "tail": 1e-05,
+      "condition": 1000.0,
+      "density": 0.25,
+      "cluster_size": 4,
+      "cluster_spread": 0.001,
+      "scale": 1.0,
+      "seed": 20261012
+    }
+  },
+  {
+    "file": "size-sweep-0.npy",
+    "input_sha256": "16c6d657276420c9f1c2512dc6c0ba7583a9bedcf3b24df837cf329f77d7bcc8",
+    "experiment": "56dc52a76bec4f92a3a1295463801724",
+    "case_index": 0,
+    "case": {
+      "name": "playground",
+      "m": 16,
+      "n": 16,
+      "batch": 1,
+      "dtype": "float32",
+      "family": "low_rank",
+      "rank": 4,
+      "tail": 1e-05,
+      "condition": 1000.0,
+      "density": 0.05,
+      "cluster_size": 4,
+      "cluster_spread": 0.001,
+      "scale": 1.0,
+      "seed": 20261012
+    }
+  },
+  {
+    "file": "size-sweep-1.npy",
+    "input_sha256": "c724151903fde7bdf172762d31c6cbf0e47a5024010f16e003b400dc4cf4ebe0",
+    "experiment": "56dc52a76bec4f92a3a1295463801724",
+    "case_index": 1,
+    "case": {
+      "name": "playground",
+      "m": 32,
+      "n": 32,
+      "batch": 1,
+      "dtype": "float32",
+      "family": "low_rank",
+      "rank": 4,
+      "tail": 1e-05,
+      "condition": 1000.0,
+      "density": 0.05,
+      "cluster_size": 4,
+      "cluster_spread": 0.001,
+      "scale": 1.0,
+      "seed": 20261012
+    }
+  },
+  {
+    "file": "size-sweep-2.npy",
+    "input_sha256": "4be0cef588a0a59ce26f28c0c7c99b2ddb02dac7a96e3c96a893c1cfe8aaac70",
+    "experiment": "56dc52a76bec4f92a3a1295463801724",
+    "case_index": 2,
+    "case": {
+      "name": "playground",
+      "m": 64,
+      "n": 64,
+      "batch": 1,
+      "dtype": "float32",
+      "family": "low_rank",
+      "rank": 4,
+      "tail": 1e-05,
+      "condition": 1000.0,
+      "density": 0.05,
+      "cluster_size": 4,
+      "cluster_spread": 0.001,
+      "scale": 1.0,
+      "seed": 20261012
+    }
+  },
+  {
+    "file": "clusters-0.npy",
+    "input_sha256": "dc138895e2eaac5d894d56c797e70429872168346a3c63c9d8e862962594c974",
+    "experiment": "c84feeb8b018454f85a28f631136e003",
+    "case_index": 0,
+    "case": {
+      "name": "playground",
+      "m": 64,
+      "n": 48,
+      "batch": 1,
+      "dtype": "float64",
+      "family": "clustered",
+      "rank": 8,
+      "tail": 1e-05,
+      "condition": 100000.0,
+      "density": 0.05,
+      "cluster_size": 6,
+      "cluster_spread": 0.0,
+      "scale": 1.0,
+      "seed": 20261012
+    }
+  },
+  {
+    "file": "full-wide-batch-0.npy",
+    "input_sha256": "892d663da6ac5c0f1de6610c02732ee3d01eab161880fe20e0bf2a1900316b83",
+    "experiment": "c2123fc4c29c428db9fd106acc00dcc7",
+    "case_index": 0,
+    "case": {
+      "name": "playground",
+      "m": 12,
+      "n": 20,
+      "batch": 2,
+      "dtype": "complex64",
+      "family": "gaussian",
+      "rank": 8,
+      "tail": 1e-05,
+      "condition": 1000.0,
+      "density": 0.05,
+      "cluster_size": 4,
+      "cluster_spread": 0.001,
+      "scale": 1.0,
+      "seed": 20261012
+    }
+  },
+  {
+    "file": "values-only-0.npy",
+    "input_sha256": "fc0e1f485065c55d20d1f7ce39048e34932b0ec2d1dd9de038e42baf0f1e4011",
+    "experiment": "140cd46661974ac0bbd7a2d634e8be80",
+    "case_index": 0,
+    "case": {
+      "name": "playground",
+      "m": 32,
+      "n": 20,
+      "batch": 1,
+      "dtype": "float64",
+      "family": "geometric",
+      "rank": 8,
+      "tail": 1e-05,
+      "condition": 100000.0,
+      "density": 0.05,
+      "cluster_size": 4,
+      "cluster_spread": 0.001,
+      "scale": 1.0,
+      "seed": 20261012
+    }
+  }
+]

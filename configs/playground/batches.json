@@ -1,0 +1,18 @@
+{
+  "family": "gaussian",
+  "m": 16,
+  "n": 12,
+  "batch": 8,
+  "dtype": "complex64",
+  "output": "reduced",
+  "algorithms": [
+    "jacobi",
+    "qr",
+    "vendor_default"
+  ],
+  "device": "cpu",
+  "seed": 20261012,
+  "repeat": 3,
+  "warmup": 1,
+  "timeout": 120
+}

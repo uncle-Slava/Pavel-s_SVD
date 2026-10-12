@@ -1,4 +1,28 @@
-# Standalone implementations — new experiment
+# SVD Lab — research and interactive playground
+
+Compare 16 standalone SVD algorithms and vendor controls on matrices you design:
+change sizes, rank, clustered singular values, sparsity, batches and precision.
+Inspect heatmaps, spectra, reconstruction error, timing and GPU memory; save and
+reload experiments or run a size sweep.
+
+```bash
+python -m pip install -e .
+python -m svdbench.playground.server
+```
+
+Open **http://127.0.0.1:8765**. See the [playground guide](docs/PLAYGROUND.md) for the
+Hetzner GPU connection, example experiments, accuracy gates and implementation.
+[Importable presets](configs/playground) provide starting configurations.
+
+![SVD Lab on the Hetzner GPU](docs/playground-desktop.jpg)
+
+This repository includes the source, exact matrix corpus, raw results, reports and
+logs downloaded from the research servers. Dependency environments are installed
+separately. AMD/Ascend hardware validation remains outstanding.
+
+---
+
+## Standalone implementations
 
 The standalone solver package is implemented and tested on Hetzner. Start with
 [the implementation/API guide](docs/STANDALONE.md) and

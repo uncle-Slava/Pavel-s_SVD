@@ -157,6 +157,8 @@ def run_one(a_cpu, case, spec, device, args, refs):
             row["output_copy_ms"] = (time.perf_counter() - t) * 1e3
             row["memory"]["output_bytes"] = sum(x.nbytes for x in host_result if x is not None)
             row["metrics"] = validate(a_cpu, host_result, refs)
+            if getattr(args, "result_callback", None):
+                row["visualization"] = args.result_callback(host_result)
             del result
             result = None
             if args.end_to_end:

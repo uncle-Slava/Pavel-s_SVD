@@ -1,0 +1,20 @@
+{
+  "family": "sparse",
+  "m": 128,
+  "n": 64,
+  "density": 0.05,
+  "target_rank": 8,
+  "steps": 64,
+  "output": "topk",
+  "algorithms": [
+    "sparse_lanczos",
+    "lanczos",
+    "randomized",
+    "vendor_default"
+  ],
+  "device": "cpu",
+  "seed": 20261012,
+  "repeat": 3,
+  "warmup": 1,
+  "timeout": 120
+}
