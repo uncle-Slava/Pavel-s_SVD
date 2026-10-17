@@ -1,4 +1,65 @@
-# SVD Lab — algorithm laboratory, playground and measurements
+# SVD Lab — Numerical Algorithms, Accuracy & GPU Benchmarking
+
+A reproducible laboratory for choosing and investigating **singular value
+decomposition methods under accuracy, runtime and memory constraints**.
+
+It combines editable standalone solvers, vendor-library controls, an interactive
+playground and saved benchmark evidence. The focus is on understanding which
+method fits a workload, how it fails and what a performance comparison actually
+measures.
+
+## Questions this project helps answer
+
+| Question | Evidence produced |
+| --- | --- |
+| Which method fits a matrix shape, spectrum and requested rank? | Workload-specific comparisons with explicit accuracy gates |
+| Is a faster result accurate enough for the application? | Reconstruction, orthogonality, spectrum and subspace checks |
+| Where does GPU time or memory go? | Separate resident/end-to-end timings, allocator peaks and profiling |
+| How does an algorithm behave internally? | Editable implementations, checkpoints and iteration diagnostics |
+
+## Selected benchmark evidence
+
+The [larger-workload report](docs/BROAD_RESULTS.md) contains **166 distinct
+method/workload settings across 14 workloads**, including matrices up to
+8192 × 2048. Of these settings, 91 passed the declared accuracy budget;
+completed calls that failed accuracy checks, timeouts and numerical errors
+remain in the report.
+
+On the recorded NVIDIA RTX PRO 4000 Blackwell SFF setup:
+
+- For the **8192 × 2048 low-rank input, top 64**, randomized SVD using library
+  QR/SVD primitives took **6.509 ms** with **107.78 MiB** peak Torch-allocated GPU
+  memory and a reconstruction residual **1.000007× the optimal discarded tail**.
+- cuSOLVER QR passed all **eight full-spectrum workloads** tested, providing a
+  useful accuracy baseline for that suite.
+- The **16 standalone solver variants** provide editable numerical baselines.
+  Their unfused Python implementations are generally much slower than cuSOLVER;
+  they should not be presented as production GPU speedups.
+
+These are workload-specific measurements, not a universal method ranking.
+The report gives hardware, acceptance budgets, timing methodology and memory
+coverage. CPU and NVIDIA CUDA runs are documented; AMD and Ascend hardware
+validation remains outstanding.
+
+## Choose a starting point
+
+| Goal | Start here |
+| --- | --- |
+| Review findings and measurement limits | [Larger-workload results](docs/BROAD_RESULTS.md) · [Initial results](docs/RESULTS.md) |
+| Explore matrices and compare methods interactively | [Playground guide](docs/PLAYGROUND.md) |
+| Edit an algorithm and inspect intermediate steps | [Algorithm laboratory](algorithm_laboratory/README.md) · [Manual](docs/ALGORITHM_LABORATORY.md) |
+| Use the standalone solver interface | [Implementation/API guide](docs/STANDALONE.md) · [Measured results](docs/STANDALONE_RESULTS.md) |
+| Reproduce or extend the larger suite | [Benchmark guide](docs/BROAD_BENCHMARK.md) |
+
+## Author and contact
+
+[Pavel Uydanov](https://github.com/upv) ·
+[LinkedIn — project and R&D enquiries](https://www.linkedin.com/in/pavel-uydanov/)
+
+Related work: [WirelessNN](https://github.com/upv/WirelessNN), a 5G NR uplink
+receiver and channel-estimation research simulator.
+
+## Algorithm laboratory and playground
 
 For hands-on Python work, start with the [algorithm laboratory](algorithm_laboratory/README.md).
 It provides editable algorithms, prepared matrices, checkpoints with intermediate
@@ -55,7 +116,7 @@ before interpreting performance.
 
 ---
 
-# SVD research bench
+## Research bench and methodology
 
 Initial hardware audit and experiments: **11 October 2026**. The research assessment is in
 [docs/RESEARCH.md](docs/RESEARCH.md); the measured comparisons are in
@@ -166,17 +227,11 @@ Port the computational primitives to CUDA C++/cuBLAS, HIP C++/rocBLAS, or Ascend
 behind this interface. Keep generators, configs, reference checks, and result schemas shared.
 Re-run a custom factory for every end-to-end trial so its setup cost remains visible.
 
-## Deployment record
+## Benchmark provenance
 
-- Local project: `/Users/paveluydanov/Sources/SVD`.
-- Yadro: `/home/debian/svd-research-20261011`, using the existing
-  `/home/debian/WirelessNN/.venv/bin/python` without changing its packages.
-- Hetzner: `/root/svd-research-20261011`, using `/root/svdbench/.venv/bin/python` and
-  `PYTHONPATH=vendor`. Only `threadpoolctl` was installed, into the new directory's `vendor/`.
-- Existing Hetzner project `/root/svdbench` was inspected and left unchanged. It had
-  uncommitted work. No driver, system package, existing job, or clock/power setting was changed.
+Raw measurements, environment metadata, source checksums and telemetry are in
+`results/`. The initial diagnostic run exposed a complex-conjugate conversion
+bug; research tables use the corrected `local-smoke-verified.jsonl` run and the
+named server experiments. Refer to each result report for the hardware and
+environment used.
 
-Raw measurements, environment metadata, source checksums and telemetry are in `results/`.
-`local-smoke.jsonl` is the initial diagnostic run that exposed a complex-conjugate conversion
-bug; `local-smoke-verified.jsonl` is the corrected 30-case run. Research tables use only the
-verified run and the named server experiments.
