@@ -6,6 +6,42 @@ and benchmark/power tools for measuring execution. The laboratory has no web
 dependency. Its scripts are deliberately small editable programs, backed by
 reusable instruments in `svdbench.laboratory`.
 
+## Score any SVD function in one call
+
+`algorithm_laboratory.scorecard` treats your method as a black box. The function
+receives one matrix and the requested rank and returns `(U, s, Vh)` with at least
+`rank` triplets (torch or NumPy; extra triplets are truncated; returning only `s`
+checks the spectrum alone):
+
+```python
+from algorithm_laboratory.scorecard import evaluate, compare, table
+
+def my_svd(a, rank):
+    return torch.linalg.svd(a, full_matrices=False)    # replace with your method
+
+rows = compare({'mine': my_svd, 'torch': 'torch', 'polar_qdwh': 'polar_qdwh'}, device='cpu')
+table(rows)                                             # pandas DataFrame
+```
+
+```bash
+python -m algorithm_laboratory.scorecard --method my_module:my_svd --method torch \
+  --method bidiag_qr --device cuda:0 --output scorecard.csv
+```
+
+Builtin names are `torch`, `numpy`, `mine` (`my_algorithm.py`), `lab.randomized`,
+`lab.jacobi` and every `svdbench.standalone` algorithm. The default suite has eight
+matrices up to 400×300: tall and wide Gaussian, condition 1e8, clustered values,
+sparse entries, complex, and FP64/FP32 low-rank cases where only the leading rank is
+requested. Pass `cases=[...]` with `MatrixCase.create` arguments or `MatrixCase`
+objects (`load`, `from_spectrum`) to use other matrices.
+
+Each row reports the `svdbench.metrics.validate` measurements, median/MAD time of the
+call alone (warm, the input already on the device) and `ok`: U/V orthogonality and
+reconstruction within 100·eps·max(m, n) of the input dtype, or for truncated cases a
+residual within 1.05× the optimal Eckart–Young tail. An exception in one case is
+recorded in `error` and the other cases still run. [my_svd.ipynb](../algorithm_laboratory/my_svd.ipynb)
+does the same interactively, with a pure-torch Jacobi starter, a column glossary and plots.
+
 ## Start with your own algorithm
 
 Use the project's Python environment (Python 3.10+ for installation). From the
