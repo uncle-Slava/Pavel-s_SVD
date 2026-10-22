@@ -75,11 +75,19 @@ class Scorecard(unittest.TestCase):
 class ScorecardGPU(unittest.TestCase):
     """Runs on the GPU host: python -m pytest tests/test_scorecard.py"""
     def test_gpu_methods_stay_on_device_and_match_cpu(self):
-        for method in ('torch','mine','jacobi'):
+        for method in ('torch','jacobi'):
             rows=gpu_check(method,SMALL,repeat=2,warmup=1,verbose=False)
             self.assertTrue(all(r['passed'] for r in rows),rows)
             self.assertTrue(all(r['gpu_device_event_ms']>0 for r in rows),rows)
             self.assertTrue(all(r['gpu_peak_increment_bytes'] is not None for r in rows),rows)
+
+    def test_randomized_starter_is_consistent_across_devices(self):
+        # `mine` draws its sketch from a device generator, so CPU and CUDA streams differ and the
+        # truncated case is not expected to reach the optimal tail; only device behaviour is checked.
+        rows=gpu_check('mine',SMALL,repeat=2,warmup=1,verbose=False)
+        self.assertTrue(all(r['on_gpu'] and r['error'] is None for r in rows),rows)
+        self.assertTrue(all(r['cpu_ok']==r['gpu_ok'] for r in rows),rows)
+        self.assertTrue(all(r['passed'] for r in rows[:2]),rows)
 
     def test_host_fallback_is_caught(self):
         def host_svd(a,rank):

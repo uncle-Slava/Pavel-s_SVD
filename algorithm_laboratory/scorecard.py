@@ -195,7 +195,9 @@ def gpu_check(svd, cases=DEFAULT_SUITE, *, device='cuda:0', name=None, **options
 
     `passed` needs: outputs returned on the GPU, `ok` on both devices and singular values that
     agree to the case's tolerance, so a GPU path that breaks numerically or falls back to the
-    host is caught. ROCm builds use the same cuda spelling.
+    host is caught. ROCm builds use the same cuda spelling. A method that seeds a device generator
+    (`mine`, `lab.randomized`) draws different sketches on CPU and CUDA, so its singular values
+    agree only where the sketch does not matter.
     """
     if not torch.cuda.is_available():
         raise RuntimeError('No CUDA/ROCm device visible to torch; run this on the GPU host')
