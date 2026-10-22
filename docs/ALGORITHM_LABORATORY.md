@@ -42,6 +42,21 @@ residual within 1.05× the optimal Eckart–Young tail. An exception in one case
 recorded in `error` and the other cases still run. [my_svd.ipynb](../algorithm_laboratory/my_svd.ipynb)
 does the same interactively, with a pure-torch Jacobi starter, a column glossary and plots.
 
+On a GPU host, `gpu_check(my_svd, device='cuda:0')` (or `--gpu-check` on the command
+line, exit code 1 on any failure) runs the method on CPU and GPU. A case passes only when
+the outputs come back on the GPU, both runs are `ok` and the singular values agree within
+the dtype tolerance, so a broken GPU path or a silent host fallback fails. GPU rows also
+carry CUDA-event time and the Torch allocator peak. `ScorecardGPU` in
+`tests/test_scorecard.py` runs automatically when torch sees a CUDA/ROCm device:
+
+```bash
+cd /root/svd-standalone-20261011
+PYTHONPATH=/root/svd-research-20261011/vendor /root/svdbench/.venv/bin/python \
+  -m algorithm_laboratory.scorecard --gpu-check --method torch --method mine
+PYTHONPATH=/root/svd-research-20261011/vendor /root/svdbench/.venv/bin/python \
+  -m unittest discover -s tests -p test_scorecard.py -v
+```
+
 ## Start with your own algorithm
 
 Use the project's Python environment (Python 3.10+ for installation). From the

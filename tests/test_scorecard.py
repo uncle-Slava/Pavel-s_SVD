@@ -6,7 +6,7 @@ import unittest
 import numpy as np
 import torch
 from svdbench.laboratory import MatrixCase
-from algorithm_laboratory.scorecard import evaluate, compare, summary, save, DEFAULT_SUITE
+from algorithm_laboratory.scorecard import evaluate, compare, summary, save, gpu_check, DEFAULT_SUITE
 
 DEVICE=os.environ.get('SVD_TEST_DEVICE','cpu')
 torch.set_num_threads(1)
@@ -56,6 +56,42 @@ class Scorecard(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             self.assertIn('reconstruction_relative_fro',save(rows,Path(tmp)/'r.csv').read_text())
             self.assertIn('"ok": true',save(rows,Path(tmp)/'r.json').read_text())
+
+    def test_output_device_is_recorded(self):
+        rows=self.run_small('torch')
+        self.assertTrue(all(r['output_device']==r['device'] for r in rows),rows)
+        rows=evaluate('numpy',SMALL[:1],repeat=1,warmup=0,verbose=False)
+        self.assertEqual(rows[0]['output_device'],'numpy')
+
+    @unittest.skipIf(torch.cuda.is_available(),'CPU-only behaviour')
+    def test_gpu_requests_fail_clearly_without_cuda(self):
+        with self.assertRaisesRegex(RuntimeError,'cuda'):
+            evaluate('torch',SMALL[:1],device='cuda:0',verbose=False)
+        with self.assertRaisesRegex(RuntimeError,'CUDA'):
+            gpu_check('torch',SMALL[:1],verbose=False)
+
+
+@unittest.skipUnless(torch.cuda.is_available(),'needs a CUDA/ROCm device')
+class ScorecardGPU(unittest.TestCase):
+    """Runs on the GPU host: python -m pytest tests/test_scorecard.py"""
+    def test_gpu_methods_stay_on_device_and_match_cpu(self):
+        for method in ('torch','mine','jacobi'):
+            rows=gpu_check(method,SMALL,repeat=2,warmup=1,verbose=False)
+            self.assertTrue(all(r['passed'] for r in rows),rows)
+            self.assertTrue(all(r['gpu_device_event_ms']>0 for r in rows),rows)
+            self.assertTrue(all(r['gpu_peak_increment_bytes'] is not None for r in rows),rows)
+
+    def test_host_fallback_is_caught(self):
+        def host_svd(a,rank):
+            return torch.linalg.svd(a.cpu(),full_matrices=False)
+        rows=gpu_check(host_svd,SMALL[:1],repeat=1,warmup=0,verbose=False)
+        self.assertEqual(rows[0]['output_device'],'cpu')
+        self.assertFalse(rows[0]['on_gpu']);self.assertFalse(rows[0]['passed'])
+
+    def test_float32_suite_case_on_gpu(self):
+        rows=evaluate('torch',[c for c in DEFAULT_SUITE if c['dtype']=='float32'],device='cuda',
+                      repeat=2,warmup=1,verbose=False)
+        self.assertTrue(all(r['ok'] and r['output_device'].startswith('cuda') for r in rows),rows)
 
 
 if __name__=='__main__':unittest.main()

@@ -17,6 +17,9 @@ Command line (methods are builtin names or module:function):
 
     python -m algorithm_laboratory.scorecard --method torch --method mine \
         --method my_package.module:my_svd --device cpu --output scorecard.csv
+
+    # On the GPU host: same method on CPU and cuda:0; exit code 1 if any case fails.
+    python -m algorithm_laboratory.scorecard --gpu-check --method my_package.module:my_svd
 """
 import argparse
 import csv
@@ -51,7 +54,8 @@ DEFAULT_SUITE = (
 TOLERANCE_FACTOR = 100
 TAIL_RATIO_LIMIT = 1.05
 
-COLUMNS = ('method', 'case', 'm', 'n', 'dtype', 'rank', 'status', 'ok', 'time_median_ms', 'time_mad_ms',
+COLUMNS = ('method', 'case', 'm', 'n', 'dtype', 'rank', 'device', 'output_device', 'status', 'ok',
+           'time_median_ms', 'time_mad_ms', 'device_time_median_ms', 'gpu_peak_increment_bytes',
            'reconstruction_relative_fro', 'residual_over_optimal_tail', 'resolved_spectrum_max_relative_error',
            'spectrum_error_over_sigma1', 'orthogonality_u_fro_over_sqrt_cols',
            'orthogonality_v_fro_over_sqrt_rows', 'left_triplet_relative_fro', 'right_triplet_relative_fro',
@@ -113,6 +117,14 @@ def _factors(result, rank):
     return u[:, :rank], s[:rank], vh[:rank]
 
 
+def _output_devices(result):
+    """Where the returned arrays live: 'cuda:0', 'cpu', 'numpy' or a comma-joined mix."""
+    items = result if isinstance(result, (tuple, list)) else (result,)
+    if hasattr(result, 'U') and hasattr(result, 'S'):
+        items = (result.U, result.S, result.Vh)
+    return ','.join(sorted({str(x.device) if isinstance(x, torch.Tensor) else 'numpy' for x in items}))
+
+
 def _ok(metrics, dtype, shape, exact):
     tol = TOLERANCE_FACTOR*np.finfo(np.dtype(dtype)).eps*max(shape)
     if not metrics.get('singular_values_nonnegative_sorted'):
@@ -133,6 +145,10 @@ def evaluate(svd, cases=DEFAULT_SUITE, *, name=None, rank=None, device='cpu', re
     fn = resolve(svd)
     label = name or (svd if isinstance(svd, str) else getattr(svd, '__name__', 'method'))
     device = torch.device(device)
+    if device.type == 'cuda' and not torch.cuda.is_available():
+        raise RuntimeError(f'{device} requested but torch.cuda.is_available() is False (CPU-only torch build?)')
+    if device.type == 'cuda' and device.index is None:
+        device = torch.device('cuda', torch.cuda.current_device())
     if numpy_input and device.type != 'cpu':
         raise ValueError('NumPy input is CPU only')
     torch.backends.cuda.matmul.allow_tf32 = False
@@ -142,15 +158,22 @@ def evaluate(svd, cases=DEFAULT_SUITE, *, name=None, rank=None, device='cpu', re
             case_name, case, output_rank = make_case(spec)
             m, n = case.array.shape
             k = min(rank or output_rank or min(m, n), m, n)
-            row = dict(method=label, case=case_name, m=m, n=n, dtype=str(case.array.dtype), rank=k,
+            row = dict(method=label, case=case_name, m=m, n=n, dtype=str(case.array.dtype), rank=k, device=str(device),
                        status='error', ok=False, error=None)
             try:
                 a = case.array.copy() if numpy_input else case.tensor(device)
-                metrics = validate(case.array, _factors(fn(a, k), k), case.reference)['worst']
+                result = fn(a, k)
+                # A GPU method that silently computes on the host would time the wrong thing.
+                row['output_device'] = _output_devices(result)
+                metrics = validate(case.array, _factors(result, k), case.reference)['worst']
+                del result
                 row.update(metrics)
                 row['ok'] = bool(_ok(metrics, case.array.dtype, (m, n), exact=k == min(m, n)))
-                timing = benchmark(lambda: fn(a, k), device, repeat, warmup)['wall_ms']
-                row.update(status='done', time_median_ms=timing['median'], time_mad_ms=timing['mad'])
+                timing = benchmark(lambda: fn(a, k), device, repeat, warmup)
+                row.update(status='done', time_median_ms=timing['wall_ms']['median'],
+                           time_mad_ms=timing['wall_ms']['mad'],
+                           device_time_median_ms=(timing['device_event_ms'] or {}).get('median'),
+                           gpu_peak_increment_bytes=timing['memory']['allocator_peak_increment_bytes'])
             except Exception as exc:  # A failing case must not hide the other results.
                 row['error'] = f'{type(exc).__name__}: {exc}'
             rows.append(row)
@@ -167,10 +190,52 @@ def compare(methods, cases=DEFAULT_SUITE, **options):
     return [row for label, method in methods.items() for row in evaluate(method, cases, name=label, **options)]
 
 
+def gpu_check(svd, cases=DEFAULT_SUITE, *, device='cuda:0', name=None, **options):
+    """Run the same method on CPU and GPU; one row per case with both verdicts and the speedup.
+
+    `passed` needs: outputs returned on the GPU, `ok` on both devices and singular values that
+    agree to the case's tolerance, so a GPU path that breaks numerically or falls back to the
+    host is caught. ROCm builds use the same cuda spelling.
+    """
+    if not torch.cuda.is_available():
+        raise RuntimeError('No CUDA/ROCm device visible to torch; run this on the GPU host')
+    cases = list(cases)
+    label = name or (svd if isinstance(svd, str) else getattr(svd, '__name__', 'method'))
+    cpu = evaluate(svd, cases, name=label, device='cpu', **options)
+    gpu = evaluate(svd, cases, name=label, device=device, **options)
+    fn = resolve(svd)
+    rows = []
+    for spec, c, g in zip(cases, cpu, gpu):
+        row = dict(method=label, case=c['case'], cpu_ok=c['ok'], gpu_ok=g['ok'], gpu_device=g['device'],
+                   output_device=g.get('output_device'), on_gpu=g.get('output_device') == g['device'],
+                   cpu_ms=c.get('time_median_ms'), gpu_ms=g.get('time_median_ms'),
+                   gpu_device_event_ms=g.get('device_time_median_ms'),
+                   gpu_peak_increment_bytes=g.get('gpu_peak_increment_bytes'),
+                   speedup=None, max_singular_value_difference_over_sigma1=None,
+                   error=g.get('error') or c.get('error'))
+        if c['status'] == g['status'] == 'done':
+            row['speedup'] = c['time_median_ms']/g['time_median_ms'] if g['time_median_ms'] else None
+            _, case, _ = make_case(spec)
+            k = g['rank']
+            with torch.inference_mode():
+                s_cpu = _factors(fn(case.tensor('cpu'), k), k)[1]
+                s_gpu = _factors(fn(case.tensor(device), k), k)[1]
+            top = case.reference[0][1][0] or 1.
+            row['max_singular_value_difference_over_sigma1'] = float(np.max(abs(s_cpu-s_gpu))/top)
+            tol = TOLERANCE_FACTOR*np.finfo(case.array.dtype).eps*max(case.array.shape)
+            row['passed'] = bool(row['on_gpu'] and c['ok'] and g['ok']
+                                 and row['max_singular_value_difference_over_sigma1'] <= tol)
+        else:
+            row['passed'] = False
+        rows.append(row)
+    return rows
+
+
 def table(rows):
     """pandas DataFrame when pandas is installed (pip install -e '.[laboratory]')."""
     import pandas as pd
-    return pd.DataFrame(rows, columns=[c for c in COLUMNS if any(c in r for r in rows)])
+    columns = [c for c in COLUMNS if any(c in r for r in rows)]
+    return pd.DataFrame(rows, columns=columns or None)
 
 
 def summary(rows):
@@ -228,8 +293,23 @@ def main():
     p.add_argument('--warmup', type=int, default=1)
     p.add_argument('--threads', type=int, default=4)
     p.add_argument('--output', help='.csv or .json')
+    p.add_argument('--gpu-check', action='store_true', help='Run each method on CPU and --device '
+                   '(default cuda:0) and compare: outputs on GPU, both ok, same singular values')
     args = p.parse_args()
     torch.set_num_threads(args.threads)
+    if args.gpu_check:
+        device = args.device if args.device != 'cpu' else 'cuda:0'
+        failed = 0
+        for method in args.method or ['mine', 'torch']:
+            for r in gpu_check(method, device=device, rank=args.rank, repeat=args.repeat,
+                               warmup=args.warmup, threads=args.threads, verbose=False):
+                failed += not r['passed']
+                speed = f"{r['speedup']:.2f}x" if r['speedup'] else '-'
+                print(f"{r['method']:<16} {r['case']:<22} {'PASS' if r['passed'] else 'FAIL'} "
+                      f"cpu_ok={r['cpu_ok']} gpu_ok={r['gpu_ok']} output={r['output_device']} "
+                      f"Δσ/σ1={_number(r['max_singular_value_difference_over_sigma1'])} speedup={speed}"
+                      + (f"  {r['error']}" if r['error'] else ''))
+        raise SystemExit(1 if failed else 0)
     rows = compare({m: m for m in args.method or ['mine', 'torch']}, rank=args.rank, device=args.device,
                    repeat=args.repeat, warmup=args.warmup, threads=args.threads)
     print()
