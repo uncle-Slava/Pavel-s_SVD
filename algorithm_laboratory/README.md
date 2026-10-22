@@ -3,15 +3,10 @@
 A Python workbench for changing numerical algorithms and inspecting their steps.
 It runs independently of the web playground.
 
-**Just score your own SVD.** Write `def my_svd(a, rank): return U, s, Vh` and open
-[my_svd.ipynb](my_svd.ipynb), or from the repository root:
-
-```bash
-python -m algorithm_laboratory.scorecard --method my_module:my_svd --method torch
-```
-
-Each method runs on the same 8 standard matrices and gets reconstruction, orthogonality,
-spectrum and subspace errors against an FP64 reference, an `ok` verdict and median time.
+**To write an SVD and check it, start with `svdlab`, not here:** `python -m svdlab check
+examples/my_svd.py`. See the [quickstart](../README.md#quickstart) and the
+[developer guide](../docs/DEVELOPER_GUIDE.md). This folder is for the next step: looking
+inside an algorithm while it runs.
 
 To trace the internal steps of an algorithm, start from the repository root:
 
@@ -25,8 +20,8 @@ when you want to stop and examine live tensors. No web server is needed.
 
 | File | What to do here |
 |---|---|
-| [my_svd.ipynb](my_svd.ipynb) | Paste your `my_svd(a, rank)` and get a metrics table, comparison and plots. |
-| [scorecard.py](scorecard.py) | `evaluate` / `compare` any SVD function or builtin method on a standard suite; also a CLI. |
+| [my_svd.ipynb](my_svd.ipynb) | Notebook version of `svdlab check`: paste `my_svd(a, rank)`, get tables and plots. |
+| [scorecard.py](scorecard.py) | Old import path of `svdlab.scorecard`, kept so existing code keeps working. |
 | [my_algorithm.py](my_algorithm.py) | Your working starter; replace the numerical steps. |
 | [algorithms.py](algorithms.py) | Inspect/edit randomized SVD, power iterations, Jacobi sweeps and plane rotations. |
 | [experiment.py](experiment.py) | Choose the matrix, capture intermediate state and run independent timings. |
