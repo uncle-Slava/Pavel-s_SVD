@@ -6,6 +6,14 @@ and benchmark/power tools for measuring execution. The laboratory has no web
 dependency. Its scripts are deliberately small editable programs, backed by
 reusable instruments in `svdbench.laboratory`.
 
+## Checking an SVD: use svdlab
+
+To score a whole SVD, or one replaced step, as a black box (metrics, verdict, timing, GPU
+check, C++/CUDA files), use `python -m svdlab check`; see the
+[developer guide](DEVELOPER_GUIDE.md). `algorithm_laboratory.scorecard` is the old import
+path of `svdlab.scorecard` and still works. The rest of this manual is about tracing an
+algorithm's internal steps.
+
 ## Start with your own algorithm
 
 Use the project's Python environment (Python 3.10+ for installation). From the

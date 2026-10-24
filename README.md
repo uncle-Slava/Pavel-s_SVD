@@ -1,12 +1,81 @@
-# SVD Lab — Numerical Algorithms, Accuracy & GPU Benchmarking
+# SVD Lab — write an SVD, run it, see its accuracy and speed
 
-A reproducible laboratory for choosing and investigating **singular value
-decomposition methods under accuracy, runtime and memory constraints**.
+Write a singular value decomposition, or one step of an existing one, in Python, C++ or
+CUDA. One command builds it, runs it on a fixed set of test matrices on CPU or GPU and
+reports reconstruction, orthogonality and singular-value errors against an FP64
+reference, a pass/fail verdict per matrix and the median time.
 
-It combines editable standalone solvers, vendor-library controls, an interactive
-playground and saved benchmark evidence. The focus is on understanding which
-method fits a workload, how it fails and what a performance comparison actually
-measures.
+## Quickstart
+
+```bash
+python -m pip install -e .                                   # once, from the repository root
+python -m svdlab check examples/my_svd.py --quick            # a working starter SVD, small matrices
+```
+
+Your SVD is a function in a file:
+
+```python
+def svd(a, rank):          # a: torch tensor (m, n), real or complex; rank <= min(m, n)
+    ...
+    return U, s, Vh        # (m, k), (k,), (k, n) with k >= rank; torch or NumPy
+```
+
+```bash
+cp examples/my_svd.py my_svd.py                              # edit the body
+python -m svdlab check my_svd.py --compare torch             # 8 standard matrices, next to torch
+python -m svdlab check my_svd.py --device cuda               # the same on the GPU
+python -m svdlab check my_svd.py --gpu-check                 # CPU vs GPU: same answers, really on the GPU
+python -m svdlab check my_svd.py --csv results.csv           # keep every number
+python -m svdlab list                                        # builtin methods, building blocks, matrices
+```
+
+| You want to | Start from |
+| --- | --- |
+| Write a whole SVD in Python | [examples/my_svd.py](examples/my_svd.py) |
+| Replace one step (QR, bidiagonalization, small SVD, ...) of an existing SVD | [examples/replace_a_step.py](examples/replace_a_step.py), [svdlab/recipes.py](svdlab/recipes.py), [svdlab/blocks.py](svdlab/blocks.py) |
+| Write it in C++ (CPU and GPU through ATen) | [examples/native/my_svd.cpp](examples/native/my_svd.cpp) |
+| Write your own CUDA kernel | [examples/native/my_svd.cu](examples/native/my_svd.cu) |
+| Use it from Python or a notebook, with your own matrices | [examples/from_python.py](examples/from_python.py), [my_svd.ipynb](algorithm_laboratory/my_svd.ipynb) |
+
+`.cpp`/`.cu` files are compiled on first use with `torch.utils.cpp_extension` (no CMake) and
+cached until they change. They need `pip install ninja`, the Python headers (`sudo apt install python3-dev`), a C++ compiler and, for `.cu`, nvcc from the CUDA toolkit.
+
+The [developer guide](docs/DEVELOPER_GUIDE.md) has the function contract, every option,
+the list of building blocks, how the verdict is decided and troubleshooting.
+
+### What the numbers mean
+
+| Column | Meaning |
+| --- | --- |
+| `ok` / `FAIL` | orthogonality and reconstruction within 100·eps·max(m, n) of the input dtype; for a truncated SVD the residual within 1.05× the best possible rank-k residual |
+| `recon` | ‖A − U diag(s) Vᴴ‖ / ‖A‖ |
+| `tail×` | residual divided by the optimal (Eckart–Young) one, truncated cases only |
+| `σ-rel` | largest relative error of a singular value above the FP64 noise floor |
+| `orth` | max(‖UᴴU − I‖, ‖V Vᴴ − I‖) / √k |
+| `ms` | median time of the call alone: input already on the device, warm, nothing else timed |
+
+A failing case does not stop the others; its error is printed. The exit code is 1 when a
+checked method fails a case, so the command works in CI.
+
+### Where things are
+
+| Path | What it is |
+| --- | --- |
+| `svdlab/` | The front door: `check`, the command line, `blocks`, `recipes`, `native` |
+| `examples/` | Templates to copy |
+| `tests/` | `python -m unittest discover -s tests` (`SVD_TEST_DEVICE=cuda` for the GPU) |
+| `svdbench/standalone/` | The 16 repository SVD implementations and their primitives, which `svdlab.blocks` exposes |
+| `algorithm_laboratory/` | Step-by-step tracing of an algorithm: checkpoints, intermediate arrays, parameter studies |
+| `svdbench/playground/` | Web playground for interactive comparisons |
+| `svdbench/`, `configs/`, `tools/`, `results/`, `docs/` | Research benchmark harness, saved measurements and reports |
+
+---
+
+# Research and benchmarks
+
+The rest of the repository is a reproducible laboratory for choosing and investigating SVD
+methods under accuracy, runtime and memory constraints: editable standalone solvers,
+vendor-library controls, an interactive playground and saved benchmark evidence.
 
 ## Questions this project helps answer
 
@@ -47,21 +116,15 @@ validation remains outstanding.
 | --- | --- |
 | Review findings and measurement limits | [Larger-workload results](docs/BROAD_RESULTS.md) · [Initial results](docs/RESULTS.md) |
 | Explore matrices and compare methods interactively | [Playground guide](docs/PLAYGROUND.md) |
+| Write your own SVD and check it | [Quickstart](#quickstart) · [Developer guide](docs/DEVELOPER_GUIDE.md) |
 | Edit an algorithm and inspect intermediate steps | [Algorithm laboratory](algorithm_laboratory/README.md) · [Manual](docs/ALGORITHM_LABORATORY.md) |
 | Use the standalone solver interface | [Implementation/API guide](docs/STANDALONE.md) · [Measured results](docs/STANDALONE_RESULTS.md) |
 | Reproduce or extend the larger suite | [Benchmark guide](docs/BROAD_BENCHMARK.md) |
 
-## Author and contact
-
-[Pavel Uydanov](https://github.com/upv) ·
-[LinkedIn — project and R&D enquiries](https://www.linkedin.com/in/pavel-uydanov/)
-
-Related work: [WirelessNN](https://github.com/upv/WirelessNN), a 5G NR uplink
-receiver and channel-estimation research simulator.
-
 ## Algorithm laboratory and playground
 
-For hands-on Python work, start with the [algorithm laboratory](algorithm_laboratory/README.md).
+To check an SVD, use `svdlab` ([Quickstart](#quickstart)). To trace the inside of an
+algorithm step by step, use the [algorithm laboratory](algorithm_laboratory/README.md).
 It provides editable algorithms, prepared matrices, checkpoints with intermediate
 arrays, iteration diagnostics, independent timings, parameter studies and power
 sampling. Edit [my_algorithm.py](algorithm_laboratory/my_algorithm.py) and run:
@@ -235,3 +298,10 @@ bug; research tables use the corrected `local-smoke-verified.jsonl` run and the
 named server experiments. Refer to each result report for the hardware and
 environment used.
 
+## Author and contact
+
+[Pavel Uydanov](https://github.com/upv) ·
+[LinkedIn — project and R&D enquiries](https://www.linkedin.com/in/pavel-uydanov/)
+
+Related work: [WirelessNN](https://github.com/upv/WirelessNN), a 5G NR uplink
+receiver and channel-estimation research simulator.
