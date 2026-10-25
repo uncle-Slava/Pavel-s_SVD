@@ -18,7 +18,7 @@
   "parameters": {
     "algorithm": "randomized",
     "device": "cuda:0",
-    "output": "laboratory_runs/hetzner-randomized",
+    "output": "laboratory_runs/rtx4000-randomized",
     "input": null,
     "family": "gaussian",
     "m": 64,
@@ -62,112 +62,112 @@
   "max_events": 10000,
   "sources": [
     {
-      "original": "/root/svd-standalone-20261011/algorithm_laboratory/study.py",
+      "original": "/srv/svdlab/algorithm_laboratory/study.py",
       "copy": "source/0-study.py",
       "sha256": "80e16a63004d28ac67e73eb4104b90aaffc5692e0ac0c0d529a2c43e792a54eb"
     },
     {
-      "original": "/root/svd-standalone-20261011/algorithm_laboratory/__init__.py",
+      "original": "/srv/svdlab/algorithm_laboratory/__init__.py",
       "copy": "source/1-__init__.py",
       "sha256": "f2114691005389de598e8102692bd414100dbce91a0499760a757e8530f5233a"
     },
     {
-      "original": "/root/svd-standalone-20261011/algorithm_laboratory/experiment.py",
+      "original": "/srv/svdlab/algorithm_laboratory/experiment.py",
       "copy": "source/2-experiment.py",
       "sha256": "a0c0200fe0530455e4359d7858811dbcc773289d7235944e31d8d97dd3fbaba2"
     },
     {
-      "original": "/root/svd-standalone-20261011/algorithm_laboratory/algorithms.py",
+      "original": "/srv/svdlab/algorithm_laboratory/algorithms.py",
       "copy": "source/3-algorithms.py",
       "sha256": "4c5ba71489324df159618078e8ddcbfd24c939fa725d41feb1ad4305a13a8dea"
     },
     {
-      "original": "/root/svd-standalone-20261011/algorithm_laboratory/parts.py",
+      "original": "/srv/svdlab/algorithm_laboratory/parts.py",
       "copy": "source/4-parts.py",
       "sha256": "7f9ab76ab4478a9ff6c5d855e27acc9290c2ef49ce5e4221cf647d8066839f57"
     },
     {
-      "original": "/root/svd-standalone-20261011/algorithm_laboratory/my_algorithm.py",
+      "original": "/srv/svdlab/algorithm_laboratory/my_algorithm.py",
       "copy": "source/5-my_algorithm.py",
       "sha256": "bb7385e34187c9a7c08b74849ffcb62bf24a4b78457a1d32aaccaadcf7aa30be"
     },
     {
-      "original": "/root/svd-standalone-20261011/algorithm_laboratory/power.py",
+      "original": "/srv/svdlab/algorithm_laboratory/power.py",
       "copy": "source/6-power.py",
       "sha256": "bea841f75f2099c12d2b33bb90e45bd174e9d438183c1ed04524a89eb6771680"
     },
     {
-      "original": "/root/svd-standalone-20261011/svdbench/laboratory/trace.py",
+      "original": "/srv/svdlab/svdbench/laboratory/trace.py",
       "copy": "source/7-trace.py",
       "sha256": "560c947636808e546c2c70699be4fc4509aad7bd15b595cfb917a0ddb1e9bed7"
     },
     {
-      "original": "/root/svd-standalone-20261011/svdbench/laboratory/__init__.py",
+      "original": "/srv/svdlab/svdbench/laboratory/__init__.py",
       "copy": "source/8-__init__.py",
       "sha256": "ce752f14fff7b2ee73939fd96447fd3d610a0531d0e29613d271c1cf5ab534a8"
     },
     {
-      "original": "/root/svd-standalone-20261011/svdbench/laboratory/plots.py",
+      "original": "/srv/svdlab/svdbench/laboratory/plots.py",
       "copy": "source/9-plots.py",
       "sha256": "1808df61852ac8c772d890310dd4ddc961635345a27fc2afb6b609214a2da27d"
     },
     {
-      "original": "/root/svd-standalone-20261011/svdbench/laboratory/diagnostics.py",
+      "original": "/srv/svdlab/svdbench/laboratory/diagnostics.py",
       "copy": "source/10-diagnostics.py",
       "sha256": "38976a84c62ed2be3630625c3ab1bbc3bddb7b01c60b6901cfea92dbfd0f8499"
     },
     {
-      "original": "/root/svd-standalone-20261011/svdbench/laboratory/statistics.py",
+      "original": "/srv/svdlab/svdbench/laboratory/statistics.py",
       "copy": "source/11-statistics.py",
       "sha256": "f389c279b57727bb675ffa8bb4b1365a2df8a765ec03a8739528f865390d66ed"
     },
     {
-      "original": "/root/svd-standalone-20261011/svdbench/laboratory/matrices.py",
+      "original": "/srv/svdlab/svdbench/laboratory/matrices.py",
       "copy": "source/12-matrices.py",
       "sha256": "464ba549ed2fd1f7dfc9a2f768996980a8a53b16acaddef9388d3d58b6e5c9d2"
     },
     {
-      "original": "/root/svd-standalone-20261011/svdbench/standalone/solvers.py",
+      "original": "/srv/svdlab/svdbench/standalone/solvers.py",
       "copy": "source/13-solvers.py",
       "sha256": "98f7f86fce5619788a944a93f31c0689458c5c308a7d12b4f32412708ef717c2"
     },
     {
-      "original": "/root/svd-standalone-20261011/svdbench/standalone/__init__.py",
+      "original": "/srv/svdlab/svdbench/standalone/__init__.py",
       "copy": "source/14-__init__.py",
       "sha256": "6c77d13f3410c6b28d60e0fe35f6141f25e941d1ac1de34070161ad0c68d96f5"
     },
     {
-      "original": "/root/svd-standalone-20261011/svdbench/standalone/tensors.py",
+      "original": "/srv/svdlab/svdbench/standalone/tensors.py",
       "copy": "source/15-tensors.py",
       "sha256": "592d364a59798826905aaab77e747ab1bc92a7b611f54a11243e4186501f9536"
     },
     {
-      "original": "/root/svd-standalone-20261011/svdbench/standalone/iterative.py",
+      "original": "/srv/svdlab/svdbench/standalone/iterative.py",
       "copy": "source/16-iterative.py",
       "sha256": "f71c426ef674520da99b4252c50e2cd0f130830a266bcdd72a514318b782f92a"
     },
     {
-      "original": "/root/svd-standalone-20261011/svdbench/standalone/primitives.py",
+      "original": "/srv/svdlab/svdbench/standalone/primitives.py",
       "copy": "source/17-primitives.py",
       "sha256": "8f5e9b329ab930bffd56eb3c2a5560b6fe8ef3c04e9f002886ef23e4ad1ccd47"
     },
     {
-      "original": "/root/svd-standalone-20261011/svdbench/standalone/divide_conquer.py",
+      "original": "/srv/svdlab/svdbench/standalone/divide_conquer.py",
       "copy": "source/18-divide_conquer.py",
       "sha256": "44f786d17f03b2b62bb9f349e5540bac6db5928db8f363769bcd2f0dd524462c"
     },
     {
-      "original": "/root/svd-standalone-20261011/svdbench/cli.py",
+      "original": "/srv/svdlab/svdbench/cli.py",
       "copy": "source/19-cli.py",
       "sha256": "190bde0d5bec6d337f4651445f05091d09176571c38165df09c022171ca6211f"
     },
     {
-      "original": "/root/svd-standalone-20261011/svdbench/metrics.py",
+      "original": "/srv/svdlab/svdbench/metrics.py",
       "copy": "source/20-metrics.py",
       "sha256": "678d769c9feec6abcce8c166300a1823f2cffced8c993f1554d974df719faa1e"
     },
     {
-      "original": "/root/svd-standalone-20261011/svdbench/matrices.py",
+      "original": "/srv/svdlab/svdbench/matrices.py",
       "copy": "source/21-matrices.py",
       "sha256": "4945363b5d549fc3a6bda7934a63cfd43f34ae911013d7ddae5ebb0dd588c766"
     }

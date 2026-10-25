@@ -1,16 +1,16 @@
 # Measured pilot results — 11 October 2026
 
-**Scope:** 184 GPU case/algorithm evaluations across two NVIDIA servers, plus five Hetzner
+**Scope:** 184 GPU case/algorithm evaluations across two NVIDIA servers, plus five RTX PRO 4000 server
 CPU controls. Each successful timing used two warm-ups and five measurements. All 14 shared
 pilot matrix hashes match across hosts. FP32 matrix multiplication used `highest` precision
 with TF32 disabled. Timing mode is ordinary calls with CUDA events, not CUDA graphs.
 The tables below are pilot observations, not universal algorithm rankings.
 
-Raw records: [Hetzner pilot](../results/hetzner-pilot.jsonl),
-[Yadro pilot](../results/yadro-pilot.jsonl),
-[Hetzner native](../results/hetzner-native.jsonl),
-[Yadro native](../results/yadro-native.jsonl),
-[CPU controls](../results/hetzner-cpu.jsonl), [flattened table](../results/summary.csv).
+Raw records: [RTX PRO 4000 server pilot](../results/rtx4000-pilot.jsonl),
+[RTX PRO 6000 server pilot](../results/rtx6000-pilot.jsonl),
+[RTX PRO 4000 server native](../results/rtx4000-native.jsonl),
+[RTX PRO 6000 server native](../results/rtx6000-native.jsonl),
+[CPU controls](../results/rtx4000-cpu.jsonl), [flattened table](../results/summary.csv).
 
 The 184 evaluations comprise 77 pilot and 15 native cases per GPU. Four evaluations raised
 convergence errors. Of the 180 that returned finite outputs, several produced unacceptable
@@ -21,7 +21,7 @@ the raw data is an execution status; it must not be used as an accuracy filter.
 
 ## Full spectrum and small batches
 
-Hetzner, FP32, median CUDA-event milliseconds. Reconstruction is evaluated in FP64 against
+RTX PRO 4000 server, FP32, median CUDA-event milliseconds. Reconstruction is evaluated in FP64 against
 the actual input. A small reconstruction residual alone is insufficient to certify the
 small singular values or orthogonality.
 
@@ -52,7 +52,7 @@ entire difference to mathematics.
 Synthetic 1024×1024 matrix with 32 dominant singular values (1 down to 0.1), then a 1e-5
 tail, rounded to FP32. Requested k=32, oversampling=16, two power iterations.
 
-| Hetzner route | Output | GPU event ms | End-to-end ms | Peak allocator increase MiB | Residual / optimal rank-32 tail |
+| RTX PRO 4000 server route | Output | GPU event ms | End-to-end ms | Peak allocator increase MiB | Residual / optimal rank-32 tail |
 |---|---|---:|---:|---:|---:|
 | gesvd | All 1024 components | 79.065 | 85.140 | 29.27 | Not applicable to full output |
 | gesvda | All 1024 components | 41.627 | 47.005 | 62.00 | Not applicable to full output |
@@ -91,7 +91,7 @@ reconstruction error 26.974 and perturbation `h_err_sigma=26.972`. The complex r
 case reconstructed accurately (about 1.25e-6), so successful small examples would miss this.
 
 To remove Python and the old binding from the explanation, `tools/polar_sanity.cpp` was
-compiled on Yadro using its system CUDA toolkit and linked to system cuSOLVER **12.2.2**.
+compiled on the RTX PRO 6000 server using its system CUDA toolkit and linked to system cuSOLVER **12.2.2**.
 It read the same FP32 input and reconstructed U*diag(s)*V^T using independent CPU loops.
 It reproduced `info=0`, perturbation 26.97208, and relative error **26.97399**.
 The workspace query returned **87,038,480 device bytes** and zero host bytes for that case.
@@ -103,7 +103,7 @@ SVD. Exclude these rows from performance winners, retain the reproduction, and i
 scaling/conditioning and other supported builds. Always inspect the perturbation and
 reconstruction, not only `info`. No issue was filed externally.
 
-Reproduction on Yadro (from its new research directory):
+Reproduction on the RTX PRO 6000 server (from its new research directory):
 
 ```bash
 /usr/local/cuda/bin/nvcc -O2 tools/polar_sanity.cpp -lcusolver -o build/polar_sanity
@@ -113,7 +113,7 @@ LD_LIBRARY_PATH=/usr/local/cuda/lib64 ./build/polar_sanity build/square512.bin 5
 
 ## CPU controls and output choices
 
-Hetzner CPU, four Torch/BLAS threads, ordinary synchronized wall time:
+RTX PRO 4000 server CPU, four Torch/BLAS threads, ordinary synchronized wall time:
 
 | Task | Method | Median ms |
 |---|---|---:|
@@ -127,33 +127,33 @@ every small or moderate problem. They do not compare identical vendor implementa
 The randomized GPU solve's end-to-end 2.895 ms is much closer to the CPU's 3.298 ms than
 resident GPU timing alone suggests.
 
-For the 512×128 output-mode case, Hetzner `gesvd` needed 4.796 ms for reduced vectors
+For the 512×128 output-mode case, RTX PRO 4000 server `gesvd` needed 4.796 ms for reduced vectors
 and 1.442 ms for values only. `gesvdj` used 3.538 versus 3.507 ms. Output semantics and
 implementation determine the savings; do not assume values-only gives the same speedup
 for every driver.
 
-## Why Yadro is not a clean hardware ranking
+## Why the RTX PRO 6000 server is not a clean hardware ranking
 
-Yadro is a four-vCPU VM and had another Python GPU process using about 2.95 GiB throughout
+The RTX PRO 6000 server is a four-vCPU VM and had another Python GPU process using about 2.95 GiB throughout
 the pilot. Its sample latencies vary substantially. Framework versions differ slightly
 between hosts. A 600 W, 96 GiB GPU's advertised capacity does not overcome host dispatch,
 shared-resource interference, or algorithm-specific bottlenecks in every case.
 
-Example: full-spectrum `gesvd` on the Gaussian 1024² matrix was 120.535 ms on Yadro versus
-74.818 ms on Hetzner; `gesvda` was 30.712 versus 48.269 ms. This reversal warrants isolated
+Example: full-spectrum `gesvd` on the Gaussian 1024² matrix was 120.535 ms on the RTX PRO 6000 server versus
+74.818 ms on the RTX PRO 4000 server; `gesvda` was 30.712 versus 48.269 ms. This reversal warrants isolated
 profiling. It is not evidence that one GPU architecture is universally faster.
 
-The telemetry CSVs are whole-device samples every 200 ms and include the other Yadro
+The telemetry CSVs are whole-device samples every 200 ms and include the other RTX PRO 6000 server
 process. They cannot give per-SVD energy, individual-kernel utilization or reliable peak
 memory for sub-millisecond calls. Driver workspaces outside the PyTorch allocator remain
 unknown except for the independent C++ query above.
 
-## Existing Hetzner work reviewed
+## Earlier internal work reviewed
 
-The existing `/root/svdbench` project has NumPy algorithm reconstructions, direct CUDA
+The existing `/srv/gpubench` project has NumPy algorithm reconstructions, direct CUDA
 bindings, vendor-free prototypes, Triton kernels and tensor unfolding experiments. Its
 Git HEAD was `d2225b8830a6ae437d9e38933f7079fd4a83bda4`, with existing uncommitted changes.
-It was not modified. [Inspected binding snapshot](../references/hetzner-cusolver_direct.py).
+It was not modified. [Inspected binding snapshot](../references/cusolver_direct.py).
 
 Audit findings:
 

@@ -13,7 +13,7 @@ test_zero_identity_rank_deficient_clustered_and_scaled (test_standalone.Standalo
 ERROR: test_no_vendor_factorizations_and_immutable_input (test_standalone.Standalone.test_no_vendor_factorizations_and_immutable_input)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/root/svd-standalone-20261011/tests/test_standalone.py", line 154, in test_no_vendor_factorizations_and_immutable_input
+  File "/srv/svdlab/tests/test_standalone.py", line 154, in test_no_vendor_factorizations_and_immutable_input
     source = path.read_text()
              ^^^^^^^^^^^^^^^^
   File "/usr/lib/python3.12/pathlib.py", line 1030, in read_text

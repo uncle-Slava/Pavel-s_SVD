@@ -1,4 +1,4 @@
-"""Bridge to the user's inspected Hetzner binding snapshot, kept unmodified.
+"""Bridge to an inspected binding snapshot from an earlier internal project, kept unmodified.
 
 This bridge includes allocation/query/copy overhead in every measured call.
 It is not a preallocated kernel-only benchmark. Large full output buffers in
@@ -22,7 +22,7 @@ def prepare(a, spec):
         raise Unsupported("The legacy cuSOLVER bridge requires NVIDIA CUDA")
     if spec.get("mode", "reduced") != "reduced":
         raise Unsupported("Legacy bridge exposes reduced output only")
-    path = Path(__file__).resolve().parent.parent / "references/hetzner-cusolver_direct.py"
+    path = Path(__file__).resolve().parent.parent / "references/cusolver_direct.py"
     if not path.exists():
         raise Unsupported("Run from the source checkout containing the inspected reference binding")
     if _module is None:

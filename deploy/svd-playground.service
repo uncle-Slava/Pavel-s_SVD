@@ -1,0 +1,20 @@
+[Unit]
+Description=SVD matrix playground (loopback only)
+After=network.target
+
+[Service]
+Type=simple
+# Example unit: replace the user and paths with your checkout and a Python
+# environment that has a CUDA/ROCm PyTorch build.
+User=svdlab
+WorkingDirectory=/srv/svdlab
+ExecStart=/srv/svdlab/.venv/bin/python -m svdbench.playground.server --port 8765 --data-dir /srv/svdlab/.playground
+Environment=PYTHONUNBUFFERED=1
+Environment=OMP_NUM_THREADS=4
+Environment=OPENBLAS_NUM_THREADS=4
+Restart=on-failure
+RestartSec=3
+KillMode=control-group
+
+[Install]
+WantedBy=multi-user.target

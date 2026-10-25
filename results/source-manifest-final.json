@@ -17,5 +17,5 @@
   "configs/smoke.json": "2e351d8c0c01e16ac14b5ea1002b901dd3f1466af3af53e424c1cb077b15f5df",
   "tests/test_assessment.py": "eb778164f7c8601a55ac562214b1acc3e1114d5c7ce27efa024252f398fe2771",
   "tests/test_numerics.py": "a1ebae9f638ae753a75419896a9dc749a7174d6633c613a2f0f2727af7960596",
-  "references/hetzner-cusolver_direct.py": "47848e4160bccfd6228029d1663958d6a7d9af5df6cac6af80e2456643886b6d"
+  "references/cusolver_direct.py": "47848e4160bccfd6228029d1663958d6a7d9af5df6cac6af80e2456643886b6d"
 }

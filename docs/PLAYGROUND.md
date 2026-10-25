@@ -20,48 +20,41 @@ The browser uses no external services or JavaScript dependencies. A CUDA/ROCm
 PyTorch build exposes the GPU selector; CPU also works. Choose the appropriate
 PyTorch build before installing this project.
 
-If the GPU tunnel already occupies port 8765, start the laptop server with
+If a GPU tunnel already occupies port 8765, start the laptop server with
 `python -m svdbench.playground.server --port 8766` and open port 8766 instead.
 
-## Use the deployed Hetzner GPU
+## Run it on a remote GPU machine
 
-The server runs as `svd-playground.service`, on the server's loopback port 8765.
-Open an SSH tunnel on your laptop and leave it running:
-
-```bash
-ssh -N -L 127.0.0.1:8765:127.0.0.1:8765 root@62.238.88.41
-```
-
-Open **http://127.0.0.1:8765**. The header should show the NVIDIA RTX PRO 4000
-Blackwell SFF Edition. Use the same port on both sides: the application validates
-the HTTP Host and Origin. If a laptop playground already occupies 8765, stop that
-process first, or change the server port and both tunnel ports together.
-
-The tunnel opened during setup runs in the background. To close that specific
-tunnel, run `ssh -S /tmp/svd-playground-ssh.sock -O exit root@62.238.88.41`.
-
-Deployment locations:
-
-- Source and state: `/root/svd-standalone-20261011`, with experiments in `.playground/`.
-- GPU Python: `/root/svdbench/.venv/bin/python`, PyTorch 2.14.1+cu130.
-- Extra existing dependency directory: `/root/svd-research-20261011/vendor`.
-- Service definition: [deploy/hetzner-playground.service](../deploy/hetzner-playground.service).
-
-The `.venv` inside the standalone project currently contains **CPU-only** PyTorch;
-the service intentionally uses the existing CUDA environment. These paths describe
-this deployment, not requirements for a new machine. On a new machine, install
-the package in your chosen environment and update the service paths.
+Install the package on the GPU machine with a CUDA/ROCm PyTorch build and start the
+server there. It listens on loopback only, so reach it through an SSH tunnel from your
+laptop and leave the tunnel running:
 
 ```bash
-ssh root@62.238.88.41 systemctl status svd-playground
-ssh root@62.238.88.41 journalctl -u svd-playground -n 30
-ssh root@62.238.88.41 systemctl restart svd-playground
-ssh root@62.238.88.41 systemctl stop svd-playground
+# on the GPU machine
+python -m svdbench.playground.server --port 8765
+
+# on your laptop
+ssh -N -L 127.0.0.1:8765:127.0.0.1:8765 <user>@<gpu-host>
 ```
 
-Stop the tunnel with Ctrl-C. Stop/disable the service with
-`systemctl disable --now svd-playground` on the server if you no longer want it.
-The service never listens on a public network interface.
+Open **http://127.0.0.1:8765**. The header shows the GPU the server found. Use the
+same port on both sides: the application validates the HTTP Host and Origin. If a
+laptop playground already occupies 8765, stop that process first, or change the
+server port and both tunnel ports together. Stop the tunnel with Ctrl-C.
+
+To keep the server running, [deploy/svd-playground.service](../deploy/svd-playground.service)
+is an example systemd unit. Edit its paths and user for your machine, then:
+
+```bash
+sudo cp deploy/svd-playground.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now svd-playground
+journalctl -u svd-playground -n 30
+```
+
+`systemctl disable --now svd-playground` removes it again. The service never listens
+on a public network interface. Ask the repository owner for access to the team's
+shared GPU machine.
 
 ## Experiments to try
 
@@ -155,12 +148,12 @@ registry. Keep vendor calls in separately labeled controls so comparisons remain
 clear. For arbitrary external plugin factories, use the CLI adapter contract in
 [the standalone guide](STANDALONE.md).
 
-When editing on the laptop while using Hetzner for computation, first copy the
+When editing on the laptop while using a remote GPU machine for computation, first copy the
 updated Python source to the server (run from the repository root):
 
 ```bash
 rsync -az --exclude='__pycache__/' --exclude='._*' svdbench/ \
-  root@62.238.88.41:/root/svd-standalone-20261011/svdbench/
+  <user>@<gpu-host>:<checkout>/svdbench/
 ```
 
 Finish or cancel the current experiment before editing/syncing source. This keeps
@@ -172,7 +165,7 @@ loopback port and bypass system web proxies.
 
 ## Validation on 12 October 2026
 
-The complete suite passed **29 tests** on Hetzner with `SVD_TEST_DEVICE=cuda`.
+The complete suite passed **29 tests** on the RTX PRO 4000 server with `SVD_TEST_DEVICE=cuda`.
 The seven new playground tests also passed on the macOS CPU environment.
 A wheel build confirmed that HTML, CSS and JavaScript are included in the package.
 Browser checks covered a desktop layout and a 390-pixel mobile layout (no horizontal
@@ -192,7 +185,7 @@ not a broad performance conclusion or an exhaustive numerical validation.
 | Full wide batch | 2 | 2×12×20 complex64, full square vector bases |
 | Values only | 2 | 32×20 FP64 geometric spectrum, condition ratio 1e5 |
 
-Raw measurements: [playground-hetzner-validation.json](../results/playground-hetzner-validation.json).
+Raw measurements: [playground-rtx4000-validation.json](../results/playground-rtx4000-validation.json).
 The eight exact matrices and their hashes are in [corpus/playground](../corpus/playground).
 Test logs are saved in `results/playground-*-tests*.log`.
 

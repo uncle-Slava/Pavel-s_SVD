@@ -9,7 +9,7 @@ import numpy as np
 
 
 def main():
-    rows = [json.loads(x) for x in Path("results/hetzner-pilot.jsonl").read_text().splitlines()]
+    rows = [json.loads(x) for x in Path("results/rtx4000-pilot.jsonl").read_text().splitlines()]
     rows = [x for x in rows if x.get("type") == "measurement" and x["status"] == "ok"]
     def row(case, name):
         return next(x for x in rows if x["case"]["name"] == case and x["algorithm"]["name"] == name)
@@ -39,7 +39,7 @@ def main():
     for i,v in enumerate(vals):
         axes[2].text(v+1,i,f"{v:.1f}",va="center")
     axes[2].grid(axis="x",alpha=.2)
-    fig.suptitle("SVD pilot · Hetzner RTX PRO 4000 Blackwell SFF · FP32", fontsize=15)
+    fig.suptitle("SVD pilot · RTX PRO 4000 Blackwell SFF · FP32", fontsize=15)
     fig.text(.5,.01,"2 warm-ups, 5 measured calls, TF32 disabled. Pilot observations; outputs/accuracy differ. Native workspace is not inferred from allocator peaks.",ha="center",fontsize=9)
     fig.tight_layout(rect=(0,.05,1,.92))
     fig.savefig("results/pilot.png",dpi=180)

@@ -152,25 +152,25 @@ python -m svdbench.playground.server
 ```
 
 Open **http://127.0.0.1:8765**. See the [playground guide](docs/PLAYGROUND.md) for the
-Hetzner GPU connection, example experiments, accuracy gates and implementation.
+shared GPU server setup, example experiments, accuracy gates and implementation.
 [Importable presets](configs/playground) provide starting configurations.
 
-The [larger-matrix Hetzner benchmark](docs/BROAD_RESULTS.md) adds 166 method/workload
+The [larger-matrix RTX PRO 4000 server benchmark](docs/BROAD_RESULTS.md) adds 166 method/workload
 comparisons on dense, low-rank, clustered and sparse inputs up to 8192×2048,
 with separate speed, memory and accuracy rankings.
 [Reproduce or modify the suite](docs/BROAD_BENCHMARK.md).
 
-![SVD Lab on the Hetzner GPU](docs/playground-desktop.jpg)
+![SVD Lab on the RTX PRO 4000 GPU server](docs/playground-desktop.jpg)
 
 This repository includes the source, exact matrix corpus, raw results, reports and
-logs downloaded from the research servers. Dependency environments are installed
+logs from the research runs. Dependency environments are installed
 separately. AMD/Ascend hardware validation remains outstanding.
 
 ---
 
 ## Standalone implementations
 
-The standalone solver package is implemented and tested on Hetzner. Start with
+The standalone solver package is implemented and tested on the RTX PRO 4000 server. Start with
 [the implementation/API guide](docs/STANDALONE.md) and
 [the measured results](docs/STANDALONE_RESULTS.md).
 There are 16 matrix solver variants plus matrix updates and tensor decompositions,
@@ -224,8 +224,8 @@ Every record includes a SHA-256 of the actual input bytes. Existing corpus files
 the configured shape/dtype; do not reuse a case name for a changed spectrum or seed.
 
 The native bridge needs the source checkout, including the unmodified binding snapshot in
-`references/hetzner-cusolver_direct.py`. That snapshot comes from the user's pre-existing
-Hetzner project, not from NVIDIA. Its checksum and loaded library version are recorded.
+`references/cusolver_direct.py`. That snapshot comes from an earlier internal
+benchmark project, not from NVIDIA. Its checksum and loaded library version are recorded.
 The bridge bounds its known excessive randomized-output allocation at 512 MiB. It has not
 fixed the original wrapper, and an allocation failure there is not a vendor workspace limit.
 
@@ -279,7 +279,7 @@ The main readable implementations are in `svdbench/algorithms.py`:
 - explicit PyTorch cuSOLVER drivers and full/reduced/values-only output modes.
 
 These compositions call vendor QR/SVD/GEMM primitives. They are algorithm prototypes,
-not independent implementations of those primitives. The older Hetzner project already
+not independent implementations of those primitives. The earlier internal project already
 contains vendor-free NumPy/PyTorch reconstructions and fused Triton experiments; use those
 as the starting material for deeper kernel work after auditing their metrics.
 

@@ -4,4 +4,4 @@ size-sweep complete 9 rows []
 clusters complete 4 rows []
 full-wide-batch complete 2 rows []
 values-only complete 2 rows []
-Saved 40 solver comparisons to results/playground-hetzner-validation.json
+Saved 40 solver comparisons to results/playground-rtx4000-validation.json
