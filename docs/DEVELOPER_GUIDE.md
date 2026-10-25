@@ -1,5 +1,8 @@
 # Developer guide: write, build, run and check an SVD
 
+This page is the compact reference. For a step-by-step introduction start with the
+[tutorials](tutorials/README.md) and the [notebooks](../notebooks/).
+
 Everything here goes through one package, `svdlab`, and one command, `python -m svdlab`.
 Install once from the repository root with `python -m pip install -e .` (choose the right
 PyTorch build for your device first; do not install a CUDA build over a ROCm one).

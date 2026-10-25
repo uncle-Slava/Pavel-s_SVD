@@ -4,8 +4,9 @@ Here the QR inside randomized SVD is replaced by CholeskyQR2. Run both, side by 
 
     python -m svdlab check examples/replace_a_step.py --compare svdlab.recipes:randomized
 
-Expect two failures: CholeskyQR forms YᴴY, which squares the condition number, so it breaks
-on ill_conditioned_1e8 and on the float32 low-rank case while Householder QR does not.
+Expect a failure on ill_conditioned_1e8: CholeskyQR forms YᴴY, which squares the condition
+number, so the Cholesky factorization breaks there while Householder QR does not. The float32
+low-rank case is close to the same limit and can fail too, depending on the hardware.
 Catching exactly this kind of trade-off is what the check is for.
 
 Other steps you can replace the same way (see svdlab/recipes.py):

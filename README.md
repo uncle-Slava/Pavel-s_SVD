@@ -40,6 +40,9 @@ python -m svdlab list                                        # builtin methods, 
 `.cpp`/`.cu` files are compiled on first use with `torch.utils.cpp_extension` (no CMake) and
 cached until they change. They need `pip install ninja`, the Python headers (`sudo apt install python3-dev`), a C++ compiler and, for `.cu`, nvcc from the CUDA toolkit.
 
+New here? Follow the [tutorials](docs/tutorials/README.md) and run the matching
+[quickstart notebooks](notebooks/) (CPU is enough; a GPU is used when present).
+
 The [developer guide](docs/DEVELOPER_GUIDE.md) has the function contract, every option,
 the list of building blocks, how the verdict is decided and troubleshooting.
 
@@ -63,6 +66,7 @@ checked method fails a case, so the command works in CI.
 | --- | --- |
 | `svdlab/` | The front door: `check`, the command line, `blocks`, `recipes`, `native` |
 | `examples/` | Templates to copy |
+| `docs/tutorials/`, `notebooks/` | Step-by-step tutorials for new developers and the matching notebooks |
 | `tests/` | `python -m unittest discover -s tests` (`SVD_TEST_DEVICE=cuda` for the GPU) |
 | `svdbench/standalone/` | The 16 repository SVD implementations and their primitives, which `svdlab.blocks` exposes |
 | `algorithm_laboratory/` | Step-by-step tracing of an algorithm: checkpoints, intermediate arrays, parameter studies |
