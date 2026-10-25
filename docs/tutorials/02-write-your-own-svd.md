@@ -1,10 +1,25 @@
 # Tutorial 2: Write your own SVD
 
-**Goal:** write an SVD from scratch, check it, find out why it fails on some matrices and
-fix it.
+**What this tutorial is about.** You write an SVD yourself as one Python function and check
+it. The example is deliberately a method that looks fine at first: it is short, fast and
+correct on ordinary matrices, but it fails on two of the test matrices. You find out why,
+look at the failure in detail, and fix it. That loop (write, check, understand the
+failure, fix) is how you will work on your own methods.
 
-Notebook version: [notebooks/02_write_your_own_svd.ipynb](../../notebooks/02_write_your_own_svd.ipynb).
-Prerequisite: [tutorial 1](01-install-and-first-check.md).
+**You will learn:**
+
+- the exact rules your function has to follow (the *contract*);
+- how to test a function on one matrix before the full check;
+- why a good reconstruction error alone does not prove an SVD is correct;
+- how to look at a failing case: compare with the reference, stop in the debugger;
+- a common way wide matrices are handled (work on the adjoint);
+- how to move from a notebook to a file that the command line checks.
+
+**Before you start:** [tutorial 1](01-install-and-first-check.md), so that the installation
+works and you can read a report line.
+
+**Notebook version:** [notebooks/02_write_your_own_svd.ipynb](../../notebooks/02_write_your_own_svd.ipynb)
+(with a plot of the failure and a cell for your own code).
 
 ## 2.1 The contract
 

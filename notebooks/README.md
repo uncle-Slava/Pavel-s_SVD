@@ -1,6 +1,11 @@
 # Quickstart notebooks
 
-Run them in order; each one matches a [tutorial](../docs/tutorials/README.md).
+Run them in order; each one matches a [tutorial](../docs/tutorials/README.md). If you are new,
+read [Start here](../docs/tutorials/00-start-here.md) first: what svdlab does, the words the
+notebooks use, and which parts of the repository you need.
+
+Each notebook starts with what it is about, what you will learn and the words it uses.
+Before every code cell it says what the cell does and what you should see.
 
 | Notebook | What you do | CPU time |
 | --- | --- | --- |

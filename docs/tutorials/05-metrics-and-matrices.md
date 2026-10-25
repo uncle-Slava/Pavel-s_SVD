@@ -1,10 +1,25 @@
 # Tutorial 5: Read the metrics and test your own matrices
 
-**Goal:** know exactly what every number in a report means and when a case is `ok`, test
-your method on matrices you choose, save the results, and check that a GPU run is
-really a GPU computation.
+**What this tutorial is about.** The report shows a verdict and four short numbers per
+matrix. Behind them are about twenty measurements. This tutorial explains each one, the
+exact rule that decides `ok` or `FAIL`, and what that rule deliberately does not check.
+Then it shows how to build test matrices that target the weak points of your method, how
+to save and analyze results, and what the GPU check adds.
 
-Notebook version: [notebooks/05_metrics_and_matrices.ipynb](../../notebooks/05_metrics_and_matrices.ipynb).
+**You will learn:**
+
+- where the numbers come from and what is (and is not) timed;
+- the formula behind every metric, and when a case counts as `ok`;
+- why the verdict alone may not be enough for your application;
+- how to create test matrices by family, by chosen singular values, or from a file;
+- how to save results and compare methods with pandas;
+- what the GPU check catches that a plain GPU run does not.
+
+**Before you start:** [tutorial 1](01-install-and-first-check.md). This tutorial is also a
+reference: come back to it whenever a number in a report is unclear.
+
+**Notebook version:** [notebooks/05_metrics_and_matrices.ipynb](../../notebooks/05_metrics_and_matrices.ipynb)
+(recomputes the metrics by hand, so you can see there is nothing hidden).
 
 ## 5.1 Where the numbers come from
 

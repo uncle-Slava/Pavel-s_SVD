@@ -40,7 +40,8 @@ python -m svdlab list                                        # builtin methods, 
 `.cpp`/`.cu` files are compiled on first use with `torch.utils.cpp_extension` (no CMake) and
 cached until they change. They need `pip install ninja`, the Python headers (`sudo apt install python3-dev`), a C++ compiler and, for `.cu`, nvcc from the CUDA toolkit.
 
-New here? Follow the [tutorials](docs/tutorials/README.md) and run the matching
+New here? Read [Start here](docs/tutorials/00-start-here.md) (what is what, in ten minutes),
+then follow the [tutorials](docs/tutorials/README.md) and run the matching
 [quickstart notebooks](notebooks/) (CPU is enough; a GPU is used when present).
 
 The [developer guide](docs/DEVELOPER_GUIDE.md) has the function contract, every option,

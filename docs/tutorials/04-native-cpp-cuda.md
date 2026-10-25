@@ -1,11 +1,24 @@
 # Tutorial 4: C++ and CUDA
 
-**Goal:** write an SVD, or one step of one, in C++ or CUDA and check it exactly like a
-Python method. No CMake, no setup.py: one source file and one command.
+**What this tutorial is about.** You write an SVD, or one step of one, in C++ or with your
+own CUDA kernel, and check it exactly like a Python method. You don't need CMake or a
+`setup.py`: one source file and the same `python -m svdlab check` command. `svdlab`
+compiles the file through PyTorch, caches the build, and calls your function with PyTorch
+tensors.
 
-Notebook version: [notebooks/04_native_cpp_cuda.ipynb](../../notebooks/04_native_cpp_cuda.ipynb).
-Prerequisites: [tutorial 1](01-install-and-first-check.md) and the contract from
-[tutorial 2](02-write-your-own-svd.md).
+**You will learn:**
+
+- what needs to be installed, and how to ask `svdlab` what is missing;
+- the C++ form of the function contract;
+- three steps from a toolchain test to a hand-written CUDA kernel;
+- how to call native code from Python and use a C++ function as a step of a recipe;
+- how to fix the usual build problems.
+
+**Before you start:** [tutorial 1](01-install-and-first-check.md) and the contract from
+[tutorial 2](02-write-your-own-svd.md). Basic C++; CUDA only for section 4.6.
+
+**Notebook version:** [notebooks/04_native_cpp_cuda.ipynb](../../notebooks/04_native_cpp_cuda.ipynb)
+(cells that need a missing tool say so and skip).
 
 ## 4.1 How it works
 
