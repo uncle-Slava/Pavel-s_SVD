@@ -32,7 +32,7 @@ python -m svdlab list                                        # builtin methods, 
 | You want to | Start from |
 | --- | --- |
 | Write a whole SVD in Python | [examples/my_svd.py](examples/my_svd.py) |
-| Replace one step (QR, bidiagonalization, small SVD, ...) of an existing SVD | [examples/replace_a_step.py](examples/replace_a_step.py), [svdlab/recipes.py](svdlab/recipes.py), [svdlab/blocks.py](svdlab/blocks.py) |
+| Replace one step (QR, bidiagonalization, small SVD, ...) of an existing SVD | [examples/replace_a_step.py](examples/replace_a_step.py), [examples/lanczos_then_bdsqr.py](examples/lanczos_then_bdsqr.py), [svdlab/recipes.py](svdlab/recipes.py), [svdlab/blocks.py](svdlab/blocks.py) |
 | Write it in C++ (CPU and GPU through ATen) | [examples/native/my_svd.cpp](examples/native/my_svd.cpp) |
 | Write your own CUDA kernel | [examples/native/my_svd.cu](examples/native/my_svd.cu) |
 | Use it from Python or a notebook, with your own matrices | [examples/from_python.py](examples/from_python.py), [my_svd.ipynb](algorithm_laboratory/my_svd.ipynb) |
@@ -61,7 +61,7 @@ checked method fails a case, so the command works in CI.
 
 | Path | What it is |
 | --- | --- |
-| `svdlab/` | The front door: `check`, the command line, `blocks`, `recipes`, `native` |
+| `svdlab/` | The front door: `check`, the command line, `blocks` (QR, Householder and Lanczos bidiagonalization, bdsqr, Jacobi, ...), `recipes` (Golub–Kahan, QR + SVD, randomized, Lanczos, Jacobi), `native` |
 | `examples/` | Templates to copy |
 | `tests/` | `python -m unittest discover -s tests` (`SVD_TEST_DEVICE=cuda` for the GPU) |
 | `svdbench/standalone/` | The 16 repository SVD implementations and their primitives, which `svdlab.blocks` exposes |

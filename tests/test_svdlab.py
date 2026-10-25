@@ -61,7 +61,7 @@ class Blocks(unittest.TestCase):
 
 class Recipes(unittest.TestCase):
     def test_recipes_pass_the_quick_suite(self):
-        for recipe in (recipes.golub_kahan, recipes.qr_then_svd, recipes.randomized, recipes.jacobi):
+        for recipe in (recipes.golub_kahan, recipes.qr_then_svd, recipes.randomized, recipes.lanczos, recipes.jacobi):
             rows = check(recipe, QUICK_SUITE, device=DEVICE, repeat=1, warmup=0, verbose=False)
             self.assertTrue(all(r['ok'] for r in rows), (recipe.__name__, [(r['case'], r['error']) for r in rows]))
 
@@ -74,6 +74,58 @@ class Recipes(unittest.TestCase):
         u, s, vh = recipes.randomized(matrix(30, 20), 5, qr=counting_qr, power_iterations=1)
         self.assertEqual(len(calls), 3)
         self.assertEqual((u.shape, s.shape, vh.shape), ((30, 5), (5,), (5, 20)))
+
+
+class Lanczos(unittest.TestCase):
+    def test_block_gives_orthonormal_bases_and_the_bidiagonal(self):
+        for dtype in (torch.float64, torch.complex128):
+            a = matrix(30, 18, dtype, seed=1)
+            u, alpha, beta, v = blocks.lanczos_bidiagonalize(a, 10)
+            self.assertEqual((u.shape, alpha.shape, beta.shape, v.shape), ((30, 10), (10,), (9,), (18, 10)))
+            eye = torch.eye(10, dtype=dtype, device=DEVICE)
+            self.assertLess(float((u.mH @ u - eye).abs().max()), 1e-12)
+            self.assertLess(float((v.mH @ v - eye).abs().max()), 1e-12)
+            b = (torch.diag(alpha) + torch.diag(beta, 1)).to(dtype)
+            self.assertLess(float((u.mH @ a @ v - b).abs().max() / alpha.abs().max()), 1e-12)
+        u, alpha, beta, v = blocks.lanczos_bidiagonalize(matrix(5, 4), 1)
+        self.assertEqual((u.shape, alpha.shape, beta.shape, v.shape), ((5, 1), (1,), (0,), (4, 1)))
+
+    def test_lanczos_svd_is_built_on_the_block(self):
+        from svdbench.standalone import iterative
+        from svdbench.standalone.solvers import svd as standalone_svd
+        a = matrix(40, 25, seed=3)
+        u, s, v, info = iterative.lanczos_svd(iterative.DenseOperator(a), rank=6)
+        ub, _, _, vb, block_info = iterative.lanczos_bidiagonalize(iterative.DenseOperator(a), info['steps'])
+        vb = torch.cat([vb, block_info['next_v']], 1)
+        core = ub.mH @ (a @ vb)                   # same order as lanczos_svd: matmat first
+        uc, sc, _ = standalone_svd(core, 'jacobi')
+        torch.testing.assert_close(s, sc[:6], rtol=0, atol=0)
+        torch.testing.assert_close(u, ub @ uc[:, :6], rtol=0, atol=0)
+        self.assertEqual(info['breakdown_restarts'], block_info['breakdown_restarts'])
+
+    def test_recipe_low_rank_and_full_rank(self):
+        cases = [dict(name='low_rank', m=90, n=60, family='low_rank', rank=8, tail=1e-7, output_rank=8),
+                 dict(name='gaussian', m=40, n=30, family='gaussian')]
+        rows = check(recipes.lanczos, cases[:1], device=DEVICE, repeat=1, warmup=0, verbose=False)
+        self.assertTrue(rows[0]['ok'], rows[0])
+        full = lambda a, rank: recipes.lanczos(a, rank, steps=min(a.shape))
+        rows = check(full, cases[1:], device=DEVICE, repeat=1, warmup=0, verbose=False)
+        self.assertTrue(rows[0]['ok'], rows[0])
+        u, s, vh = recipes.lanczos(matrix(20, 50), 5)               # wide input through the adjoint
+        self.assertEqual((u.shape, s.shape, vh.shape), ((20, 5), (5,), (5, 50)))
+
+    def test_swapping_the_bidiagonal_svd(self):
+        calls = []
+
+        def torch_bidiagonal_svd(d, e):
+            calls.append(len(d))
+            u, s, vh = torch.linalg.svd(torch.diag(d) + torch.diag(e, 1))
+            return u, s, vh.mT
+        svd = lambda a, rank: recipes.lanczos(a, rank, bidiagonal_svd=torch_bidiagonal_svd)
+        rows = check(svd, [dict(name='low_rank', m=90, n=60, family='low_rank', rank=8, tail=1e-7, output_rank=8)],
+                     device=DEVICE, repeat=1, warmup=0, verbose=False)
+        self.assertTrue(rows[0]['ok'], rows[0])
+        self.assertTrue(calls and all(k == 24 for k in calls))
 
 
 class Files(unittest.TestCase):
