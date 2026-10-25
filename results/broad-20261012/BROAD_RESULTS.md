@@ -1,4 +1,4 @@
-# Larger-matrix SVD benchmark — Hetzner, 12 October 2026
+# Larger-matrix SVD benchmark — RTX PRO 4000 server, 12 October 2026
 
 166 distinct method/matrix comparisons on 14 workload cases, from 169 total attempts. Hardware: NVIDIA RTX PRO 4000 Blackwell SFF Edition; Torch 2.14.1+cu130; CUDA build 13.0.
 

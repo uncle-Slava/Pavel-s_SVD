@@ -1,10 +1,10 @@
 # Algorithm laboratory validation — 12 October 2026
 
-- [Complete Hetzner CUDA suite](hetzner-tests.log): **42 tests passed** in 12.431 s.
-- [Final CUDA laboratory checks](hetzner-laboratory-final.log): **11 tests passed** after adding the stage-summary convenience method.
+- [Complete RTX PRO 4000 server CUDA suite](rtx4000-tests.log): **42 tests passed** in 12.431 s.
+- [Final CUDA laboratory checks](rtx4000-laboratory-final.log): **11 tests passed** after adding the stage-summary convenience method.
 - [Local CPU laboratory tests](cpu-tests.log): **11 tests passed**.
 - [Notebook smoke execution](notebook-smoke.log): every code cell executed on CPU.
-- [GPU workflow smoke tests](hetzner-smoke.log): randomized SVD with power sampling,
+- [GPU workflow smoke tests](rtx4000-smoke.log): randomized SVD with power sampling,
   Jacobi with rotation snapshots, the QR parts bench and a four-trial parameter study.
 - [Custom algorithm starter](custom-starter.log) and [specimen preparation](specimens.log)
   also ran successfully on CPU.
@@ -29,9 +29,9 @@ q = run.tensor(iterations[1]["event_id"], "Q")
 print(run.stage_statistics())
 ```
 
-Larger local demonstrations are in `laboratory_runs/hetzner-jacobi` (375 events),
-`hetzner-parts`, `hetzner-study`, and `specimens` (11 prepared cases). Hetzner's
-copies remain under `/root/svd-standalone-20261011/laboratory_runs/` except the
+Larger local demonstrations are in `laboratory_runs/rtx4000-jacobi` (375 events),
+`rtx4000-parts`, `rtx4000-study`, and `specimens` (11 prepared cases). The RTX PRO 4000 server's
+copies remain under `/srv/svdlab/laboratory_runs/` except the
 specimen collection, which was generated locally. These working folders are
 ignored by Git. The source snapshots in the committed example represent the
 program at measurement time, before the later convenience stage-summary method

@@ -1,0 +1,10 @@
+Saved laboratory run: /srv/svdlab/laboratory_runs/rtx4000-randomized
+Uninstrumented median: 36.4369 ms
+Reconstruction: 0.855194
+Open events.jsonl for every stage/checkpoint, snapshots/ for arrays, and trace.png for plots.
+Saved laboratory run: /srv/svdlab/laboratory_runs/rtx4000-jacobi
+Uninstrumented median: 50.1162 ms
+Reconstruction: 1.16436e-15
+Open events.jsonl for every stage/checkpoint, snapshots/ for arrays, and trace.png for plots.
+Saved independent operation comparisons in /srv/svdlab/laboratory_runs/rtx4000-parts
+Saved 4 trials in /srv/svdlab/laboratory_runs/rtx4000-study (each retains all timing samples and metrics).

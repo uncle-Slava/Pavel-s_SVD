@@ -1,4 +1,4 @@
-# Standalone SVD results — Hetzner, 11 October 2026
+# Standalone SVD results — RTX PRO 4000 server, 11 October 2026
 
 Implemented **16 matrix solver variants** spanning every family in the research table,
 plus rank-one updates, column appends, HOSVD, ST-HOSVD and tensor-train SVD. The standalone
@@ -6,8 +6,8 @@ package uses tensor arithmetic and GEMM; it does not call vendor factorizations.
 implementation details, API, qualifications and rerun commands are in
 [STANDALONE.md](STANDALONE.md).
 
-The work is deployed at `/root/svd-standalone-20261011`. The pre-existing
-`/root/svdbench` project was not changed. The CPU/GPU corpus, raw records, source snapshot,
+The work is deployed at `/srv/svdlab`. The pre-existing
+`/srv/gpubench` project was not changed. The CPU/GPU corpus, raw records, source snapshot,
 test logs, review CSVs, telemetry and plot are also saved in the local project.
 
 ## What was measured
@@ -16,8 +16,8 @@ test logs, review CSVs, telemetry and plot are also saved in the local project.
 - **65 CPU matrix comparisons:** 60 standalone runs and five framework controls.
 - **10 GPU application benchmarks:** nine standalone update/sparse/tensor workloads and
   one vendor recomputation control.
-- **22 test methods**, with many shape/dtype/algorithm subcases, pass locally and on Hetzner;
-  the standalone tests use CUDA on Hetzner. Tests independently compare with SciPy,
+- **22 test methods**, with many shape/dtype/algorithm subcases, pass locally and on the RTX PRO 4000 server;
+  the standalone tests use CUDA on the RTX PRO 4000 server. Tests independently compare with SciPy,
   check null bases, extreme scales, repeated poles, recursive merges, convergence failures,
   matrix-free callbacks, updates and tensor reconstruction. The factorization-call guard
   also passes.
@@ -94,7 +94,7 @@ requested rank match, but the sketch generators differ; do not infer identical o
 sequences or numerical errors from these times.
 
 CPU controls reinforce the dispatch limitation. Standalone 32×32 Jacobi takes **24.645 ms**
-on the Hetzner CPU versus **71.050 ms** on its GPU. The CPU framework SVD control takes
+on the RTX PRO 4000 server CPU versus **71.050 ms** on its GPU. The CPU framework SVD control takes
 **0.096 ms**. A large accelerator is not useful when thousands of very small operations are
 launched individually.
 

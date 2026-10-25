@@ -7,7 +7,7 @@
   },
   "assessments": [
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "square256_fp32",
         "m": 256,
@@ -22,7 +22,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "square256_fp32",
         "m": 256,
@@ -37,7 +37,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "square256_fp32",
         "m": 256,
@@ -52,7 +52,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "square256_fp32",
         "m": 256,
@@ -67,7 +67,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "square256_fp32",
         "m": 256,
@@ -88,7 +88,7 @@
       ]
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "square256_fp32",
         "m": 256,
@@ -103,7 +103,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "square512_fp32",
         "m": 512,
@@ -118,7 +118,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "square512_fp32",
         "m": 512,
@@ -133,7 +133,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "square512_fp32",
         "m": 512,
@@ -148,7 +148,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "square512_fp32",
         "m": 512,
@@ -163,7 +163,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "square512_fp32",
         "m": 512,
@@ -184,7 +184,7 @@
       ]
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "square512_fp32",
         "m": 512,
@@ -201,7 +201,7 @@
       ]
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "square1024_fp32",
         "m": 1024,
@@ -216,7 +216,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "square1024_fp32",
         "m": 1024,
@@ -231,7 +231,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "square1024_fp32",
         "m": 1024,
@@ -246,7 +246,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "square1024_fp32",
         "m": 1024,
@@ -261,7 +261,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "square1024_fp32",
         "m": 1024,
@@ -282,7 +282,7 @@
       ]
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "square1024_fp32",
         "m": 1024,
@@ -299,7 +299,7 @@
       ]
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "tall4096x256_fp32",
         "m": 4096,
@@ -314,7 +314,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "tall4096x256_fp32",
         "m": 4096,
@@ -329,7 +329,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "tall4096x256_fp32",
         "m": 4096,
@@ -344,7 +344,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "tall4096x256_fp32",
         "m": 4096,
@@ -359,7 +359,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "tall4096x256_fp32",
         "m": 4096,
@@ -380,7 +380,7 @@
       ]
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "tall4096x256_fp32",
         "m": 4096,
@@ -395,7 +395,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "wide256x4096_fp32",
         "m": 256,
@@ -410,7 +410,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "wide256x4096_fp32",
         "m": 256,
@@ -425,7 +425,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "wide256x4096_fp32",
         "m": 256,
@@ -440,7 +440,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "wide256x4096_fp32",
         "m": 256,
@@ -455,7 +455,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "wide256x4096_fp32",
         "m": 256,
@@ -476,7 +476,7 @@
       ]
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "wide256x4096_fp32",
         "m": 256,
@@ -491,7 +491,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "lowrank1024_k32",
         "m": 1024,
@@ -508,7 +508,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "lowrank1024_k32",
         "m": 1024,
@@ -525,7 +525,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "lowrank1024_k32",
         "m": 1024,
@@ -542,7 +542,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "lowrank1024_k32",
         "m": 1024,
@@ -559,7 +559,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "lowrank1024_k32",
         "m": 1024,
@@ -579,7 +579,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "lowrank1024_k32",
         "m": 1024,
@@ -598,7 +598,7 @@
       ]
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "ill256_fp32",
         "m": 256,
@@ -614,7 +614,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "ill256_fp32",
         "m": 256,
@@ -630,7 +630,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "ill256_fp32",
         "m": 256,
@@ -646,7 +646,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "ill256_fp32",
         "m": 256,
@@ -662,7 +662,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "ill256_fp32",
         "m": 256,
@@ -683,7 +683,7 @@
       ]
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "ill256_fp32",
         "m": 256,
@@ -701,7 +701,7 @@
       ]
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "ill256_fp64",
         "m": 256,
@@ -717,7 +717,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "ill256_fp64",
         "m": 256,
@@ -733,7 +733,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "ill256_fp64",
         "m": 256,
@@ -751,7 +751,7 @@
       ]
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "ill256_fp64",
         "m": 256,
@@ -767,7 +767,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "ill256_fp64",
         "m": 256,
@@ -788,7 +788,7 @@
       ]
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "ill256_fp64",
         "m": 256,
@@ -806,7 +806,7 @@
       ]
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "cluster256",
         "m": 256,
@@ -821,7 +821,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "cluster256",
         "m": 256,
@@ -836,7 +836,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "cluster256",
         "m": 256,
@@ -851,7 +851,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "cluster256",
         "m": 256,
@@ -866,7 +866,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "cluster256",
         "m": 256,
@@ -887,7 +887,7 @@
       ]
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "cluster256",
         "m": 256,
@@ -904,7 +904,7 @@
       ]
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "rank_deficient256",
         "m": 256,
@@ -921,7 +921,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "rank_deficient256",
         "m": 256,
@@ -938,7 +938,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "rank_deficient256",
         "m": 256,
@@ -957,7 +957,7 @@
       ]
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "rank_deficient256",
         "m": 256,
@@ -974,7 +974,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "rank_deficient256",
         "m": 256,
@@ -994,7 +994,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "rank_deficient256",
         "m": 256,
@@ -1013,7 +1013,7 @@
       ]
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "batch64x32",
         "m": 32,
@@ -1043,7 +1043,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "batch64x32",
         "m": 32,
@@ -1073,7 +1073,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "batch64x32",
         "m": 32,
@@ -1103,7 +1103,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "batch64x32",
         "m": 32,
@@ -1135,7 +1135,7 @@
       ]
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "batch16x64",
         "m": 64,
@@ -1168,7 +1168,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "batch16x64",
         "m": 64,
@@ -1201,7 +1201,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "batch16x64",
         "m": 64,
@@ -1234,7 +1234,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "batch16x64",
         "m": 64,
@@ -1273,7 +1273,7 @@
       ]
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "complex256",
         "m": 256,
@@ -1299,7 +1299,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "complex256",
         "m": 256,
@@ -1325,7 +1325,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "complex256",
         "m": 256,
@@ -1351,7 +1351,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "output_modes",
         "m": 512,
@@ -1393,7 +1393,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "output_modes",
         "m": 512,
@@ -1435,7 +1435,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "output_modes",
         "m": 512,
@@ -1481,7 +1481,7 @@
       ]
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "output_modes",
         "m": 512,
@@ -1523,7 +1523,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "output_modes",
         "m": 512,
@@ -1565,7 +1565,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-pilot.jsonl",
+      "run": "results/rtx4000-pilot.jsonl",
       "case": {
         "name": "output_modes",
         "m": 512,
@@ -1611,7 +1611,7 @@
       ]
     },
     {
-      "run": "results/hetzner-native.jsonl",
+      "run": "results/rtx4000-native.jsonl",
       "case": {
         "name": "square512_fp32",
         "m": 512,
@@ -1626,7 +1626,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-native.jsonl",
+      "run": "results/rtx4000-native.jsonl",
       "case": {
         "name": "square512_fp32",
         "m": 512,
@@ -1645,7 +1645,7 @@
       ]
     },
     {
-      "run": "results/hetzner-native.jsonl",
+      "run": "results/rtx4000-native.jsonl",
       "case": {
         "name": "square512_fp32",
         "m": 512,
@@ -1667,7 +1667,7 @@
       ]
     },
     {
-      "run": "results/hetzner-native.jsonl",
+      "run": "results/rtx4000-native.jsonl",
       "case": {
         "name": "lowrank1024_k32",
         "m": 1024,
@@ -1684,7 +1684,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-native.jsonl",
+      "run": "results/rtx4000-native.jsonl",
       "case": {
         "name": "lowrank1024_k32",
         "m": 1024,
@@ -1705,7 +1705,7 @@
       ]
     },
     {
-      "run": "results/hetzner-native.jsonl",
+      "run": "results/rtx4000-native.jsonl",
       "case": {
         "name": "lowrank1024_k32",
         "m": 1024,
@@ -1726,7 +1726,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-native.jsonl",
+      "run": "results/rtx4000-native.jsonl",
       "case": {
         "name": "ill256_fp32",
         "m": 256,
@@ -1742,7 +1742,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-native.jsonl",
+      "run": "results/rtx4000-native.jsonl",
       "case": {
         "name": "ill256_fp32",
         "m": 256,
@@ -1762,7 +1762,7 @@
       ]
     },
     {
-      "run": "results/hetzner-native.jsonl",
+      "run": "results/rtx4000-native.jsonl",
       "case": {
         "name": "ill256_fp32",
         "m": 256,
@@ -1784,7 +1784,7 @@
       ]
     },
     {
-      "run": "results/hetzner-native.jsonl",
+      "run": "results/rtx4000-native.jsonl",
       "case": {
         "name": "complex256",
         "m": 256,
@@ -1799,7 +1799,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-native.jsonl",
+      "run": "results/rtx4000-native.jsonl",
       "case": {
         "name": "complex256",
         "m": 256,
@@ -1815,7 +1815,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-native.jsonl",
+      "run": "results/rtx4000-native.jsonl",
       "case": {
         "name": "complex256",
         "m": 256,
@@ -1837,7 +1837,7 @@
       ]
     },
     {
-      "run": "results/hetzner-native.jsonl",
+      "run": "results/rtx4000-native.jsonl",
       "case": {
         "name": "batch64x32",
         "m": 32,
@@ -1866,7 +1866,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-native.jsonl",
+      "run": "results/rtx4000-native.jsonl",
       "case": {
         "name": "batch64x32",
         "m": 32,
@@ -1896,7 +1896,7 @@
       "reasons": []
     },
     {
-      "run": "results/hetzner-native.jsonl",
+      "run": "results/rtx4000-native.jsonl",
       "case": {
         "name": "batch64x32",
         "m": 32,

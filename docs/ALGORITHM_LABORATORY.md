@@ -228,20 +228,17 @@ Energy is gross device energy with no idle subtraction. Sensor averaging, other
 processes and sampling overhead matter. It is **not** per-iteration energy. The
 existing `tools/run_monitored.py` remains available for the main benchmark CLI.
 
-## Hetzner
+## Remote GPU machine
 
-The laboratory is deployed in `/root/svd-standalone-20261011`. Use its established
-CUDA Python, not the CPU-only `.venv` in that checkout:
+On a GPU machine, install the package in an environment with a CUDA/ROCm PyTorch build
+and run the same command with a GPU device:
 
 ```bash
-cd /root/svd-standalone-20261011
-PYTHONPATH=/root/svd-research-20261011/vendor \
-  /root/svdbench/.venv/bin/python -m algorithm_laboratory.experiment \
+python -m algorithm_laboratory.experiment \
   --device cuda:0 --algorithm randomized --output laboratory_runs/my-gpu-change
 ```
 
-The laptop path is `/Users/paveluydanov/Sources/SVD`. Edit locally and sync the
-relevant Python files to Hetzner before running; see the existing
-[local-to-GPU workflow](PLAYGROUND.md). This laboratory has been tested on CPU and
+To edit on a laptop and run on the GPU machine, sync the changed Python files first; see
+the [local-to-GPU workflow](PLAYGROUND.md). This laboratory has been tested on CPU and
 NVIDIA CUDA. ROCm uses the portable Torch paths but remains untested on AMD hardware.
 Ascend timing/tracing and power instrumentation are not implemented here.

@@ -29,7 +29,7 @@ case/method ID without deleting earlier attempts. Use a new ID for a new paramet
 setting. A fresh baseline with the binding present will not have the original
 setup failures; its three repeated native calls are retained the same way.
 
-Run from the checkout root, including `references/hetzner-cusolver_direct.py`,
+Run from the checkout root, including `references/cusolver_direct.py`,
 to enable the native controls. The source installation and vendor library must
 support the requested routines. The standalone package can run elsewhere, but
 this larger suite intentionally targets NVIDIA CUDA and explicit cuSOLVER paths.
@@ -42,7 +42,7 @@ records software, GPU, CPU, TF32 settings and a source fingerprint. Reference fi
 are cached only within that new experiment. The runner creates a fresh process for
 each algorithm, releasing its GPU allocations before the next method.
 
-Allow exclusive GPU access. The Hetzner run temporarily stops the idle playground
+Allow exclusive GPU access. The RTX PRO 4000 server run temporarily stops the idle playground
 service and restarts it afterward; the Python runner itself does not manage services.
 Ordinary benchmarking does not require root. Avoid editing source during a run.
 

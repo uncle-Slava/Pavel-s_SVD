@@ -2,4 +2,4 @@ usage: __main__.py [-h] [--config CONFIG] [--device DEVICE] [--output OUTPUT]
                    [--corpus CORPUS] [--generate-only] [--warmup WARMUP]
                    [--repeat REPEAT] [--threads THREADS] [--end-to-end]
                    [--allow-unverified-npu] [--only [ONLY ...]]
-__main__.py: error: unrecognized arguments: -- --config configs/standalone.json --device cuda --output results/standalone-hetzner.jsonl --corpus corpus/standalone --warmup 1 --repeat 3
+__main__.py: error: unrecognized arguments: -- --config configs/standalone.json --device cuda --output results/standalone-rtx4000.jsonl --corpus corpus/standalone --warmup 1 --repeat 3

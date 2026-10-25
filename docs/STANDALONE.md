@@ -7,10 +7,10 @@ reductions, indexing and elementwise operations. **The standalone package never 
 vendor SVD, QR, eigensolver, Cholesky, triangular solve or inverse.** Matrix multiplication
 can still use the framework's BLAS backend. It is not an implementation of PyTorch itself.
 
-The production code is in `svdbench/standalone/` and does not import the older Hetzner
+The production code is in `svdbench/standalone/` and does not import the earlier internal
 project. NumPy/SciPy are used outside it for input generation and independent validation.
-There are no compiled extensions to build. The existing `/root/svdbench` project is unchanged.
-The new deployment is `/root/svd-standalone-20261011`.
+There are no compiled extensions to build. The existing `/srv/gpubench` project is unchanged.
+The new deployment is `/srv/svdlab`.
 
 ## Implementations
 
@@ -107,14 +107,14 @@ cores, info = tensor_train(X, [3, 3])
 X_approx = tensor_train_reconstruct(cores)
 ```
 
-## Reproducing the Hetzner run
+## Reproducing the RTX PRO 4000 server run
 
 The existing Python environment supplies the runtime. Nothing needs to be installed globally:
 
 ```bash
-cd /root/svd-standalone-20261011
-export PYTHONPATH=/root/svd-research-20261011/vendor
-PY=/root/svdbench/.venv/bin/python
+cd /srv/svdlab
+export PYTHONPATH=/srv/svd-research/vendor
+PY=/srv/gpubench/.venv/bin/python
 
 SVD_TEST_DEVICE=cuda "$PY" -m unittest discover -s tests -v
 "$PY" tools/run_monitored.py --telemetry results/my-telemetry.csv \
@@ -179,8 +179,8 @@ Python-to-CUDA/HIP/Ascend C translator or tested native ports.
 
 ## Provenance
 
-`primitives.py` started from the user-owned Hetzner file
-`/root/svdbench/gpubench/custom/linalg.py`, read on 11 October 2026. Changes include reduced
+`primitives.py` started from a file from an earlier internal project,
+`/srv/gpubench/gpubench/custom/linalg.py`, read on 11 October 2026. Changes include reduced
 Householder accumulation to avoid an m-by-m temporary, dtype-safe denominators, a singleton
 QR-solver path, zero-shift initialization, explicit iteration failure, stable hypot-based
 rotations, numerical-null detection, basis completion, and corrected Jacobi stopping tests.
