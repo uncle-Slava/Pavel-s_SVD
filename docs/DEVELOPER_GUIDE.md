@@ -63,6 +63,7 @@ implementations (no vendor factorization), run on CPU and GPU, real and complex:
 | `qr(a)` | Householder QR of a tall matrix: `Q (m, n)`, `R (n, n)` |
 | `torch_qr(a)` | The same from the library, as a control |
 | `bidiagonalize(a)` | `Q, d, e, P` with `a = Q B Pᴴ`, B upper bidiagonal (real d, e) |
+| `lanczos_bidiagonalize(a, steps)` | `U, alpha, beta, V` with `k = steps` columns and `Uᴴ a V = B`; only products with a, leading values converge first |
 | `bidiagonal_svd(d, e)` | `U, s, V` with `B = U diag(s) Vᵀ` (implicit-shift QR, bdsqr) |
 | `jacobi_svd(a, rank)` | One-sided Jacobi SVD of any matrix: `U, s, Vh` |
 | `tridiagonalize(h)` | `Q, d, e` with Hermitian `h = Q T Qᴴ` |
@@ -80,6 +81,7 @@ implementations (no vendor factorization), run on CPU and GPU, real and complex:
 recipes.golub_kahan(a, rank, bidiagonalize=..., bidiagonal_svd=...)
 recipes.qr_then_svd(a, rank, qr=..., small_svd=...)
 recipes.randomized(a, rank, oversample=8, power_iterations=2, seed=0, sketch=..., qr=..., small_svd=...)
+recipes.lanczos(a, rank, steps=None, seed=0, bidiagonalize=..., bidiagonal_svd=...)
 recipes.jacobi(a, rank)
 ```
 
@@ -87,6 +89,12 @@ Your replacement keeps the contract of the block it replaces. Wide matrices are
 factorized through the adjoint, so tall-only steps never see a wide input. Example:
 [examples/replace_a_step.py](../examples/replace_a_step.py) puts CholeskyQR2 inside
 randomized SVD; the check then shows where that trade-off breaks.
+[examples/lanczos_then_bdsqr.py](../examples/lanczos_then_bdsqr.py) keeps the Lanczos
+bidiagonalization and replaces the bidiagonal SVD.
+
+`recipes.lanczos` uses `steps = min(m, n, 2·rank + 8)` by default. The leading triplets
+are accurate when the spectrum decays or has a gap after σ_rank; a flat spectrum needs
+more steps, and `steps = min(m, n)` gives a full SVD.
 
 ## 4. C++ and CUDA
 

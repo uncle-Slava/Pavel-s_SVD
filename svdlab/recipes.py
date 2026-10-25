@@ -19,9 +19,9 @@ import torch
 from . import blocks
 
 
-def _adjoint_if_wide(recipe, a, rank, **steps):
+def _adjoint_if_wide(recipe, a, rank, **options):
     if a.shape[0] < a.shape[1]:
-        u, s, vh = recipe(a.mH, rank, **steps)
+        u, s, vh = recipe(a.mH, rank, **options)
         return vh.mH, s, u.mH
     return None
 
@@ -63,9 +63,31 @@ def randomized(a, rank, *, oversample=8, power_iterations=2, seed=0,
     return (q @ u)[:, :rank], s[:rank], vh[:rank]
 
 
+def lanczos(a, rank, *, steps=None, seed=0, bidiagonalize=blocks.lanczos_bidiagonalize,
+            bidiagonal_svd=blocks.bidiagonal_svd):
+    """Lanczos bidiagonalization a ≈ U B Vᴴ with k = steps columns, then B = Ub diag(s) Vbᵀ
+    (bidiagonal_svd) and U_a = U Ub, V_a = V Vb, truncated to rank.
+
+    steps defaults to min(m, n, 2·rank + 8). Accuracy of the leading triplets depends on
+    steps and on the gap after σ_rank: a fast-decaying or gapped spectrum converges in a few
+    steps, a flat one needs steps close to min(m, n); steps = min(m, n) gives a full SVD.
+    """
+    flipped = _adjoint_if_wide(lanczos, a, rank, steps=steps, seed=seed, bidiagonalize=bidiagonalize,
+                               bidiagonal_svd=bidiagonal_svd)
+    if flipped:
+        return flipped
+    steps = min(*a.shape, 2 * rank + 8) if steps is None else steps
+    if not rank <= steps <= min(a.shape):
+        raise ValueError(f'steps must be between rank={rank} and min(m, n)={min(a.shape)}; got {steps}')
+    u, alpha, beta, v = bidiagonalize(a, steps, seed=seed)
+    ub, s, vb = bidiagonal_svd(alpha, beta)
+    u, v = u @ ub.to(a.dtype), v @ vb.to(a.dtype)
+    return u[:, :rank], s[:rank], v[:, :rank].mH
+
+
 def jacobi(a, rank=None):
     """One-sided Jacobi on the whole matrix: slow but accurate, a good reference."""
     return blocks.jacobi_svd(a, rank)
 
 
-__all__ = ['golub_kahan', 'qr_then_svd', 'randomized', 'jacobi']
+__all__ = ['golub_kahan', 'qr_then_svd', 'randomized', 'lanczos', 'jacobi']

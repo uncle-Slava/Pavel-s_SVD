@@ -7,6 +7,7 @@ real and complex. `torch_*` versions call the library and are useful as a contro
     from svdlab import blocks
     q, r = blocks.qr(a)                    # replace with your own QR, keep the rest
     q, d, e, p = blocks.bidiagonalize(a)   # a = q @ B @ p^H, B bidiagonal(d, e)
+    u, d, e, v = blocks.lanczos_bidiagonalize(a, steps=20)   # first 20 columns of the same, via products
     u, s, v = blocks.bidiagonal_svd(d, e)  # B = u @ diag(s) @ v^T
 
 `svdlab.recipes` assembles these into complete SVDs whose steps you can swap.
@@ -14,6 +15,7 @@ real and complex. `torch_*` versions call the library and are useful as a contro
 import torch
 from svdbench.standalone import primitives as P
 from svdbench.standalone import svd as _standalone_svd
+from svdbench.standalone.iterative import DenseOperator, lanczos_bidiagonalize as _lanczos
 from svdbench.standalone.solvers import ALGORITHMS
 
 
@@ -55,6 +57,19 @@ def bidiagonal_svd(d, e, max_iter=None, tol=None):
 def jacobi_svd(a, rank=None, max_sweeps=60, tol=None):
     """One-sided Jacobi SVD of any matrix: U (m, k), s (k,), Vh (k, n), k = rank or min(m, n)."""
     return svd(a, 'jacobi', rank, max_sweeps=max_sweeps, tol=tol)
+
+
+def lanczos_bidiagonalize(a, steps, seed=0):
+    """Golub–Kahan–Lanczos with full reorthogonalization, from a random start vector.
+
+    Returns U (m, k), alpha (k,), beta (k-1,), V (n, k) with k = steps and Uᴴ a V = B,
+    B upper bidiagonal (real diagonal alpha, superdiagonal beta). Unlike `bidiagonalize`
+    it touches a only through products a @ x and aᴴ @ y, and its leading singular values
+    converge first, so a few steps approximate the top of the spectrum.
+    """
+    scale = a.abs().max().clamp_min(torch.finfo(a.real.dtype).tiny)
+    u, alpha, beta, v, _ = _lanczos(DenseOperator(a / scale), steps, seed)
+    return u, alpha * scale, beta * scale, v
 
 
 def tridiagonalize(h):
@@ -114,6 +129,6 @@ def torch_svd(a, rank=None):
     return u[:, :k], s[:k], vh[:k]
 
 
-__all__ = ['ALGORITHMS', 'qr', 'torch_qr', 'bidiagonalize', 'bidiagonal_svd', 'jacobi_svd', 'tridiagonalize',
+__all__ = ['ALGORITHMS', 'qr', 'torch_qr', 'bidiagonalize', 'lanczos_bidiagonalize', 'bidiagonal_svd', 'jacobi_svd', 'tridiagonalize',
            'hermitian_eig', 'cholesky', 'solve_lower', 'solve_upper', 'random_sketch', 'complete_basis',
            'svd', 'torch_svd']
