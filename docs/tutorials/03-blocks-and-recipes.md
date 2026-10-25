@@ -1,28 +1,55 @@
 # Tutorial 3: Build an SVD from blocks and recipes
 
-**Goal:** improve or study one step of an SVD (the QR, the bidiagonalization, the small
-SVD at the end, ...) without rewriting the rest of the algorithm.
+**What this tutorial is about.** Most SVD algorithms are a chain of a few standard steps:
+reduce the matrix to a simpler form (a QR factorization, a bidiagonal matrix), solve the
+small or simple problem, and map the result back. Often you only want to improve one of
+those steps, for example a faster QR on the GPU, and keep the rest. `svdlab` gives you the
+steps (*blocks*) and complete algorithms built from them (*recipes*), in which each step is
+a parameter you can replace.
 
-Notebook version: [notebooks/03_blocks_and_recipes.ipynb](../../notebooks/03_blocks_and_recipes.ipynb).
-Prerequisite: [tutorial 1](01-install-and-first-check.md); [tutorial 2](02-write-your-own-svd.md)
+**You will learn:**
+
+- which blocks exist and what each one takes and returns;
+- how the five recipes are put together, and what each is good for;
+- how to plug your own step into a recipe, and how the check shows its trade-offs;
+- how to find the slowest step of an algorithm by swapping in library versions;
+- how to tune a recipe's parameters, and how to write a new chain of blocks;
+- how the Lanczos block works with products only, and how many steps it needs.
+
+**Before you start:** [tutorial 1](01-install-and-first-check.md). [Tutorial 2](02-write-your-own-svd.md)
 explains the `svd(a, rank)` contract used here.
+
+**Notebook version:** [notebooks/03_blocks_and_recipes.ipynb](../../notebooks/03_blocks_and_recipes.ipynb)
+(with a cell for your own QR).
 
 ## 3.1 Two layers: blocks and recipes
 
-Most SVD algorithms are a chain of a few standard steps. `svdlab` exposes both levels:
+`svdlab` exposes both levels:
 
 - **`svdlab.blocks`**: the individual steps, one matrix at a time. They are this
-  repository's own implementations built from tensor arithmetic and matrix products, so
-  you can read them and they run unchanged on CPU and GPU, real and complex.
-- **`svdlab.recipes`**: complete SVDs assembled from blocks. Every step is a keyword
-  argument, so you can replace any one of them with your own function.
+  repository's own implementations built from tensor arithmetic and matrix products. You
+  can read them, and they run unchanged on CPU and GPU, real and complex.
+- **`svdlab.recipes`**: complete SVDs assembled from blocks. Every recipe is itself a
+  method (it has the `svd(a, rank)` signature), and every step is a keyword argument, so
+  you can replace any one step with your own function.
 
 ```text
 recipes.golub_kahan   a ──bidiagonalize──► Q, B, P ──bidiagonal_svd──► U_B, s, V_B ──► U = Q U_B, V = P V_B
 recipes.qr_then_svd   a ──qr──► Q, R ──small_svd(R)──► U_R, s, Vh ──► U = Q U_R
 recipes.randomized    a ──sketch──► A Ω ──qr──► Q ──(power iterations: qr)──► Q ──small_svd(Qᴴ A)──► U = Q U_small
+recipes.lanczos       a ──lanczos_bidiagonalize (k steps)──► U, B, V ──bidiagonal_svd──► U U_B, V V_B
 recipes.jacobi        a ──jacobi_svd──► U, s, Vh
 ```
+
+What the recipes do, in words:
+
+| Recipe | Idea | Good for | Replaceable steps |
+| --- | --- | --- | --- |
+| `golub_kahan` | The textbook dense SVD (LAPACK's `gesvd` works this way): Householder reflections reduce A to a bidiagonal matrix B, then an iterative QR method diagonalizes B | full SVDs of dense matrices | `bidiagonalize`, `bidiagonal_svd` |
+| `qr_then_svd` | First A = Q R. R is only n × n, so its SVD is cheaper; then U = Q U_R | tall matrices (m much larger than n) | `qr`, `small_svd` |
+| `randomized` | Multiply A by a random matrix Ω to find a basis Q of its dominant columns, sharpen it with power iterations, then take the SVD of the small matrix Qᴴ A | the top few triplets of a large matrix whose singular values decay | `sketch`, `qr`, `small_svd`, and the parameters `oversample`, `power_iterations`, `seed` |
+| `lanczos` | Build B one column at a time using only products A x and Aᴴ y; the largest singular values of B converge to those of A first | the top triplets, and matrices you only have as a product (sparse, implicit) | `bidiagonalize` (the Lanczos block), `bidiagonal_svd`, and `steps`, `seed` |
+| `jacobi` | Rotate pairs of columns until all are orthogonal | small matrices, highest accuracy, a reference | none |
 
 ## 3.2 The blocks
 
@@ -31,6 +58,7 @@ recipes.jacobi        a ──jacobi_svd──► U, s, Vh
 | `qr(a)` | tall `(m, n)` | `Q (m, n)` orthonormal, `R (n, n)` upper triangular (Householder) |
 | `torch_qr(a)` | tall `(m, n)` | the same from the library (LAPACK / cuSOLVER), as a control |
 | `bidiagonalize(a)` | tall `(m, n)` | `Q (m, n)`, `d (n,)`, `e (n-1,)`, `P (n, n)` with `a = Q B Pᴴ`; `B` has the real diagonal `d` and superdiagonal `e` |
+| `lanczos_bidiagonalize(a, steps, seed=0)` | tall `(m, n)`, `steps <= n` | `U (m, k)`, `d (k,)`, `e (k-1,)`, `V (n, k)` with `Uᴴ a V = B`, k = steps; uses `a` only through products, the top singular values of B converge first |
 | `bidiagonal_svd(d, e)` | real `d`, `e` | `U, s, V` with `B = U diag(s) Vᵀ` (implicit-shift QR, LAPACK's bdsqr). Note: `V`, not `Vh` |
 | `jacobi_svd(a, rank=None)` | any `(m, n)` | `U, s, Vh` (one-sided Jacobi) |
 | `tridiagonalize(h)` | Hermitian `(n, n)` | `Q, d, e` with `h = Q T Qᴴ` |
@@ -200,7 +228,50 @@ def svd(a, rank):
 (`bidiagonal_svd` returns real `U` and `V`; `.to(x.dtype)` makes them complex when the
 input is complex.)
 
-## 3.7 The 16 repository SVDs
+## 3.7 Lanczos: a step that only needs products with A
+
+`blocks.lanczos_bidiagonalize(a, steps)` builds the bidiagonal matrix one column at a
+time, and it touches `a` only through the products `a @ x` and `aᴴ @ y`. Its largest
+singular values converge first, so a few steps give the top of the spectrum.
+`recipes.lanczos` runs it and then solves the small bidiagonal problem with
+`bidiagonal_svd`, which you can replace. [examples/lanczos_then_bdsqr.py](../../examples/lanczos_then_bdsqr.py)
+plugs in the library SVD for that last step:
+
+```python
+import torch
+from svdlab import recipes
+
+def my_bdsqr(d, e):
+    """Same contract as svdlab.blocks.bidiagonal_svd: B = U diag(s) Vᵀ, s descending."""
+    u, s, vh = torch.linalg.svd(torch.diag(d) + torch.diag(e, 1))
+    return u, s, vh.mT
+
+def svd(a, rank):
+    return recipes.lanczos(a, rank, bidiagonal_svd=my_bdsqr)
+```
+
+```bash
+python -m svdlab check examples/lanczos_then_bdsqr.py --quick --compare svdlab.recipes:lanczos
+```
+
+```text
+lanczos_then_bdsqr: 6/6 ok, total median 22.354 ms
+recipes.lanczos: 6/6 ok, total median 2058.092 ms
+```
+
+The number of steps (default `min(m, n, 2·rank + 8)`) is the accuracy knob. On the two
+rank-10 problems of section 3.5:
+
+| `steps` | `low_rank_k10` | `slow_decay` |
+| --- | --- | --- |
+| 12 | ok, tail× 1.00 | **FAIL**, tail× 1.13, a top value up to 61 % off |
+| 28 (default) | ok, tail× 1.00 | ok, tail× 1.00, σ-rel 4e-5 |
+| 60 | ok, tail× 1.00 | ok, tail× 1.00, σ-rel 3e-15 |
+
+A clear gap after σ₁₀ (the low-rank matrix) needs very few steps. A slowly decaying
+spectrum needs more, and in exchange it costs more time.
+
+## 3.8 The 16 repository SVDs
 
 `blocks.svd(a, algorithm)` and the builtin method names give access to the complete SVDs
 in `svdbench/standalone`: `bidiag_qr, bidiag_dc, jacobi, block_jacobi, qr, tsqr,

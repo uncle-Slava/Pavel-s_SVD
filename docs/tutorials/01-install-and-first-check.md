@@ -1,9 +1,23 @@
 # Tutorial 1: Install and run your first check
 
-**Goal:** by the end you have a working environment, you have run a complete SVD through
-`svdlab`, and you can read one line of its report.
+**What this tutorial is about.** You set up a Python environment, install `svdlab`, and run
+a complete SVD that ships with the repository through the checker. Then you go through
+its report line by line. You don't write any code yet. The point is to see what the tool
+does and to make sure everything works on your machine.
 
-Notebook version: [notebooks/01_quickstart.ipynb](../../notebooks/01_quickstart.ipynb).
+**You will learn:**
+
+- how to install PyTorch and `svdlab` (CPU only, or with a GPU);
+- what happens when you run `python -m svdlab check`;
+- how to read a report line: verdict, time, and the four error numbers;
+- why some correct results still show large errors;
+- how to compare with reference methods, run on a GPU and use the exit code in scripts.
+
+**Before you start:** if the words *method*, *case*, *verdict* or *reference* are new, read
+[Start here](00-start-here.md) first (10 minutes).
+
+**Notebook version:** [notebooks/01_quickstart.ipynb](../../notebooks/01_quickstart.ipynb)
+runs the same steps from Python.
 
 ## 1.1 What svdlab does
 
