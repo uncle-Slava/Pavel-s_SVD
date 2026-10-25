@@ -295,9 +295,14 @@ def gpu_check(svd, cases=DEFAULT_SUITE, *, device='cuda:0', name=None, **options
 
 
 def table(rows):
-    """pandas DataFrame when pandas is installed (pip install -e '.[laboratory]')."""
+    """pandas DataFrame when pandas is installed (pip install -e '.[laboratory]').
+
+    Rows of check/compare and of gpu_check both work: the known columns come first, in
+    COLUMNS order, then every other key of the rows.
+    """
     import pandas as pd
     columns = [c for c in COLUMNS if any(c in r for r in rows)]
+    columns += [k for k in dict.fromkeys(k for r in rows for k in r) if k not in columns]
     return pd.DataFrame(rows, columns=columns or None)
 
 
