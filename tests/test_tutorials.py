@@ -3,9 +3,11 @@
 Notebook execution takes a few minutes and needs nbclient and ipykernel, so it is opt-in:
     SVDLAB_TEST_NOTEBOOKS=1 python -m unittest tests.test_tutorials -v
 """
+import importlib.util
 import os
 from pathlib import Path
 import unittest
+from unittest import mock
 import torch
 from svdlab import check, native
 from svdlab.scorecard import QUICK_SUITE, load_file
@@ -35,6 +37,21 @@ class Examples(unittest.TestCase):
         q, r = native.build(path).qr(torch.randn(7, 4, dtype=torch.float64, device=DEVICE))
         self.assertEqual(tuple(q.shape), (7, 4))
         self.assertTrue(torch.allclose(r, r.triu()))
+
+
+class Tables(unittest.TestCase):
+    @unittest.skipIf(importlib.util.find_spec('pandas') is None, 'needs pandas')
+    def test_table_keeps_the_gpu_check_columns(self):
+        """The notebooks select passed/cpu_ok/gpu_ok/speedup from table(gpu_check(...))."""
+        from svdlab import gpu_check, table
+        device = DEVICE if DEVICE.startswith('cuda') else 'cpu'
+        with mock.patch('torch.cuda.is_available', return_value=True):   # gpu_check on two CPU runs
+            rows = gpu_check('torch', QUICK_SUITE[:2], device=device, repeat=1, warmup=0, verbose=False)
+        df = table(rows)
+        for column in ('method', 'case', 'passed', 'cpu_ok', 'gpu_ok', 'output_device', 'on_gpu', 'speedup',
+                       'max_singular_value_difference_over_sigma1'):
+            self.assertIn(column, df.columns)
+        self.assertEqual(list(df['case']), [c['name'] for c in QUICK_SUITE[:2]])
 
 
 @unittest.skipUnless(os.environ.get('SVDLAB_TEST_NOTEBOOKS'), 'set SVDLAB_TEST_NOTEBOOKS=1 to execute the notebooks')
