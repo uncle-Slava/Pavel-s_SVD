@@ -8,6 +8,7 @@ ALGORITHMS = (
     'bidiag_qr', 'bidiag_dc', 'jacobi', 'block_jacobi', 'qr', 'tsqr',
     'gram_jacobi', 'gram_dc', 'polar_qdwh', 'polar_newton_schulz',
     'polar_halley', 'polar_polynomial', 'randomized', 'subspace', 'block_krylov', 'lanczos',
+    'polar_cans',
 )
 
 
@@ -136,6 +137,25 @@ def _polar(a, stats, opts, method):
             xn = 0.5 * x @ (3 * ident - g)
         elif method == 'polar_polynomial':
             xn = x @ (15 * ident - 10 * g + 3 * (g @ g)) / 8
+        elif method == 'polar_cans':
+            order, bounds = opts.get('cans_order'), opts.get('cans_bounds')
+            a, b = bounds
+            c = torch.zeros(order, device=a.device)
+            if order == 2:
+                c[0] = 2*(a ** 2 + a*b + b ** 2) / \
+                    (2 * ((a ** 2 + a*b + b ** 2)/3) ** 1.5 + a**2 * b + a*b**2)
+                c[1] = 2 / (2 * ((a ** 2 + a*b + b ** 2)/3) ** 1.5 + a**2 * b + a*b**2)
+                e = (2 * ((a ** 2 + a*b + b ** 2)/3) ** 1.5 - a**2 * b - a*b**2) / \
+                    (2 * ((a ** 2 + a*b + b ** 2)/3) ** 1.5 + a**2 * b + a*b**2)
+                opts['cans_bounds'] = (1-e, 1+e)
+            else:
+                c_all,e = remez() # aply Remez alg
+                c = c[1::2]
+            xn = c[0] * x
+            gg = g @ g
+            for i in range(1, c.shape[0]):
+                xn += c[i] * x @ gg
+                gg = gg @ (g @ g)
         else:
             if method == 'polar_halley':
                 aa, bb, cc = 3., 1., 3.
@@ -322,3 +342,97 @@ def factory(a, spec):
                     'values_only_forms_vectors': True, 'rng_in_solve': True,
                     'gpu_control': 'Python loops and host convergence synchronization; no graph capture'}
     return run
+
+# Here is CANS SVD routine from https://github.com/fallnlove/cans_svd/
+# Still, I need to rewrite it on torch. 
+
+def get_polynomial(Ext):
+    n = len(Ext) - 1
+    M = torch.zeros((n + 1, n + 1), dtype=Ext.dtype, device=Ext.device)
+    for i in range(n + 1):
+        for j in range(n):
+            M[i, j] = Ext[i] ** (2 * j + 1)
+        M[i, n] = (-1) ** (i + 1)
+    c = torch.linalg.solve(M, torch.ones(n + 1, dtype=Ext.dtype, device=Ext.device))
+    return c
+
+
+def get_ext(c):
+    n = len(c)
+    coeffs = [(2 * j + 1) * c[j] for j in range(n)]
+    rts = poly_roots(coeffs[::-1])
+    return torch.sqrt(rts)
+
+
+def remez_step(Ext):
+    n = len(Ext) - 1
+    c = get_polynomial(Ext)
+    coeffs = [c[j // 2 - 1] if j % 2 == 0 else 0 for j in range(1, 2 * n + 1)]
+    p = coeffs[::-1]
+    e = c[n].item()
+    NewExt = torch.concatenate(([Ext[0]], get_ext(c[:n]), [Ext[-1]]))
+    f = lambda x: torch.abs(sum(a * x**i for i, a in enumerate(p)) - 1) # np.abs(p(x) - 1)
+    newe = torch.max(f(NewExt))
+    return coeffs, NewExt, e, newe
+
+
+def remez(A, B, degree):
+    # Remez algorithm for finding optimal polynomial approximating the unity function f==1
+    # on the segment [A, B]
+    
+    Ext = torch.linspace(B, A, (degree + 1) // 2 + 1)
+    p = 0.0
+    newe = 0
+    for i in range(100):
+        try:
+            p, NewExt, e, newe = remez_step(Ext)
+        except RuntimeError:
+            return kovarik_formula(degree), 0  # if the segment converged to [A, B]=[1, 1]
+        if newe < abs(e) + 1e-20:
+            return p, newe
+        Ext = torch.array(NewExt)
+    return p, newe
+
+
+def c_n_k(n, k):
+    s = 1
+    for i in range(n - k + 1, n + 1):
+        s *= i
+    for i in range(1, k + 1):
+        s /= i
+    return s
+
+
+def kovarik_formula(degree):
+    # generates polynomial of specified degree from the paper
+    # Zdislav Kovarik, "SOME ITERATIVE METHODS FOR IMPROVING ORTHONORMALITY", 1970
+    p = torch.zeros(degree + 1)
+    p[1] += 1
+    a = 1
+    for i in range(1, (degree + 1) // 2):
+        for j in range(2 * (i - 1) + 1, 2 * i + 1):
+            a *= j / 2
+        a /= i ** 2
+        sign = 1
+        for k in range(0, i + 1):
+            p[2 * k + 1] += a * sign * c_n_k(i, k)
+            sign *= -1
+    return p#np.poly1d(p[::-1])
+
+def poly_roots(coeffs):
+    n = len(coeffs) - 1
+
+    c = - coeffs[1:] / coeffs[0]
+
+    A = torch.zeros(n,n, dtype=torch.complex128, device=coeffs.device)
+
+    A[1:,:-1] = torch.eye(n-1)
+
+    A[0, :] = c
+
+    eig = torch.linalg.eigvalues(A)
+
+    if torch.isnan(eig).any() or torch.isinf(eig).any():
+        raise RuntimeError('Error in polyroot evaluation')
+
+    return eig
