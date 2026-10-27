@@ -138,25 +138,25 @@ def _polar(a, stats, opts, method):
         elif method == 'polar_polynomial':
             xn = x @ (15 * ident - 10 * g + 3 * (g @ g)) / 8
         elif method == 'polar_cans':
-            order = opts.get('cans_order') or 2
-            bounds = opts.get('cans_bounds') or (tol, 1-tol)
+            order = opts.get('cans_order') or 3
+            bounds = opts.get('cans_bounds') or (tol, 1+tol)
             A, B = bounds
             C = torch.zeros(order, device=a.device)
             if order == 2:
                 C[0] = 2*(A ** 2 + A*B + B ** 2) / \
                     (2 * ((A ** 2 + A*B + B ** 2)/3) ** 1.5 + A**2 * B + A*B**2)
-                C[1] = 2 / (2 * ((A ** 2 + A*B + B ** 2)/3) ** 1.5 + A**2 * B + A*B**2)
+                C[1] = - 2 / (2 * ((A ** 2 + A*B + B ** 2)/3) ** 1.5 + A**2 * B + A*B**2)
                 e = (2 * ((A ** 2 + A*B + B ** 2)/3) ** 1.5 - A**2 * B - A*B**2) / \
                     (2 * ((A ** 2 + A*B + B ** 2)/3) ** 1.5 + A**2 * B + A*B**2)
-                opts['cans_bounds'] = (1-e, 1+e)
             else:
                 c_all,e = remez(A, B, order) 
                 C = c_all[1::2]
+            opts['cans_bounds'] = (1-e, 1+e)
             xn = C[0] * x
-            gg = g @ g
+            gg = g
             for i in range(1, C.shape[0]):
                 xn += C[i] * x @ gg
-                gg = gg @ (g @ g)
+                gg = gg @ g
         else:
             if method == 'polar_halley':
                 aa, bb, cc = 3., 1., 3.
