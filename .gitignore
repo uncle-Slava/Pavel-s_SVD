@@ -10,3 +10,4 @@ build/
 experiments/
 laboratory_runs/
 .ipynb_checkpoints/
+.vs/

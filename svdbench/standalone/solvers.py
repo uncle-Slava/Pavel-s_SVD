@@ -129,7 +129,7 @@ def _polar(a, stats, opts, method):
     lower = opts.get('lower_bound', P._eps(a.dtype))
     if not 0 < lower <= 1:
         raise ValueError('lower_bound must be in (0,1]')
-    max_iter = opts.get('max_iter', 120 if method in ('polar_newton_schulz', 'polar_polynomial') else 40)
+    max_iter = opts.get('max_iter', 120 if method in ('polar_newton_schulz', 'polar_polynomial', 'polar_cans') else 40)
     converged = False
     for it in range(max_iter):
         g = x.mH @ x
@@ -138,24 +138,25 @@ def _polar(a, stats, opts, method):
         elif method == 'polar_polynomial':
             xn = x @ (15 * ident - 10 * g + 3 * (g @ g)) / 8
         elif method == 'polar_cans':
-            order, bounds = opts.get('cans_order'), opts.get('cans_bounds')
-            a, b = bounds
-            c = torch.zeros(order, device=a.device)
+            order = opts.get('cans_order') or 3
+            bounds = opts.get('cans_bounds') or (tol, 1+tol)
+            A, B = bounds
+            C = torch.zeros(order, device=a.device)
             if order == 2:
-                c[0] = 2*(a ** 2 + a*b + b ** 2) / \
-                    (2 * ((a ** 2 + a*b + b ** 2)/3) ** 1.5 + a**2 * b + a*b**2)
-                c[1] = 2 / (2 * ((a ** 2 + a*b + b ** 2)/3) ** 1.5 + a**2 * b + a*b**2)
-                e = (2 * ((a ** 2 + a*b + b ** 2)/3) ** 1.5 - a**2 * b - a*b**2) / \
-                    (2 * ((a ** 2 + a*b + b ** 2)/3) ** 1.5 + a**2 * b + a*b**2)
-                opts['cans_bounds'] = (1-e, 1+e)
+                C[0] = 2*(A ** 2 + A*B + B ** 2) / \
+                    (2 * ((A ** 2 + A*B + B ** 2)/3) ** 1.5 + A**2 * B + A*B**2)
+                C[1] = - 2 / (2 * ((A ** 2 + A*B + B ** 2)/3) ** 1.5 + A**2 * B + A*B**2)
+                e = (2 * ((A ** 2 + A*B + B ** 2)/3) ** 1.5 - A**2 * B - A*B**2) / \
+                    (2 * ((A ** 2 + A*B + B ** 2)/3) ** 1.5 + A**2 * B + A*B**2)
             else:
-                c_all,e = remez() # aply Remez alg
-                c = c[1::2]
-            xn = c[0] * x
-            gg = g @ g
-            for i in range(1, c.shape[0]):
-                xn += c[i] * x @ gg
-                gg = gg @ (g @ g)
+                c_all,e = remez(A, B, order) 
+                C = c_all[1::2]
+            opts['cans_bounds'] = (1-e, 1+e)
+            xn = C[0] * x
+            gg = g
+            for i in range(1, C.shape[0]):
+                xn += C[i] * x @ gg
+                gg = gg @ g
         else:
             if method == 'polar_halley':
                 aa, bb, cc = 3., 1., 3.
@@ -344,7 +345,6 @@ def factory(a, spec):
     return run
 
 # Here is CANS SVD routine from https://github.com/fallnlove/cans_svd/
-# Still, I need to rewrite it on torch. 
 
 def get_polynomial(Ext):
     n = len(Ext) - 1
@@ -360,7 +360,7 @@ def get_polynomial(Ext):
 def get_ext(c):
     n = len(c)
     coeffs = [(2 * j + 1) * c[j] for j in range(n)]
-    rts = poly_roots(coeffs[::-1])
+    rts = poly_roots(torch.tensor(coeffs[::-1], device=c.device))
     return torch.sqrt(rts)
 
 
@@ -370,7 +370,7 @@ def remez_step(Ext):
     coeffs = [c[j // 2 - 1] if j % 2 == 0 else 0 for j in range(1, 2 * n + 1)]
     p = coeffs[::-1]
     e = c[n].item()
-    NewExt = torch.concatenate(([Ext[0]], get_ext(c[:n]), [Ext[-1]]))
+    NewExt = torch.concatenate((Ext[0], get_ext(c[:n]), Ext[-1]))
     f = lambda x: torch.abs(sum(a * x**i for i, a in enumerate(p)) - 1) # np.abs(p(x) - 1)
     newe = torch.max(f(NewExt))
     return coeffs, NewExt, e, newe
@@ -417,7 +417,7 @@ def kovarik_formula(degree):
         for k in range(0, i + 1):
             p[2 * k + 1] += a * sign * c_n_k(i, k)
             sign *= -1
-    return p#np.poly1d(p[::-1])
+    return p
 
 def poly_roots(coeffs):
     n = len(coeffs) - 1
@@ -430,7 +430,7 @@ def poly_roots(coeffs):
 
     A[0, :] = c
 
-    eig = torch.linalg.eigvalues(A)
+    eig = torch.linalg.eigvals(A)
 
     if torch.isnan(eig).any() or torch.isinf(eig).any():
         raise RuntimeError('Error in polyroot evaluation')
