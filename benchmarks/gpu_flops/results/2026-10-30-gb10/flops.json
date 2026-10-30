@@ -1,0 +1,988 @@
+[
+ {
+  "impl": "torch.linalg.svd",
+  "n": 32,
+  "matmul_flops": 0,
+  "primitive_flops": {},
+  "elementwise_flops": 0,
+  "total_flops": 0,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:bidiag_qr",
+  "n": 32,
+  "matmul_flops": 131072,
+  "primitive_flops": {
+   "bidiag": 216384,
+   "bdsqr": 535680
+  },
+  "elementwise_flops": 752064,
+  "total_flops": 883136,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:bidiag_dc",
+  "n": 32,
+  "matmul_flops": 895572,
+  "primitive_flops": {
+   "bidiag": 216384,
+   "jacobi_svd": 16416
+  },
+  "elementwise_flops": 232800,
+  "total_flops": 1128372,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:jacobi",
+  "n": 32,
+  "matmul_flops": 0,
+  "primitive_flops": {
+   "jacobi_svd": 2285568
+  },
+  "elementwise_flops": 2285568,
+  "total_flops": 2285568,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:block_jacobi",
+  "n": 32,
+  "matmul_flops": 1769472,
+  "primitive_flops": {
+   "jacobi_svd": 6435072
+  },
+  "elementwise_flops": 6435072,
+  "total_flops": 8204544,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:qr",
+  "n": 32,
+  "matmul_flops": 65536,
+  "primitive_flops": {
+   "qr": 111232,
+   "jacobi_svd": 2285568
+  },
+  "elementwise_flops": 2396800,
+  "total_flops": 2462336,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:tsqr",
+  "n": 32,
+  "matmul_flops": 65536,
+  "primitive_flops": {
+   "qr": 111232,
+   "jacobi_svd": 2285568
+  },
+  "elementwise_flops": 2396800,
+  "total_flops": 2462336,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:gram_jacobi",
+  "n": 32,
+  "matmul_flops": 131072,
+  "primitive_flops": {
+   "jacobi_eigh": 2222080
+  },
+  "elementwise_flops": 2222080,
+  "total_flops": 2353152,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:gram_dc",
+  "n": 32,
+  "matmul_flops": 411648,
+  "primitive_flops": {
+   "tridiag": 146816,
+   "jacobi_eigh": 18720
+  },
+  "elementwise_flops": 165536,
+  "total_flops": 577184,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:polar_qdwh",
+  "n": 32,
+  "matmul_flops": 720896,
+  "primitive_flops": {
+   "qr": 611584,
+   "cholesky": 32736,
+   "trsm_lower": 98304,
+   "trsm_upper": 98304,
+   "jacobi_eigh": 2222080
+  },
+  "elementwise_flops": 3063008,
+  "total_flops": 3783904,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:polar_newton_schulz",
+  "n": 32,
+  "matmul_flops": 2490368,
+  "primitive_flops": {
+   "jacobi_eigh": 2222080
+  },
+  "elementwise_flops": 2222080,
+  "total_flops": 4712448,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:polar_halley",
+  "n": 32,
+  "matmul_flops": 786432,
+  "primitive_flops": {
+   "cholesky": 87296,
+   "trsm_lower": 262144,
+   "trsm_upper": 262144,
+   "jacobi_eigh": 2222080
+  },
+  "elementwise_flops": 2833664,
+  "total_flops": 3620096,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:polar_polynomial",
+  "n": 32,
+  "matmul_flops": 2621440,
+  "primitive_flops": {
+   "jacobi_eigh": 2222080
+  },
+  "elementwise_flops": 2222080,
+  "total_flops": 4843520,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:randomized",
+  "n": 32,
+  "matmul_flops": 458752,
+  "primitive_flops": {
+   "qr": 556160,
+   "jacobi_svd": 2285568
+  },
+  "elementwise_flops": 2841728,
+  "total_flops": 3300480,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:subspace",
+  "n": 32,
+  "matmul_flops": 458752,
+  "primitive_flops": {
+   "qr": 556160,
+   "jacobi_svd": 2285568
+  },
+  "elementwise_flops": 2841728,
+  "total_flops": 3300480,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:block_krylov",
+  "n": 32,
+  "matmul_flops": 327680,
+  "primitive_flops": {
+   "qr": 333696,
+   "jacobi_svd": 2285568
+  },
+  "elementwise_flops": 2619264,
+  "total_flops": 2946944,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:lanczos",
+  "n": 32,
+  "matmul_flops": 655360,
+  "primitive_flops": {
+   "jacobi_svd": 2285568
+  },
+  "elementwise_flops": 2285568,
+  "total_flops": 2940928,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:polar_cans",
+  "n": 32,
+  "matmul_flops": 3604480,
+  "primitive_flops": {
+   "jacobi_eigh": 2222080
+  },
+  "elementwise_flops": 2222080,
+  "total_flops": 5826560,
+  "status": "ok"
+ },
+ {
+  "impl": "recipes.golub_kahan",
+  "n": 32,
+  "matmul_flops": 131072,
+  "primitive_flops": {
+   "bidiag": 216384,
+   "bdsqr": 535680
+  },
+  "elementwise_flops": 752064,
+  "total_flops": 883136,
+  "status": "ok"
+ },
+ {
+  "impl": "recipes.qr_then_svd",
+  "n": 32,
+  "matmul_flops": 65536,
+  "primitive_flops": {
+   "qr": 111232,
+   "jacobi_svd": 2285568
+  },
+  "elementwise_flops": 2396800,
+  "total_flops": 2462336,
+  "status": "ok"
+ },
+ {
+  "impl": "recipes.randomized",
+  "n": 32,
+  "matmul_flops": 458752,
+  "primitive_flops": {
+   "qr": 556160,
+   "jacobi_svd": 2285568
+  },
+  "elementwise_flops": 2841728,
+  "total_flops": 3300480,
+  "status": "ok"
+ },
+ {
+  "impl": "recipes.lanczos",
+  "n": 32,
+  "matmul_flops": 524288,
+  "primitive_flops": {
+   "bdsqr": 535680
+  },
+  "elementwise_flops": 535680,
+  "total_flops": 1059968,
+  "status": "ok"
+ },
+ {
+  "impl": "torch.linalg.svd",
+  "n": 64,
+  "matmul_flops": 0,
+  "primitive_flops": {},
+  "elementwise_flops": 0,
+  "total_flops": 0,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:bidiag_qr",
+  "n": 64,
+  "matmul_flops": 1048576,
+  "primitive_flops": {
+   "bidiag": 1739392,
+   "bdsqr": 4112640
+  },
+  "elementwise_flops": 5852032,
+  "total_flops": 6900608,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:bidiag_dc",
+  "n": 64,
+  "matmul_flops": 7260014,
+  "primitive_flops": {
+   "bidiag": 1739392,
+   "jacobi_svd": 32760
+  },
+  "elementwise_flops": 1772152,
+  "total_flops": 9032166,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:jacobi",
+  "n": 64,
+  "matmul_flops": 0,
+  "primitive_flops": {
+   "jacobi_svd": 20901888
+  },
+  "elementwise_flops": 20901888,
+  "total_flops": 20901888,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:block_jacobi",
+  "n": 64,
+  "matmul_flops": 17432576,
+  "primitive_flops": {
+   "jacobi_svd": 62854848
+  },
+  "elementwise_flops": 62854848,
+  "total_flops": 80287424,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:qr",
+  "n": 64,
+  "matmul_flops": 524288,
+  "primitive_flops": {
+   "qr": 881920,
+   "jacobi_svd": 20901888
+  },
+  "elementwise_flops": 21783808,
+  "total_flops": 22308096,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:tsqr",
+  "n": 64,
+  "matmul_flops": 524288,
+  "primitive_flops": {
+   "qr": 881920,
+   "jacobi_svd": 20901888
+  },
+  "elementwise_flops": 21783808,
+  "total_flops": 22308096,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:gram_jacobi",
+  "n": 64,
+  "matmul_flops": 1048576,
+  "primitive_flops": {
+   "jacobi_eigh": 20643840
+  },
+  "elementwise_flops": 20643840,
+  "total_flops": 21692416,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:gram_dc",
+  "n": 64,
+  "matmul_flops": 3313664,
+  "primitive_flops": {
+   "tridiag": 1198848,
+   "jacobi_eigh": 37920
+  },
+  "elementwise_flops": 1236768,
+  "total_flops": 4550432,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:polar_qdwh",
+  "n": 64,
+  "matmul_flops": 5767168,
+  "primitive_flops": {
+   "qr": 4893184,
+   "cholesky": 262080,
+   "trsm_lower": 786432,
+   "trsm_upper": 786432,
+   "jacobi_eigh": 20643840
+  },
+  "elementwise_flops": 27371968,
+  "total_flops": 33139136,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:polar_newton_schulz",
+  "n": 64,
+  "matmul_flops": 22020096,
+  "primitive_flops": {
+   "jacobi_eigh": 20643840
+  },
+  "elementwise_flops": 20643840,
+  "total_flops": 42663936,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:polar_halley",
+  "n": 64,
+  "matmul_flops": 6815744,
+  "primitive_flops": {
+   "cholesky": 786240,
+   "trsm_lower": 2359296,
+   "trsm_upper": 2359296,
+   "jacobi_eigh": 20643840
+  },
+  "elementwise_flops": 26148672,
+  "total_flops": 32964416,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:polar_polynomial",
+  "n": 64,
+  "matmul_flops": 22544384,
+  "primitive_flops": {
+   "jacobi_eigh": 20643840
+  },
+  "elementwise_flops": 20643840,
+  "total_flops": 43188224,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:randomized",
+  "n": 64,
+  "matmul_flops": 3670016,
+  "primitive_flops": {
+   "qr": 4409600,
+   "jacobi_svd": 20901888
+  },
+  "elementwise_flops": 25311488,
+  "total_flops": 28981504,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:subspace",
+  "n": 64,
+  "matmul_flops": 3670016,
+  "primitive_flops": {
+   "qr": 4409600,
+   "jacobi_svd": 20901888
+  },
+  "elementwise_flops": 25311488,
+  "total_flops": 28981504,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:block_krylov",
+  "n": 64,
+  "matmul_flops": 2621440,
+  "primitive_flops": {
+   "qr": 2645760,
+   "jacobi_svd": 20901888
+  },
+  "elementwise_flops": 23547648,
+  "total_flops": 26169088,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:lanczos",
+  "n": 64,
+  "matmul_flops": 5242880,
+  "primitive_flops": {
+   "jacobi_svd": 18579456
+  },
+  "elementwise_flops": 18579456,
+  "total_flops": 23822336,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:polar_cans",
+  "n": 64,
+  "matmul_flops": 31981568,
+  "primitive_flops": {
+   "jacobi_eigh": 20643840
+  },
+  "elementwise_flops": 20643840,
+  "total_flops": 52625408,
+  "status": "ok"
+ },
+ {
+  "impl": "recipes.golub_kahan",
+  "n": 64,
+  "matmul_flops": 1048576,
+  "primitive_flops": {
+   "bidiag": 1739392,
+   "bdsqr": 4112640
+  },
+  "elementwise_flops": 5852032,
+  "total_flops": 6900608,
+  "status": "ok"
+ },
+ {
+  "impl": "recipes.qr_then_svd",
+  "n": 64,
+  "matmul_flops": 524288,
+  "primitive_flops": {
+   "qr": 881920,
+   "jacobi_svd": 23224320
+  },
+  "elementwise_flops": 24106240,
+  "total_flops": 24630528,
+  "status": "ok"
+ },
+ {
+  "impl": "recipes.randomized",
+  "n": 64,
+  "matmul_flops": 3670016,
+  "primitive_flops": {
+   "qr": 4409600,
+   "jacobi_svd": 20901888
+  },
+  "elementwise_flops": 25311488,
+  "total_flops": 28981504,
+  "status": "ok"
+ },
+ {
+  "impl": "recipes.lanczos",
+  "n": 64,
+  "matmul_flops": 4194304,
+  "primitive_flops": {
+   "bdsqr": 4112640
+  },
+  "elementwise_flops": 4112640,
+  "total_flops": 8306944,
+  "status": "ok"
+ },
+ {
+  "impl": "torch.linalg.svd",
+  "n": 128,
+  "matmul_flops": 0,
+  "primitive_flops": {},
+  "elementwise_flops": 0,
+  "total_flops": 0,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:bidiag_qr",
+  "n": 128,
+  "matmul_flops": 8388608,
+  "primitive_flops": {
+   "bidiag": 13948160,
+   "bdsqr": 31796736
+  },
+  "elementwise_flops": 45744896,
+  "total_flops": 54133504,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:bidiag_dc",
+  "n": 128,
+  "matmul_flops": 58026536,
+  "primitive_flops": {
+   "bidiag": 13948160,
+   "jacobi_svd": 66888
+  },
+  "elementwise_flops": 14015048,
+  "total_flops": 72041584,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:jacobi",
+  "n": 128,
+  "matmul_flops": 0,
+  "primitive_flops": {
+   "jacobi_svd": 205996032
+  },
+  "elementwise_flops": 205996032,
+  "total_flops": 205996032,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:block_jacobi",
+  "n": 128,
+  "matmul_flops": 204472320,
+  "primitive_flops": {
+   "jacobi_svd": 656542656
+  },
+  "elementwise_flops": 656542656,
+  "total_flops": 861014976,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:qr",
+  "n": 128,
+  "matmul_flops": 4194304,
+  "primitive_flops": {
+   "qr": 7023104,
+   "jacobi_svd": 205996032
+  },
+  "elementwise_flops": 213019136,
+  "total_flops": 217213440,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:tsqr",
+  "n": 128,
+  "matmul_flops": 4194304,
+  "primitive_flops": {
+   "qr": 7023104,
+   "jacobi_svd": 205996032
+  },
+  "elementwise_flops": 213019136,
+  "total_flops": 217213440,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:gram_jacobi",
+  "n": 128,
+  "matmul_flops": 8388608,
+  "primitive_flops": {
+   "jacobi_eigh": 228884480
+  },
+  "elementwise_flops": 228884480,
+  "total_flops": 237273088,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:gram_dc",
+  "n": 128,
+  "matmul_flops": 26166272,
+  "primitive_flops": {
+   "tridiag": 9688576,
+   "jacobi_eigh": 75840
+  },
+  "elementwise_flops": 9764416,
+  "total_flops": 35930688,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:polar_qdwh",
+  "n": 128,
+  "matmul_flops": 46137344,
+  "primitive_flops": {
+   "qr": 39146496,
+   "cholesky": 2097024,
+   "trsm_lower": 6291456,
+   "trsm_upper": 6291456,
+   "jacobi_eigh": 187269120
+  },
+  "elementwise_flops": 241095552,
+  "total_flops": 287232896,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:polar_newton_schulz",
+  "n": 128,
+  "matmul_flops": 201326592,
+  "primitive_flops": {
+   "jacobi_eigh": 187269120
+  },
+  "elementwise_flops": 187269120,
+  "total_flops": 388595712,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:polar_halley",
+  "n": 128,
+  "matmul_flops": 58720256,
+  "primitive_flops": {
+   "cholesky": 6990080,
+   "trsm_lower": 20971520,
+   "trsm_upper": 20971520,
+   "jacobi_eigh": 187269120
+  },
+  "elementwise_flops": 236202240,
+  "total_flops": 294922496,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:polar_polynomial",
+  "n": 128,
+  "matmul_flops": 205520896,
+  "primitive_flops": {
+   "jacobi_eigh": 187269120
+  },
+  "elementwise_flops": 187269120,
+  "total_flops": 392790016,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:randomized",
+  "n": 128,
+  "matmul_flops": 29360128,
+  "primitive_flops": {
+   "qr": 35115520,
+   "jacobi_svd": 205996032
+  },
+  "elementwise_flops": 241111552,
+  "total_flops": 270471680,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:subspace",
+  "n": 128,
+  "matmul_flops": 29360128,
+  "primitive_flops": {
+   "qr": 35115520,
+   "jacobi_svd": 205996032
+  },
+  "elementwise_flops": 241111552,
+  "total_flops": 270471680,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:block_krylov",
+  "n": 128,
+  "matmul_flops": 20971520,
+  "primitive_flops": {
+   "qr": 21069312,
+   "jacobi_svd": 187269120
+  },
+  "elementwise_flops": 208338432,
+  "total_flops": 229309952,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:lanczos",
+  "n": 128,
+  "matmul_flops": 41943040,
+  "primitive_flops": {
+   "jacobi_svd": 205996032
+  },
+  "elementwise_flops": 205996032,
+  "total_flops": 247939072,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:polar_cans",
+  "n": 128,
+  "matmul_flops": 293601280,
+  "primitive_flops": {
+   "jacobi_eigh": 187269120
+  },
+  "elementwise_flops": 187269120,
+  "total_flops": 480870400,
+  "status": "ok"
+ },
+ {
+  "impl": "recipes.golub_kahan",
+  "n": 128,
+  "matmul_flops": 8388608,
+  "primitive_flops": {
+   "bidiag": 13948160,
+   "bdsqr": 31796736
+  },
+  "elementwise_flops": 45744896,
+  "total_flops": 54133504,
+  "status": "ok"
+ },
+ {
+  "impl": "recipes.qr_then_svd",
+  "n": 128,
+  "matmul_flops": 4194304,
+  "primitive_flops": {
+   "qr": 7023104,
+   "jacobi_svd": 224722944
+  },
+  "elementwise_flops": 231746048,
+  "total_flops": 235940352,
+  "status": "ok"
+ },
+ {
+  "impl": "recipes.randomized",
+  "n": 128,
+  "matmul_flops": 29360128,
+  "primitive_flops": {
+   "qr": 35115520,
+   "jacobi_svd": 187269120
+  },
+  "elementwise_flops": 222384640,
+  "total_flops": 251744768,
+  "status": "ok"
+ },
+ {
+  "impl": "recipes.lanczos",
+  "n": 128,
+  "matmul_flops": 33554432,
+  "primitive_flops": {
+   "bdsqr": 31211520
+  },
+  "elementwise_flops": 31211520,
+  "total_flops": 64765952,
+  "status": "ok"
+ },
+ {
+  "impl": "torch.linalg.svd",
+  "n": 256,
+  "matmul_flops": 0,
+  "primitive_flops": {},
+  "elementwise_flops": 0,
+  "total_flops": 0,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:bidiag_dc",
+  "n": 256,
+  "matmul_flops": 461480870,
+  "primitive_flops": {
+   "bidiag": 111716864,
+   "jacobi_svd": 136080
+  },
+  "elementwise_flops": 111852944,
+  "total_flops": 573333814,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:jacobi",
+  "n": 256,
+  "matmul_flops": 0,
+  "primitive_flops": {
+   "jacobi_svd": 1804861440
+  },
+  "elementwise_flops": 1804861440,
+  "total_flops": 1804861440,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:qr",
+  "n": 256,
+  "matmul_flops": 33554432,
+  "primitive_flops": {
+   "qr": 56054784,
+   "jacobi_svd": 1804861440
+  },
+  "elementwise_flops": 1860916224,
+  "total_flops": 1894470656,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:tsqr",
+  "n": 256,
+  "matmul_flops": 33554432,
+  "primitive_flops": {
+   "qr": 56054784,
+   "jacobi_svd": 1804861440
+  },
+  "elementwise_flops": 1860916224,
+  "total_flops": 1894470656,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:gram_jacobi",
+  "n": 256,
+  "matmul_flops": 68681728,
+  "primitive_flops": {
+   "jacobi_eigh": 1671168000
+  },
+  "elementwise_flops": 1671168000,
+  "total_flops": 1739849728,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:gram_dc",
+  "n": 256,
+  "matmul_flops": 207436800,
+  "primitive_flops": {
+   "tridiag": 77900800,
+   "jacobi_eigh": 153600
+  },
+  "elementwise_flops": 78054400,
+  "total_flops": 285491200,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:polar_qdwh",
+  "n": 256,
+  "matmul_flops": 369098752,
+  "primitive_flops": {
+   "qr": 313174016,
+   "cholesky": 16776960,
+   "trsm_lower": 50331648,
+   "trsm_upper": 50331648,
+   "jacobi_eigh": 1504051200
+  },
+  "elementwise_flops": 1934665472,
+  "total_flops": 2303764224,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:polar_newton_schulz",
+  "n": 256,
+  "matmul_flops": 2013265920,
+  "primitive_flops": {
+   "jacobi_eigh": 1504051200
+  },
+  "elementwise_flops": 1504051200,
+  "total_flops": 3517317120,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:polar_halley",
+  "n": 256,
+  "matmul_flops": 536870912,
+  "primitive_flops": {
+   "cholesky": 67107840,
+   "trsm_lower": 201326592,
+   "trsm_upper": 201326592,
+   "jacobi_eigh": 1504051200
+  },
+  "elementwise_flops": 1973812224,
+  "total_flops": 2510683136,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:polar_polynomial",
+  "n": 256,
+  "matmul_flops": 2046820352,
+  "primitive_flops": {
+   "jacobi_eigh": 1504051200
+  },
+  "elementwise_flops": 1504051200,
+  "total_flops": 3550871552,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:randomized",
+  "n": 256,
+  "matmul_flops": 234881024,
+  "primitive_flops": {
+   "qr": 280273920,
+   "jacobi_svd": 1804861440
+  },
+  "elementwise_flops": 2085135360,
+  "total_flops": 2320016384,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:subspace",
+  "n": 256,
+  "matmul_flops": 234881024,
+  "primitive_flops": {
+   "qr": 280273920,
+   "jacobi_svd": 1804861440
+  },
+  "elementwise_flops": 2085135360,
+  "total_flops": 2320016384,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:block_krylov",
+  "n": 256,
+  "matmul_flops": 167772160,
+  "primitive_flops": {
+   "qr": 168164352,
+   "jacobi_svd": 1804861440
+  },
+  "elementwise_flops": 1973025792,
+  "total_flops": 2140797952,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:lanczos",
+  "n": 256,
+  "matmul_flops": 335544320,
+  "primitive_flops": {
+   "jacobi_svd": 1804861440
+  },
+  "elementwise_flops": 1804861440,
+  "total_flops": 2140405760,
+  "status": "ok"
+ },
+ {
+  "impl": "blocks.svd:polar_cans",
+  "n": 256,
+  "matmul_flops": 2952790016,
+  "primitive_flops": {
+   "jacobi_eigh": 1504051200
+  },
+  "elementwise_flops": 1504051200,
+  "total_flops": 4456841216,
+  "status": "ok"
+ },
+ {
+  "impl": "recipes.qr_then_svd",
+  "n": 256,
+  "matmul_flops": 33554432,
+  "primitive_flops": {
+   "qr": 56054784,
+   "jacobi_svd": 1804861440
+  },
+  "elementwise_flops": 1860916224,
+  "total_flops": 1894470656,
+  "status": "ok"
+ },
+ {
+  "impl": "recipes.randomized",
+  "n": 256,
+  "matmul_flops": 234881024,
+  "primitive_flops": {
+   "qr": 280273920,
+   "jacobi_svd": 1804861440
+  },
+  "elementwise_flops": 2085135360,
+  "total_flops": 2320016384,
+  "status": "ok"
+ }
+]
