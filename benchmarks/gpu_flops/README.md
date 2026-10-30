@@ -29,6 +29,7 @@ From the repository root:
 cp benchmarks/gpu_flops/results/2026-10-30-gb10/algorithms.json benchmarks/gpu_flops/out/   # descriptions read by prep.py
 python3 benchmarks/gpu_flops/prep.py benchmarks/gpu_flops/out benchmarks/gpu_flops/out/report_data
 .venv/bin/python benchmarks/gpu_flops/plot_results.py benchmarks/gpu_flops/out
+python3 benchmarks/gpu_flops/make_pdf.py benchmarks/gpu_flops/out   # needs Chromium (or set CHROME)
 ```
 
 `prep.py` also reads `scorecard_cuda_table.json` (from `python -m svdlab check examples/my_svd.py --device cuda --compare torch,jacobi --csv .../scorecard_cuda_table.json`) and, optionally, `scorecard_gpu_check.txt` (stdout of the same command with `--gpu-check`).
@@ -45,7 +46,8 @@ Setup: PyTorch 2.14.1+cu130, CUDA 13.0. Files are in `results/2026-10-30-gb10/`:
 - `env.json`;
 - `scorecard_*`: output of the standard `svdlab check`;
 - `report_data/`: the tables behind the report;
-- `report.html`: source of the interactive report;
+- `report.pdf`: static report (findings, algorithm diagrams, charts, all tables), readable on GitHub;
+- `report.html`: source of the interactive report (runs only in the claude.ai Dashboard runtime);
 - charts: `time_vs_n`, `flops_vs_n`, `latency_vs_error` (`.svg` and `.png`).
 
 Median time in ms, float32:
