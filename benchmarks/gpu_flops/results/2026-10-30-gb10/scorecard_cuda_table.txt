@@ -1,0 +1,33 @@
+recon  = |A - U diag(s) Vh| / |A|          tail× = recon / best possible (truncated cases)
+σ-rel  = max relative error of the values   orth  = max(|UᴴU - I|, |V Vᴴ - I|) / sqrt(k)
+ok     = orth and recon within 100·eps·max(m, n), or tail× <= 1.05
+
+my_svd               gaussian_tall          ok     458.747 ms  recon 3.71e-15  tail× -  σ-rel 3.52e-15  orth 3.77e-15
+my_svd               gaussian_wide          ok     310.045 ms  recon 3.28e-15  tail× -  σ-rel 3.78e-15  orth 3.38e-15
+my_svd               ill_conditioned_1e8    ok    1016.729 ms  recon 3.88e-15  tail× -  σ-rel 1.90e-09  orth 6.37e-15
+my_svd               clustered              ok     705.166 ms  recon 4.68e-15  tail× -  σ-rel 2.93e-14  orth 4.91e-15
+my_svd               sparse_dense_storage   ok     497.180 ms  recon 4.49e-15  tail× -  σ-rel 5.25e-15  orth 4.52e-15
+my_svd               complex_gaussian       ok     300.010 ms  recon 3.06e-15  tail× -  σ-rel 2.56e-15  orth 3.09e-15
+my_svd               low_rank_k10           ok     764.881 ms  recon 8.75e-06  tail× 1.00e+00  σ-rel 1.80e-15  orth 1.94e-15
+my_svd               low_rank_k16_fp32      ok    1150.147 ms  recon 8.70e-04  tail× 1.00e+00  σ-rel 1.52e-05  orth 2.77e-05
+torch                gaussian_tall          ok      30.380 ms  recon 3.08e-14  tail× -  σ-rel 2.91e-14  orth 3.00e-14
+torch                gaussian_wide          ok      28.220 ms  recon 3.01e-14  tail× -  σ-rel 2.46e-14  orth 2.84e-14
+torch                ill_conditioned_1e8    ok      37.300 ms  recon 5.06e-14  tail× -  σ-rel 3.51e-10  orth 3.75e-14
+torch                clustered              ok      37.797 ms  recon 3.90e-14  tail× -  σ-rel 3.64e-14  orth 5.17e-14
+torch                sparse_dense_storage   ok      44.308 ms  recon 4.31e-14  tail× -  σ-rel 3.77e-14  orth 4.20e-14
+torch                complex_gaussian       ok      57.039 ms  recon 7.06e-14  tail× -  σ-rel 5.09e-14  orth 4.78e-14
+torch                low_rank_k10           ok     175.786 ms  recon 8.75e-06  tail× 1.00e+00  σ-rel 2.57e-13  orth 4.98e-13
+torch                low_rank_k16_fp32      ok      15.564 ms  recon 8.72e-04  tail× 1.00e+00  σ-rel 5.68e-05  orth 1.43e-04
+jacobi               gaussian_tall          ok     467.761 ms  recon 1.98e-14  tail× -  σ-rel 1.45e-14  orth 2.04e-14
+jacobi               gaussian_wide          ok     315.660 ms  recon 1.56e-14  tail× -  σ-rel 1.11e-14  orth 1.54e-14
+jacobi               ill_conditioned_1e8    ok    1081.225 ms  recon 4.20e-14  tail× -  σ-rel 1.02e-09  orth 3.53e-14
+jacobi               clustered              ok     723.384 ms  recon 4.77e-14  tail× -  σ-rel 6.07e-14  orth 4.40e-14
+jacobi               sparse_dense_storage   ok     506.122 ms  recon 2.53e-14  tail× -  σ-rel 3.01e-14  orth 2.46e-14
+jacobi               complex_gaussian       ok     327.396 ms  recon 1.29e-14  tail× -  σ-rel 1.02e-14  orth 1.17e-14
+jacobi               low_rank_k10           ok     799.137 ms  recon 8.75e-06  tail× 1.00e+00  σ-rel 1.92e-14  orth 3.48e-14
+jacobi               low_rank_k16_fp32      ok    1202.806 ms  recon 8.70e-04  tail× 1.00e+00  σ-rel 7.88e-06  orth 1.44e-05
+
+my_svd: 8/8 ok, total median 5202.904 ms
+torch: 8/8 ok, total median 426.395 ms
+jacobi: 8/8 ok, total median 5423.491 ms
+Saved scorecard_cuda_table.json

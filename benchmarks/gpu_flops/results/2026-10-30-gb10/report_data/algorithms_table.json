@@ -1,0 +1,163 @@
+[
+{
+"impl": "torch.linalg.svd",
+"family": "Reference (cuSOLVER)",
+"steps": "cuSOLVER gesvd-family (vendor library) - reference",
+"iterative": "internal",
+"rank": "full"
+},
+{
+"impl": "bidiag_qr",
+"family": "Golub-Kahan bidiagonal",
+"steps": "Householder bidiagonalization (A = Q B P^H) -> implicit-shift bidiagonal QR (bdsqr, Givens chasing, lock-step batched) -> U = Q Ub, V = P Vb",
+"iterative": "yes: bdsqr QR iterations until superdiagonal deflates (tol 10*eps, max_iter 60n); count = bdsqr_iterations",
+"rank": "full (truncate afterwards)"
+},
+{
+"impl": "bidiag_dc",
+"family": "Golub-Kahan bidiagonal",
+"steps": "Householder bidiagonalization -> recursive divide-and-conquer bidiagonal SVD in float64 (split, recurse, rank-one secular-equation merge by bisection; leaves n<=4 and hard merges solved by one-sided Jacobi)",
+"iterative": "yes: bisection inside each merge + Jacobi on leaves/refinements (max_sweeps 80); recursion depth ~log2(n/4)",
+"rank": "full"
+},
+{
+"impl": "jacobi",
+"family": "One-sided Jacobi",
+"steps": "one-sided Jacobi on A directly, round-robin cyclic sweeps; s = column norms, U = W/s",
+"iterative": "yes: sweeps until off <= 10*eps (max_sweeps 60); count = jacobi_sweeps",
+"rank": "full"
+},
+{
+"impl": "block_jacobi",
+"family": "One-sided Jacobi",
+"steps": "block one-sided Jacobi: columns grouped in blocks of 4, round-robin over block pairs, each pair (8 columns) orthogonalized by inner one-sided Jacobi SVD; convergence test on full Gram correlation",
+"iterative": "yes: outer block sweeps (max 30, tol 40*eps) x inner Jacobi sweeps per block pair",
+"rank": "full"
+},
+{
+"impl": "qr",
+"family": "QR then Jacobi",
+"steps": "Householder QR (A = QR) -> one-sided Jacobi SVD of R (n x n) -> U = Q Ur",
+"iterative": "yes: Jacobi sweeps on R (max 60)",
+"rank": "full"
+},
+{
+"impl": "tsqr",
+"family": "QR then Jacobi",
+"steps": "tall-skinny QR (row tiles of 4n rows, binary reduction tree; for square/small m it is a single Householder QR) -> one-sided Jacobi SVD of R -> U = Q Ur",
+"iterative": "yes: Jacobi sweeps on R",
+"rank": "full"
+},
+{
+"impl": "gram_jacobi",
+"family": "Gram eigensolver",
+"steps": "G = A^H A -> two-sided Jacobi eigendecomposition of G -> s = sqrt(eig), U = A V / s (null columns completed)",
+"iterative": "yes: Hermitian Jacobi sweeps (max 60); count = eigen_sweeps",
+"rank": "full (values below eps*n*lambda_max discarded/zeroed; squares the condition number)"
+},
+{
+"impl": "gram_dc",
+"family": "Gram eigensolver",
+"steps": "G = A^H A -> Householder tridiagonalization -> Cuppen divide-and-conquer tridiagonal eigensolver (float64 merges, leaves n<=4 by Jacobi eigh) -> s = sqrt(eig), U = A V / s",
+"iterative": "yes: bisection in merges + leaf Jacobi",
+"rank": "full"
+},
+{
+"impl": "polar_qdwh",
+"family": "Polar decomposition",
+"steps": "normalize by ||A||_F -> QDWH polar iteration (dynamically weighted Halley; Cholesky + two triangular solves per step, or QR of [sqrt(c)X; I] when c>100) -> H = Up^H A -> Jacobi eigh of H -> U = Up V",
+"iterative": "yes: polar iterations until ||X_{k+1}-X_k||_max <= 10*eps (max 40, typically ~6) + Jacobi eigh sweeps",
+"rank": "full"
+},
+{
+"impl": "polar_newton_schulz",
+"family": "Polar decomposition",
+"steps": "normalize by ||A||_F -> Newton-Schulz polar iteration X <- X(3I - X^H X)/2 (GEMM only) -> H = Up^H A -> Jacobi eigh -> U = Up V",
+"iterative": "yes: polar iterations (max 120, tol 10*eps); slow for small sigma_min/||A||_F + eigen sweeps",
+"rank": "full"
+},
+{
+"impl": "polar_halley",
+"family": "Polar decomposition",
+"steps": "normalize -> Halley polar iteration (a,b,c)=(3,1,3), Cholesky-based inverse per step -> H = Up^H A -> Jacobi eigh -> U = Up V",
+"iterative": "yes: polar iterations (max 40) + eigen sweeps",
+"rank": "full"
+},
+{
+"impl": "polar_polynomial",
+"family": "Polar decomposition",
+"steps": "normalize -> 5th-order polynomial polar iteration X(15I - 10G + 3G^2)/8, G = X^H X (GEMM only) -> H -> Jacobi eigh -> U",
+"iterative": "yes: polar iterations (max 120) + eigen sweeps",
+"rank": "full"
+},
+{
+"impl": "polar_cans",
+"family": "Polar decomposition",
+"steps": "normalize -> CANS polar iteration: odd minimax polynomial of order 3 (Remez coefficients recomputed every step from bounds [1-e,1+e]) applied by GEMMs -> H -> Jacobi eigh -> U",
+"iterative": "yes: polar iterations (max 120) + Remez + eigen sweeps",
+"rank": "full"
+},
+{
+"impl": "randomized",
+"family": "Randomized / Krylov",
+"steps": "Halko-Martinsson-Tropp: Omega Gaussian (n x l, l = min(rank+8, n)), Q = qr(A Omega), 2 power iterations (QR each half step) -> Jacobi SVD of Q^H A -> U = Q Ub",
+"iterative": "fixed 2 power iterations + Jacobi sweeps on the small matrix",
+"rank": "truncated (rank parameter); with rank=n it is a full SVD of Q^H A"
+},
+{
+"impl": "subspace",
+"family": "Randomized / Krylov",
+"steps": "same as randomized (subspace iteration with QR re-orthonormalization)",
+"iterative": "fixed iterations=2 + Jacobi sweeps",
+"rank": "truncated"
+},
+{
+"impl": "block_krylov",
+"family": "Randomized / Krylov",
+"steps": "randomized block Krylov: keep all power-iteration blocks [Q0, Q1, Q2] (each reorthogonalized twice against previous), QR of concatenation -> Jacobi SVD of Q^H A",
+"iterative": "fixed iterations=2 (stops early when Krylov basis fills m columns) + Jacobi sweeps",
+"rank": "truncated"
+},
+{
+"impl": "lanczos",
+"family": "Lanczos bidiagonal",
+"steps": "Golub-Kahan-Lanczos bidiagonalization with full reorthogonalization (steps = min(m,n, 2*rank+8)) -> recompute core Ub^H A Vb -> Jacobi SVD of the core",
+"iterative": "fixed `steps` Lanczos steps + Jacobi sweeps on core",
+"rank": "truncated (full when steps = n)"
+},
+{
+"impl": "recipes.golub_kahan",
+"family": "Golub-Kahan bidiagonal",
+"steps": "blocks.bidiagonalize (Householder) -> blocks.bidiagonal_svd (bdsqr) -> U = Q Ub, V = P Vb; same pipeline as bidiag_qr but through the recipe API",
+"iterative": "yes: bdsqr iterations",
+"rank": "full"
+},
+{
+"impl": "recipes.qr_then_svd",
+"family": "QR then Jacobi",
+"steps": "blocks.qr (Householder) -> blocks.jacobi_svd(R) -> U = Q Ur",
+"iterative": "yes: Jacobi sweeps on R",
+"rank": "full"
+},
+{
+"impl": "recipes.randomized",
+"family": "Randomized / Krylov",
+"steps": "HMT via blocks: sketch A Omega (rank+8 cols), 2 power iterations with blocks.qr, blocks.jacobi_svd(Q^H A)",
+"iterative": "fixed power_iterations=2 + Jacobi sweeps",
+"rank": "truncated (rank required)"
+},
+{
+"impl": "recipes.lanczos",
+"family": "Lanczos bidiagonal",
+"steps": "blocks.lanczos_bidiagonalize (GKL, full reorth, steps = min(m,n,2*rank+8)) -> blocks.bidiagonal_svd (bdsqr on the Lanczos bidiagonal) -> U = U_L Ub",
+"iterative": "fixed steps + bdsqr iterations",
+"rank": "truncated (rank required)"
+},
+{
+"impl": "recipes.jacobi",
+"family": "One-sided Jacobi",
+"steps": "identical to blocks.svd:jacobi (blocks.jacobi_svd) - not benchmarked separately",
+"iterative": "Jacobi sweeps",
+"rank": "full"
+}
+]
