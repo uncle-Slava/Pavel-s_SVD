@@ -37,7 +37,7 @@ def normalize(raw):
     if device not in ('cpu','cuda:0'):
         raise ValueError('Device must be cpu or cuda:0')
     if device=='cuda:0' and not torch.cuda.is_available():
-        raise ValueError('CUDA/ROCm is unavailable on this server; choose CPU or connect to Hetzner')
+        raise ValueError('CUDA/ROCm is unavailable on this server; choose CPU or connect to a GPU server')
     if output=='full' and batch*(m*m+n*n)*np.dtype(dtype).itemsize > 128*2**20:
         raise ValueError('Full output bases exceed the 128 MiB interactive output limit; choose reduced or top-k')
     r=min(m,n)

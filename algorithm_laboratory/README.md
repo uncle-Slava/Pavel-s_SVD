@@ -1,7 +1,14 @@
 # Algorithm laboratory
 
 A Python workbench for changing numerical algorithms and inspecting their steps.
-It runs independently of the web playground. Start from the repository root:
+It runs independently of the web playground.
+
+**To write an SVD and check it, start with `svdlab`, not here:** `python -m svdlab check
+examples/my_svd.py`. See the [quickstart](../README.md#quickstart) and the
+[developer guide](../docs/DEVELOPER_GUIDE.md). This folder is for the next step: looking
+inside an algorithm while it runs.
+
+To trace the internal steps of an algorithm, start from the repository root:
 
 ```bash
 python -m algorithm_laboratory.experiment --algorithm mine
@@ -13,6 +20,8 @@ when you want to stop and examine live tensors. No web server is needed.
 
 | File | What to do here |
 |---|---|
+| [my_svd.ipynb](my_svd.ipynb) | Notebook version of `svdlab check`: paste `my_svd(a, rank)`, get tables and plots. |
+| [scorecard.py](scorecard.py) | Old import path of `svdlab.scorecard`, kept so existing code keeps working. |
 | [my_algorithm.py](my_algorithm.py) | Your working starter; replace the numerical steps. |
 | [algorithms.py](algorithms.py) | Inspect/edit randomized SVD, power iterations, Jacobi sweeps and plane rotations. |
 | [experiment.py](experiment.py) | Choose the matrix, capture intermediate state and run independent timings. |

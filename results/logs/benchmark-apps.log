@@ -1,0 +1,13 @@
+rank_one_update ok 16.38459999958286 
+append_columns ok 27.238140999543248 
+warm_subspace ok 33.18458300054772 
+cold_subspace ok 34.46424600042519 
+vendor_update_baseline ok 24.78880199851119 
+twelve_updates_truncated ok 216.03683899957105 
+/srv/svdlab/tools/benchmark_standalone_apps.py:83: UserWarning: Sparse invariant checks are implicitly disabled. Memory errors (e.g. SEGFAULT) will occur when operating on a sparse tensor which violates the invariants, but checks incur performance overhead. To silence this warning, explicitly opt in or out. See `torch.sparse.check_sparse_tensor_invariants.__doc__` for guidance.  (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/Context.cpp:848.)
+  sp=torch.sparse_coo_tensor(torch.stack([idx,idx]),torch.arange(24,0,-1,dtype=torch.float64,device=device),(96,64)).coalesce()
+sparse_lanczos ok 96.91385599944624 
+hosvd ok 63.371790001838235 
+st_hosvd ok 63.0644460034091 
+tt_svd ok 38.55747600027826 
+results/standalone-apps-rtx4000.jsonl

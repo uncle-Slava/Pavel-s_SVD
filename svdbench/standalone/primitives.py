@@ -17,7 +17,7 @@ would loop.  Real and complex dtypes.  Shapes: A (b, m, n).
   jacobi_svd             one-sided Jacobi, round-robin ordering (batched)
   jacobi_eigh            Hermitian eig via two-sided cyclic Jacobi (syevj structure)
 """
-# Adapted from the user-owned /root/svdbench/gpubench/custom/linalg.py
+# Adapted from gpubench/custom/linalg.py from an earlier internal project
 # retrieved 2026-10-11; numerical changes documented in docs/STANDALONE.md.
 from __future__ import annotations
 import torch

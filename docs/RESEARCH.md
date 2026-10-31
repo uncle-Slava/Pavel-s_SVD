@@ -7,7 +7,7 @@ Start with three tracks: full spectrum; approximate top-k; batched small matrice
 compression as an application track, with its own reconstruction and memory objectives.
 
 This assessment combines current primary documentation, inspection of both supplied servers,
-review of the user's existing Hetzner project, and new measurements. It does not claim an
+review of an earlier internal benchmark project, and new measurements. It does not claim an
 exhaustive literature review or results on unavailable AMD/Ascend hardware.
 
 ## Clarifying the premise
@@ -36,12 +36,12 @@ flat spectrum. [Halko, Martinsson and Tropp](https://arxiv.org/abs/0909.4061)
 
 | Host | Verified hardware/software | Role |
 |---|---|---|
-| Yadro | RTX PRO 6000 Blackwell Server Edition; nvidia-smi 97,887 MiB; compute capability 12.0; 4 AMD EPYC Genoa virtual CPUs; about 58 GiB RAM; Debian; system CUDA toolkit 13.3 | Large-memory NVIDIA work; current pilot shared the GPU with another process |
-| Hetzner | RTX PRO 4000 Blackwell SFF Edition; 24,467 MiB; compute capability 12.0; 70 W power limit; i5-13500, 20 logical CPUs; about 62 GiB RAM; Ubuntu | NVIDIA kernel development and smaller benchmarks; idle GPU before the run |
+| RTX PRO 6000 server | RTX PRO 6000 Blackwell Server Edition; nvidia-smi 97,887 MiB; compute capability 12.0; 4 AMD EPYC Genoa virtual CPUs; about 58 GiB RAM; Debian; system CUDA toolkit 13.3 | Large-memory NVIDIA work; current pilot shared the GPU with another process |
+| RTX PRO 4000 server | RTX PRO 4000 Blackwell SFF Edition; 24,467 MiB; compute capability 12.0; 70 W power limit; i5-13500, 20 logical CPUs; about 62 GiB RAM; Ubuntu | NVIDIA kernel development and smaller benchmarks; idle GPU before the run |
 | AMD | No AMD GPU found in either server | Requires a separate supported ROCm GPU host |
 | Orange Pi | User reports Ascend310B; currently powered off | Exact SoC, RAM, firmware and CANN remain unverified |
 
-The CPU vendor on Yadro does not make it an AMD GPU platform. Driver/toolkit versions also
+The CPU vendor on the RTX PRO 6000 server does not make it an AMD GPU platform. Driver/toolkit versions also
 do not identify the library used by PyTorch: both new native runs loaded cuSOLVER **12.0.4**
 from the PyTorch CUDA-13 wheel stack. The system toolkit is a separate installation.
 The two PyTorch builds were 2.14.0+cu130 and 2.14.1+cu130, respectively. All measured
@@ -127,7 +127,7 @@ promotions and workspaces can dominate these lower bounds.
 Example derived from these formulas: a 131072-by-1024 FP32 input occupies 512 MiB.
 Full U alone occupies **64 GiB**; reduced U occupies 512 MiB; rank-64 U occupies 32 MiB.
 This output choice can decide feasibility before any kernel optimization. The existing
-Hetzner randomized wrapper allocates m-by-m U even for top-k, so its 262144-row complex64
+The earlier project's randomized wrapper allocates m-by-m U even for top-k, so its 262144-row complex64
 case requests 512 GiB for that array alone. This establishes a wrapper allocation issue,
 not a measured requirement of the mathematical algorithm or vendor workspace.
 
@@ -169,13 +169,13 @@ unfolding may require a full copy. Randomized Tucker algorithms can preserve use
 structure and reduce data passes. [Minster, Saibaba and Kilmer](https://arxiv.org/abs/1905.07311)
 
 The new harness currently handles matrices and one batch dimension. It does not yet execute
-an end-to-end Tucker or tensor-train decomposition. The existing Hetzner project has tensor
+an end-to-end Tucker or tensor-train decomposition. The earlier internal project has tensor
 unfolding generators worth reusing after checking their memory behavior.
 
 ## Recommended next experiments
 
 1. **Establish reproducibility.** Use the same corpus hashes and, where possible, matching
-   framework/library versions. Repeat after isolating Yadro from other GPU activity and
+   framework/library versions. Repeat after isolating the RTX PRO 6000 server from other GPU activity and
    accounting for its four-vCPU VM. Randomize algorithm order and repeat independent runs.
    Preserve normal clocks/power limits unless the experiment explicitly changes them.
 2. **Choose accuracy budgets before winners.** Example research grid: reconstruction and

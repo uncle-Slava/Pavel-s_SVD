@@ -25,7 +25,7 @@ axs[2].set_xscale('log');axs[2].set_xlabel('Incremental allocator peak (MiB)')
 for ax in axs:
     ax.grid(axis='x',alpha=.2);ax.set_axisbelow(True);ax.spines[['top','right']].set_visible(False)
 fig.suptitle('Standalone SVD: correctness baseline and dispatch cost',fontsize=17,x=.51,y=.97)
-fig.text(.51,.925,'Hetzner RTX PRO 4000 Blackwell SFF · 32 x 32 Gaussian FP32 · reduced full spectrum',ha='center',fontsize=11)
+fig.text(.51,.925,'RTX PRO 4000 Blackwell SFF · 32 x 32 Gaussian FP32 · reduced full spectrum',ha='center',fontsize=11)
 fig.text(.02,.025,'3 timed samples after warmup. Blue: standalone tensor arithmetic. Green: cuSOLVER. Red: fails the stated accuracy budget.\nNo graph capture; time includes Python control and synchronization. Memory is the PyTorch allocator increment, excluding resident input.',fontsize=9)
 fig.subplots_adjust(left=.205,right=.98,bottom=.12,top=.89,wspace=.28)
 for ext in ('png','svg'):

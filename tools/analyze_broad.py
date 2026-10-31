@@ -46,7 +46,7 @@ def main():
     rows=list({(r['case']['name'],r['id']):r for r in rows}.values())
     config=json.loads((root/'config.json').read_text());env=json.loads((root/'environment.json').read_text())
     cases=[c['name'] for c in config['cases']];summaries=[]
-    lines=['# Larger-matrix SVD benchmark — Hetzner, 12 October 2026','',
+    lines=['# Larger-matrix SVD benchmark — RTX PRO 4000 server, 12 October 2026','',
            f'{len(rows)} distinct method/matrix comparisons on {len(cases)} workload cases, from {attempts} total attempts. Hardware: {env["accelerator"]["name"]}; Torch {env["torch"]}; CUDA build {env["cuda_build"]}.',
            '',f'Execution statuses: {dict(Counter(r["status"] for r in rows))}. Accuracy gates passed: {sum(r["assessment"]["passed"] for r in rows)}.',
            '', '## Fastest and lowest-memory accepted results','',
@@ -118,7 +118,7 @@ def main():
     axes[1].barh(y,[peak(s['lowest_memory']) if s['lowest_memory'] else np.nan for s in summaries],color='#ce9153',label='Lowest accepted allocator peak')
     axes[1].set_xlabel('Peak allocated GPU memory (MiB)');axes[1].legend(loc='lower right')
     axes[0].set_title('Latency — quality-gated results');axes[1].set_title('Minimum memory — independently chosen per case')
-    fig.suptitle('Hetzner RTX PRO 4000 Blackwell · larger SVD workloads',fontsize=15)
+    fig.suptitle('RTX PRO 4000 Blackwell · larger SVD workloads',fontsize=15)
     fig.savefig(out/'broad-winners.png',dpi=180);fig.savefig(out/'broad-winners.svg');plt.close(fig)
     selected=['dense1024','cluster512_fp64','lowrank8192x2048_k64','sparse4096x2048_d001']
     fig,axes=plt.subplots(2,2,figsize=(14,10),layout='constrained')

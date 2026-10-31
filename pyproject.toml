@@ -11,14 +11,16 @@ dependencies = ["numpy>=1.23", "scipy>=1.10", "torch>=2.0", "threadpoolctl>=3", 
 
 [project.optional-dependencies]
 laboratory = ["jupyterlab>=4", "pandas>=2"]
+native = ["ninja"]
 
 [project.scripts]
+svdlab = "svdlab.__main__:main"
 svdbench = "svdbench.cli:main"
 svd-playground = "svdbench.playground.server:main"
 svd-laboratory = "algorithm_laboratory.experiment:main"
 
 [tool.setuptools.packages.find]
-include = ["svdbench*", "algorithm_laboratory*"]
+include = ["svdlab*", "svdbench*", "algorithm_laboratory*"]
 
 [tool.setuptools.package-data]
 "svdbench.playground" = ["static/*.html", "static/*.css", "static/*.js"]

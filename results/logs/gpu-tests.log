@@ -1,0 +1,28 @@
+test_all_families_real_complex_tall_wide_batched (test_standalone.Standalone.test_all_families_real_complex_tall_wide_batched) ... ok
+test_ill_conditioned_accuracy_envelopes (test_standalone.Standalone.test_ill_conditioned_accuracy_envelopes) ... ok
+test_invalid_input_and_nonconvergence (test_standalone.Standalone.test_invalid_input_and_nonconvergence) ... ok
+test_low_rank_and_warm_start (test_standalone.Standalone.test_low_rank_and_warm_start) ... ok
+test_matrix_free_sparse_lanczos_and_breakdown (test_standalone.Standalone.test_matrix_free_sparse_lanczos_and_breakdown) ... ok
+test_no_vendor_factorizations_and_immutable_input (test_standalone.Standalone.test_no_vendor_factorizations_and_immutable_input) ... ERROR
+test_singleton_and_full_null_bases_values_only (test_standalone.Standalone.test_singleton_and_full_null_bases_values_only) ... ok
+test_tucker_sequential_and_tensor_train (test_standalone.Standalone.test_tucker_sequential_and_tensor_train) ... ok
+test_updates_and_column_appends (test_standalone.Standalone.test_updates_and_column_appends) ... ok
+test_zero_identity_rank_deficient_clustered_and_scaled (test_standalone.Standalone.test_zero_identity_rank_deficient_clustered_and_scaled) ... ok
+
+======================================================================
+ERROR: test_no_vendor_factorizations_and_immutable_input (test_standalone.Standalone.test_no_vendor_factorizations_and_immutable_input)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/srv/svdlab/tests/test_standalone.py", line 154, in test_no_vendor_factorizations_and_immutable_input
+    source = path.read_text()
+             ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1030, in read_text
+    return f.read()
+           ^^^^^^^^
+  File "<frozen codecs>", line 322, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xa3 in position 45: invalid start byte
+
+----------------------------------------------------------------------
+Ran 10 tests in 7.612s
+
+FAILED (errors=1)

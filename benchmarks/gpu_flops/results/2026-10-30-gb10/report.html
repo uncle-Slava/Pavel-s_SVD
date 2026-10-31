@@ -1,0 +1,738 @@
+<!-- Page source of the interactive report. It runs inside the claude.ai Dashboard artifact runtime
+     (globals dash and d3; datasets runs, algorithms, scorecard = report_data/*.json); it is not a standalone page.
+     Static versions of the main charts: time_vs_n.svg, flops_vs_n.svg, latency_vs_error.svg. -->
+<meta name="dash-one-writer">
+<style>
+.svd { display: grid; gap: var(--cds-gap-xl); font-family: var(--font-anthropic-sans); }
+.svd h1 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; text-wrap: balance; }
+.svd h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; text-wrap: balance; }
+.svd h3 { font-size: var(--cds-font-size-body); font-weight: var(--cds-font-weight-medium); margin: 0; }
+.svd p { margin: 0; max-width: 72ch; line-height: 1.5; }
+.svd .muted { color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+.svd .head { display: grid; gap: var(--cds-gap-sm); }
+.svd .lede b, .svd .tile b { font-weight: 600; }
+.svd section { display: grid; gap: var(--cds-gap-md); }
+.svd .grid { display: grid; gap: var(--cds-gap-md); grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); }
+.svd .grid.wide { grid-template-columns: repeat(auto-fit, minmax(min(100%, 30rem), 1fr)); }
+.svd .card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); display: grid; gap: var(--cds-gap-sm); align-content: start; min-width: 0; }
+.svd .tiles { display: grid; gap: var(--cds-gap-md); grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); }
+.svd .tile .big { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); font-variant-numeric: tabular-nums; line-height: 1.1; }
+.svd .tile .sub { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.svd .chart { position: relative; min-height: 300px; }
+.svd .chart.bars { min-height: 200px; }
+.svd .chart.scatter { min-height: 420px; }
+.svd .mlegend { gap: 4px var(--cds-gap-md); }
+.svd .mlegend svg { display: block; }
+.svd .mlegend .fam { flex-basis: 100%; color: var(--color-fg); font-weight: var(--cds-font-weight-medium); margin-top: 4px; }
+.svd .tip { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); border-radius: var(--cds-radius); box-shadow: var(--cds-shadow-popover); padding: var(--cds-pad-xs) var(--cds-pad-sm); font-size: var(--cds-font-size-caption); white-space: nowrap; z-index: 2; }
+.svd .tip .t { color: var(--cds-text-secondary); }
+.svd .legend { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs) var(--cds-gap-md); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.svd .legend span { display: inline-flex; align-items: center; gap: 6px; }
+.svd .legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; background: var(--cds-chart-muted); }
+.svd .seg { display: inline-flex; border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); overflow: hidden; }
+.svd .seg button { font: inherit; font-size: var(--cds-font-size-caption); padding: var(--cds-pad-xs) var(--cds-pad-md); background: transparent; color: var(--color-fg); border: 0; border-right: 1px solid var(--color-border-line); cursor: pointer; font-variant-numeric: tabular-nums; }
+.svd .seg button:last-child { border-right: 0; }
+.svd .seg button[aria-pressed="true"] { background: var(--color-fg); color: var(--color-bg); }
+.svd .seg button:focus-visible, .svd th button:focus-visible, .svd input:focus-visible { outline: 2px solid var(--color-fg); outline-offset: 1px; }
+.svd .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cds-gap-md); justify-content: space-between; }
+/* algorithm diagrams */
+.svd .flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 6px; }
+.svd .step { border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: 6px 8px; font-size: var(--cds-font-size-caption); line-height: 1.35; background: var(--color-bg); display: grid; gap: 2px; min-width: 0; }
+.svd .step b { font-weight: 600; }
+.svd .step code, .svd .notes code { font-size: 0.95em; }
+.svd .step.loop { border-style: dashed; border-color: var(--color-fg-muted); }
+.svd .step.loop::before { content: "↻ iterative"; font-size: 0.8em; color: var(--color-fg-muted); letter-spacing: .02em; }
+.svd .step.in, .svd .step.out { background: transparent; border-color: transparent; padding-inline: 2px; align-content: center; font-family: var(--font-anthropic-serif); font-size: var(--cds-font-size-body); }
+.svd .arr { align-self: center; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+.svd .members { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.svd .famdot { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: baseline; background: var(--cds-chart-muted); }
+/* tables */
+.svd .tbox { max-height: 34rem; overflow: auto; border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); }
+.svd table { border-collapse: collapse; width: 100%; font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; }
+.svd th, .svd td { padding: 5px 8px; text-align: left; border-bottom: 1px solid var(--color-border-line); vertical-align: top; }
+.svd th { position: sticky; top: 0; background: var(--color-panel); z-index: 1; white-space: nowrap; }
+.svd th button { all: unset; cursor: pointer; font-weight: var(--cds-font-weight-medium); }
+.svd td.num, .svd th.num { text-align: right; white-space: nowrap; }
+.svd td.wrap { min-width: 16rem; }
+.svd td.bad { color: var(--color-bad); }
+.svd td.warn { color: var(--color-warn); }
+.svd td.good { color: var(--color-ok); }
+.svd input[type=search] { font: inherit; font-size: var(--cds-font-size-caption); padding: var(--cds-pad-xs) var(--cds-pad-sm); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); background: var(--color-bg); color: var(--color-fg); min-width: 0; width: min(100%, 18rem); }
+.svd .notes { display: grid; gap: var(--cds-gap-sm); }
+.svd .notes li { line-height: 1.5; max-width: 80ch; }
+.svd .notes ul { margin: 0; padding-left: 1.2rem; display: grid; gap: 4px; }
+.svd [data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
+.svd [data-dash-source-state=empty] { color: transparent; }
+.svd .fail { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: inherit; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+.svd .fail::before { content: ""; width: .375rem; height: .375rem; border-radius: 50%; background: var(--color-bad); }
+</style>
+
+<div class="svd">
+  <header class="head" id="top">
+    <h1>SVD GPU benchmark: Pavel-s_SVD on NVIDIA GB10</h1>
+    <p class="lede">Every SVD in the repository, timed on the GB10 GPU in float32 on square Gaussian matrices of size 32, 64, 128 and 256. At n = <b data-draw="h-n" data-source="headline" data-field="n" data-row="0">—</b>, torch.linalg.svd takes <b data-draw="h-torch" data-source="headline" data-field="torch_ms" data-row="0">—</b> ms. The fastest repository SVD, <b data-draw="h-best" data-source="headline" data-field="best_impl" data-row="0">—</b>, takes <b data-draw="h-bestms" data-source="headline" data-field="best_ms" data-row="0">—</b> ms, which is <b data-draw="h-ratio" data-source="headline" data-field="ratio" data-row="0">—</b>× slower. The repository solvers are Python loops of small GPU kernels, so their time is set by the number of kernel launches and synchronizations, not by FLOPs.</p>
+  </header>
+
+  <div class="tiles">
+    <div class="card tile">
+      <div class="sub">torch.linalg.svd, largest n</div>
+      <div class="big"><span data-draw="t-torch" data-source="headline" data-field="torch_ms" data-row="0">—</span> ms</div>
+      <div class="sub">cuSOLVER reference, median of timed runs</div>
+    </div>
+    <div class="card tile">
+      <div class="sub">Fastest repository SVD, largest n</div>
+      <div class="big"><span data-draw="t-bestms" data-source="headline" data-field="best_ms" data-row="0">—</span> ms</div>
+      <div class="sub" data-draw="t-best" data-source="headline" data-field="best_impl" data-row="0">—</div>
+    </div>
+    <div class="card tile">
+      <div class="sub">Highest repository throughput, largest n</div>
+      <div class="big"><span data-draw="t-rate" data-source="headline" data-field="best_gflops" data-row="0">—</span> GFLOP/s</div>
+      <div class="sub" data-draw="t-rateimpl" data-source="headline" data-field="best_gflops_impl" data-row="0">—</div>
+    </div>
+    <div class="card tile">
+      <div class="sub">Cases that failed or were skipped</div>
+      <div class="big" data-draw="t-fail" data-source="headline" data-field="failed" data-row="0">—</div>
+      <div class="sub">skipped: n = 256 not run when n = 128 took over 5 s</div>
+    </div>
+  </div>
+
+  <section id="schemes">
+    <h2>How each SVD works</h2>
+    <p class="muted">All repository solvers first scale A by max |a<sub>ij</sub>| and factor a tall matrix (a wide one is transposed). Dashed boxes are iterative steps; the counters reported for them are in the All runs table.</p>
+    <div class="grid wide">
+      <div class="card">
+        <h3><i class="famdot" data-fam="Golub-Kahan bidiagonal"></i>Golub–Kahan bidiagonal</h3>
+        <div class="flow">
+          <div class="step in">A</div><span class="arr">→</span>
+          <div class="step"><b>Householder bidiagonalization</b><span>A = Q B Pᵀ, B upper bidiagonal (d, e)</span></div><span class="arr">→</span>
+          <div class="step loop"><b>Bidiagonal SVD</b><span>bidiag_qr: implicit-shift QR (bdsqr), Givens bulge chasing</span><span>bidiag_dc: divide and conquer, secular equation in float64</span></div><span class="arr">→</span>
+          <div class="step"><b>Back-transform</b><span>U = Q U<sub>B</sub>, V = P V<sub>B</sub></span></div>
+        </div>
+        <div class="members">bidiag_qr, bidiag_dc, golub_kahan (recipe = bidiag_qr through svdlab.blocks)</div>
+      </div>
+      <div class="card">
+        <h3><i class="famdot" data-fam="One-sided Jacobi"></i>One-sided Jacobi (Hestenes)</h3>
+        <div class="flow">
+          <div class="step in">A</div><span class="arr">→</span>
+          <div class="step loop"><b>Sweeps of plane rotations</b><span>W = A V; rotate column pairs (p, q) so w<sub>p</sub>ᵀw<sub>q</sub> = 0</span><span>round-robin: n/2 disjoint pairs per round, n−1 rounds per sweep; stop when max cos ≤ 10ε</span></div><span class="arr">→</span>
+          <div class="step"><b>Normalize</b><span>σ<sub>j</sub> = ‖w<sub>j</sub>‖, U = W Σ⁻¹</span></div>
+        </div>
+        <div class="members">jacobi; block_jacobi rotates blocks of 4 columns, solving each 8-column pair by inner Jacobi</div>
+      </div>
+      <div class="card">
+        <h3><i class="famdot" data-fam="QR then Jacobi"></i>QR then Jacobi</h3>
+        <div class="flow">
+          <div class="step in">A</div><span class="arr">→</span>
+          <div class="step"><b>Householder QR</b><span>A = Q R (tsqr: tiled reduction tree; one tile for square A)</span></div><span class="arr">→</span>
+          <div class="step loop"><b>Jacobi SVD of R</b><span>R = U<sub>R</sub> Σ Vᵀ, n × n</span></div><span class="arr">→</span>
+          <div class="step"><b>Back-transform</b><span>U = Q U<sub>R</sub></span></div>
+        </div>
+        <div class="members">qr, tsqr, qr_then_svd (recipe)</div>
+      </div>
+      <div class="card">
+        <h3><i class="famdot" data-fam="Gram eigensolver"></i>Gram matrix eigensolver</h3>
+        <div class="flow">
+          <div class="step in">A</div><span class="arr">→</span>
+          <div class="step"><b>Gram matrix</b><span>G = AᵀA (one GEMM; squares the condition number)</span></div><span class="arr">→</span>
+          <div class="step loop"><b>Symmetric eigensolver</b><span>gram_jacobi: two-sided Jacobi</span><span>gram_dc: tridiagonalize, then Cuppen divide and conquer</span></div><span class="arr">→</span>
+          <div class="step"><b>Recover U</b><span>σ = √λ, U = A V Σ⁻¹</span></div>
+        </div>
+        <div class="members">gram_jacobi, gram_dc</div>
+      </div>
+      <div class="card">
+        <h3><i class="famdot" data-fam="Polar decomposition"></i>Polar decomposition</h3>
+        <div class="flow">
+          <div class="step in">A</div><span class="arr">→</span>
+          <div class="step loop"><b>Polar iteration</b><span>X₀ = A/‖A‖<sub>F</sub> → U<sub>p</sub></span><span>Newton–Schulz X(3I−XᵀX)/2; polynomial (5th order); CANS (Remez minimax); Halley; QDWH (Cholesky or QR)</span></div><span class="arr">→</span>
+          <div class="step"><b>Hermitian factor</b><span>H = U<sub>p</sub>ᵀA</span></div><span class="arr">→</span>
+          <div class="step loop"><b>Jacobi eigensolver</b><span>H = V Σ Vᵀ</span></div><span class="arr">→</span>
+          <div class="step"><b>Recover U</b><span>U = U<sub>p</sub> V</span></div>
+        </div>
+        <div class="members">polar_qdwh, polar_newton_schulz, polar_halley, polar_polynomial, polar_cans</div>
+      </div>
+      <div class="card">
+        <h3><i class="famdot" data-fam="Randomized / Krylov"></i>Randomized range finder</h3>
+        <div class="flow">
+          <div class="step in">A</div><span class="arr">→</span>
+          <div class="step"><b>Sketch</b><span>Y = A Ω, Ω Gaussian n × (k+8)</span></div><span class="arr">→</span>
+          <div class="step loop"><b>Power iterations (2)</b><span>Q = qr(Y); Z = qr(AᵀQ); Y = A Z</span><span>block_krylov keeps every block</span></div><span class="arr">→</span>
+          <div class="step loop"><b>Small SVD</b><span>QᵀA = U<sub>B</sub> Σ Vᵀ by Jacobi</span></div><span class="arr">→</span>
+          <div class="step"><b>Lift</b><span>U = Q U<sub>B</sub></span></div>
+        </div>
+        <div class="members">randomized, subspace, block_krylov, randomized (recipe). Run here with k = n, so the result is a full SVD</div>
+      </div>
+      <div class="card">
+        <h3><i class="famdot" data-fam="Lanczos bidiagonal"></i>Golub–Kahan–Lanczos</h3>
+        <div class="flow">
+          <div class="step in">A</div><span class="arr">→</span>
+          <div class="step loop"><b>Lanczos bidiagonalization</b><span>k steps of A v and Aᵀu with full re-orthogonalization (two passes)</span></div><span class="arr">→</span>
+          <div class="step loop"><b>Small SVD</b><span>blocks: Jacobi on U<sub>k</sub>ᵀ A V<sub>k</sub></span><span>recipe: bdsqr on the Lanczos bidiagonal</span></div><span class="arr">→</span>
+          <div class="step"><b>Lift</b><span>U = U<sub>k</sub> U<sub>B</sub>, V = V<sub>k</sub> V<sub>B</sub></span></div>
+        </div>
+        <div class="members">lanczos, lanczos (recipe). Run here with k = n steps</div>
+      </div>
+      <div class="card">
+        <h3><i class="famdot" data-fam="Reference (cuSOLVER)"></i>Reference: torch.linalg.svd</h3>
+        <div class="flow">
+          <div class="step in">A</div><span class="arr">→</span>
+          <div class="step"><b>cuSOLVER gesvd family</b><span>blocked Householder bidiagonalization and bidiagonal QR inside vendor kernels</span></div><span class="arr">→</span>
+          <div class="step out">U Σ Vᵀ</div>
+        </div>
+        <div class="members">FLOPs for this one are the textbook estimate 21n³, not a count</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="scaling">
+    <h2>Scaling with matrix size (float32)</h2>
+    <p class="muted">Color is the algorithm family, marker shape the method inside it.</p>
+    <div class="legend mlegend" data-draw="mlegend" data-source="runs"></div>
+    <div class="grid wide">
+      <div class="card">
+        <h3>Median time per SVD</h3>
+        <p class="muted">Milliseconds, log scales. Hover a line to name it. CUDA-event timing, synchronized.</p>
+        <div class="chart" id="time-chart" data-draw="time" data-source="runs"></div>
+      </div>
+      <div class="card">
+        <h3>Floating-point operations per SVD</h3>
+        <p class="muted">Executed FLOPs: measured matmul FLOPs plus exact counts of the element-wise primitives. Iterative methods add work as their sweep counts grow.</p>
+        <div class="chart" id="flops-chart" data-draw="flops" data-source="runs"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tradeoff">
+    <div class="row">
+      <h2>Latency vs reconstruction error</h2>
+      <div class="seg" role="group" aria-label="Sizes in the scatter">
+        <button type="button" data-sn="0" aria-pressed="true">All sizes</button>
+        <button type="button" data-sn="32" aria-pressed="false">32</button>
+        <button type="button" data-sn="64" aria-pressed="false">64</button>
+        <button type="button" data-sn="128" aria-pressed="false">128</button>
+        <button type="button" data-sn="256" aria-pressed="false">256</button>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Median time against ‖A − UΣVᵀ‖/‖A‖, float32</h3>
+      <p class="muted">Log scales; lower left is better. With all sizes, each method's points are joined in order n = 32, 64, 128, 256, so a line runs from the lower left to the upper right as n grows. Hover a point for its values.</p>
+      <div class="chart scatter" id="scatter-chart" data-draw="scatter" data-source="runs"></div>
+      <div class="legend mlegend" data-draw="mlegend" data-source="runs"></div>
+    </div>
+  </section>
+
+  <section id="at-size">
+    <div class="row">
+      <h2>At one size: n = <span data-draw="sel-n">—</span></h2>
+      <div class="seg" role="group" aria-label="Matrix size">
+        <button type="button" data-n="32" aria-pressed="false">32</button>
+        <button type="button" data-n="64" aria-pressed="false">64</button>
+        <button type="button" data-n="128" aria-pressed="false">128</button>
+        <button type="button" data-n="256" aria-pressed="true">256</button>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <h3>Median time</h3>
+        <p class="muted">Milliseconds, log scale, float32.</p>
+        <div class="chart bars" id="tbars" data-draw="tbars" data-source="runs"></div>
+      </div>
+      <div class="card">
+        <h3>Achieved throughput</h3>
+        <p class="muted">GFLOP/s = executed FLOPs / median time. Far below the GPU's matmul peak: these runs are bound by kernel launches and host synchronization.</p>
+        <div class="chart bars" id="rbars" data-draw="rbars" data-source="runs"></div>
+      </div>
+      <div class="card">
+        <h3>Accuracy</h3>
+        <p class="muted">Log scale, float32. The Gram methods square the condition number, so at the larger sizes they lose the smallest singular values (σ error reaches 1). Divide and conquer reconstructs best because its merges run in float64.</p>
+        <div class="legend">
+          <span><i data-metric="0"></i>‖A − UΣVᵀ‖/‖A‖</span>
+          <span><i data-metric="1"></i>max relative σ error vs float64</span>
+          <span><i data-metric="2"></i>max(‖UᵀU − I‖, ‖VVᵀ − I‖)</span>
+        </div>
+        <div class="chart bars" id="abars" data-draw="abars" data-source="runs"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="runs">
+    <div class="row">
+      <h2>All runs</h2>
+      <input type="search" id="runs-search" placeholder="Filter, e.g. polar or 256 or float64" aria-label="Filter runs">
+    </div>
+    <p class="muted">One row per method, size and precision. Errors are Frobenius norms; σ error is the maximum relative error against torch.linalg.svdvals in float64. Click a column to sort.</p>
+    <div class="tbox">
+      <table id="runs-table" data-source="runs" data-row-key="key">
+        <thead><tr>
+          <th data-field="impl"><button type="button" data-sort="impl">Method</button></th>
+          <th data-field="family"><button type="button" data-sort="family">Family</button></th>
+          <th data-field="n" class="num"><button type="button" data-sort="n">n</button></th>
+          <th data-field="dtype"><button type="button" data-sort="dtype">dtype</button></th>
+          <th data-field="status"><button type="button" data-sort="status">Status</button></th>
+          <th data-field="median_ms" class="num"><button type="button" data-sort="median_ms">Median ms</button></th>
+          <th data-field="min_ms" class="num"><button type="button" data-sort="min_ms">Min ms</button></th>
+          <th data-field="recon_err" class="num"><button type="button" data-sort="recon_err">Recon err</button></th>
+          <th data-field="orth_u" class="num"><button type="button" data-sort="orth_u">‖UᵀU−I‖</button></th>
+          <th data-field="orth_v" class="num"><button type="button" data-sort="orth_v">‖VVᵀ−I‖</button></th>
+          <th data-field="sv_err" class="num"><button type="button" data-sort="sv_err">σ err</button></th>
+          <th data-field="total_flops" class="num"><button type="button" data-sort="total_flops">FLOPs</button></th>
+          <th data-field="matmul_flops" class="num"><button type="button" data-sort="matmul_flops">matmul FLOPs</button></th>
+          <th data-field="gflops" class="num"><button type="button" data-sort="gflops">GFLOP/s</button></th>
+          <th data-field="iterations"><button type="button" data-sort="iterations">Iterations</button></th>
+          <th data-field="error"><button type="button" data-sort="error">Error</button></th>
+        </tr></thead>
+        <tbody data-draw="runs-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="algorithms">
+    <h2>Algorithms</h2>
+    <p class="muted">Read from svdbench/standalone and svdlab/recipes.py. blocks.svd is the entry point for the 17 standalone solvers.</p>
+    <div class="tbox">
+      <table id="algo-table" data-source="algorithms" data-row-key="impl">
+        <thead><tr>
+          <th data-field="impl">Method</th>
+          <th data-field="family">Family</th>
+          <th data-field="steps">Steps</th>
+          <th data-field="iterative">Iteration control</th>
+          <th data-field="rank">Rank</th>
+        </tr></thead>
+        <tbody data-draw="algo-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="scorecard">
+    <h2>Standard check: svdlab check on CUDA</h2>
+    <p class="muted">python -m svdlab check examples/my_svd.py --device cuda --compare torch,jacobi, on the repository's eight standard matrices (float64 unless noted). The GPU check column is the separate --gpu-check run: CPU and GPU both pass and agree.</p>
+    <div class="tbox">
+      <table id="score-table" data-source="scorecard" data-row-key="key">
+        <thead><tr>
+          <th data-field="method">Method</th>
+          <th data-field="case">Matrix</th>
+          <th data-field="shape">Shape</th>
+          <th data-field="dtype">dtype</th>
+          <th data-field="ok">Result</th>
+          <th data-field="gpu_check">GPU check</th>
+          <th data-field="time_ms" class="num">Median ms</th>
+          <th data-field="recon" class="num">Recon err</th>
+          <th data-field="sv_rel" class="num">σ rel err</th>
+          <th data-field="orth" class="num">Orth / √k</th>
+        </tr></thead>
+        <tbody data-draw="score-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="method" class="notes">
+    <h2>How this was measured</h2>
+    <ul>
+      <li>Hardware and software: NVIDIA GB10 (CUDA capability 12.1), PyTorch 2.14.1+cu130, CUDA 13.0, repository Pavel-s_SVD at main on 30 October 2026. The GPU was shared with another, idle process.</li>
+      <li>Matrices: one square Gaussian matrix per size, drawn in float64 with seed 1000 + n and cast to float32 (or kept in float64). Every method gets rank = n, so truncated methods also return a full SVD.</li>
+      <li>Timing: 3 warm-up runs, then 20 timed runs measured with CUDA events after synchronizing; median and minimum reported. A method whose first run took over 2 s got 1 warm-up and 3 timed runs. Methods slower than 5 s at n = 128 were not run at n = 256.</li>
+      <li>FLOPs: matmul FLOPs measured with torch.utils.flop_counter. The repository's Householder, Cholesky, triangular-solve, Jacobi and bdsqr primitives use element-wise kernels, not matmul. Their FLOPs are counted exactly from each call's shape and its actual sweep or iteration count, including masked work. Not counted: float64 secular-equation solves in the divide-and-conquer methods, norms and sorting. torch.linalg.svd uses 21n³.</li>
+      <li>Accuracy is computed in float64 from the returned factors.</li>
+      <li>Raw files: benchmarks/gpu_flops/results/2026-10-30-gb10 (results.json, flops.json, algorithms.json, scorecard output); scripts in benchmarks/gpu_flops.</li>
+    </ul>
+  </section>
+</div>
+
+<script>
+window.SV = (() => {
+  const FAM = ['Reference (cuSOLVER)', 'Golub-Kahan bidiagonal', 'One-sided Jacobi', 'QR then Jacobi', 'Gram eigensolver',
+    'Polar decomposition', 'Randomized / Krylov', 'Lanczos bidiagonal'];
+  const color = (fam) => {
+    const i = FAM.indexOf(fam);
+    return i <= 0 ? 'var(--color-fg)' : dash.colors[(i - 1) % dash.colors.length];
+  };
+  const SYM = [d3.symbolCircle, d3.symbolSquare, d3.symbolTriangle, d3.symbolDiamond, d3.symbolStar, d3.symbolWye, d3.symbolCross];
+  // Marker shape per method: its order inside its family.
+  function styles(rows) {
+    const m = new Map();
+    d3.groups(rows, (r) => r.family).forEach(([fam, rs]) => {
+      [...new Set(rs.map((r) => r.impl))].sort().forEach((impl, i) => m.set(impl, {fam, color: color(fam), sym: SYM[i % SYM.length]}));
+    });
+    return m;
+  }
+  const symPath = (st, size) => d3.symbol(st.sym, size)();
+  const metricColor = (i) => dash.colors[[0, 3, 5][i] % dash.colors.length];
+  const ms = (v) => v == null ? '' : v >= 100 ? d3.format(',.0f')(v) : v >= 10 ? d3.format('.1f')(v) : v >= 1 ? d3.format('.2f')(v) : d3.format('.3f')(v);
+  const sci = (v) => v == null ? '' : d3.format('.2e')(v);
+  const compact = new Intl.NumberFormat('en', {notation: 'compact', maximumFractionDigits: 2});
+  const fl = (v) => v == null ? '' : compact.format(v);
+  const gf = (v) => v == null ? '' : v >= 10 ? d3.format('.1f')(v) : d3.format('.3f')(v);
+  const state = {n: 256, sort: {key: 'n', dir: 1, key2: 'median_ms'}, query: ''};
+
+  // Draws a status line in place of a chart; returns the rows when ready.
+  function ready(el, id) {
+    const d = dash.data(id);
+    el.classList.toggle('dash-skeleton', d.status === 'loading');
+    if (d.status === 'ok') return d.data;
+    el.replaceChildren();
+    if (d.status === 'error' || d.status === 'connect') {
+      const f = document.createElement('div');
+      f.className = 'fail';
+      f.textContent = 'Failed to load';
+      el.append(f);
+    } else if (d.status !== 'loading') {
+      el.textContent = '—';
+    }
+    return null;
+  }
+
+  function tip(el) {
+    let t = el.querySelector('.tip');
+    if (!t) { t = document.createElement('div'); t.className = 'tip'; t.hidden = true; el.append(t); }
+    return t;
+  }
+
+  function placeTip(el, t, x, y) {
+    t.hidden = false;
+    const w = t.offsetWidth, h = t.offsetHeight, W = el.clientWidth;
+    let left = x + 12; if (left + w > W) left = Math.max(0, x - w - 12);
+    t.style.left = left + 'px';
+    t.style.top = Math.max(0, y - h - 8) + 'px';
+  }
+
+  function measure(svg, strings) {
+    const g = svg.append('g').attr('font-size', 12);
+    let w = 0;
+    strings.forEach((s) => { const n = g.append('text').text(s).node(); w = Math.max(w, n.getComputedTextLength()); });
+    g.remove();
+    return w;
+  }
+
+  const pow10 = (v) => Math.abs(Math.log10(v) - Math.round(Math.log10(v))) < 1e-9;
+
+  // Log-log lines, one per method, colored by family.
+  function lines(el, rows, field, fmt, unit) {
+    el.replaceChildren();
+    const data = rows.filter((r) => r.dtype === 'float32' && r.status === 'ok' && r[field] > 0);
+    if (!data.length) { el.textContent = '—'; return; }
+    const W = Math.max(280, el.clientWidth), H = Math.round(Math.max(280, Math.min(420, W * 0.6)));
+    const series = d3.groups(data, (r) => r.impl).map(([impl, rs]) => ({impl, fam: rs[0].family, pts: rs.slice().sort((a, b) => a.n - b.n)}));
+    const ns = [...new Set(data.map((r) => r.n))].sort((a, b) => a - b);
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).style('display', 'block');
+    const y = d3.scaleLog().domain(d3.extent(data, (r) => r[field])).nice();
+    let yt = y.ticks().filter(pow10);
+    if (yt.length < 2) yt = y.ticks(4);
+    const ylab = (v) => fmt(v);
+    const left = Math.ceil(measure(svg, yt.map(ylab))) + 10;
+    const m = {l: left, r: 14, t: 10, b: 30};
+    y.range([H - m.b, m.t]);
+    const x = d3.scaleLog().base(2).domain([ns[0], ns[ns.length - 1]]).range([m.l, W - m.r]);
+    svg.append('g').selectAll('line').data(yt).join('line')
+      .attr('x1', m.l).attr('x2', W - m.r).attr('y1', y).attr('y2', y).attr('stroke', 'var(--cds-chart-grid)');
+    svg.append('g').selectAll('text').data(yt).join('text')
+      .attr('x', m.l - 8).attr('y', y).attr('dy', '0.32em').attr('text-anchor', 'end').attr('font-size', 12)
+      .attr('fill', 'var(--color-fg-muted)').text(ylab);
+    svg.append('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', H - m.b).attr('y2', H - m.b).attr('stroke', 'var(--cds-chart-axis)');
+    svg.append('g').selectAll('text').data(ns).join('text')
+      .attr('x', x).attr('y', H - m.b + 18).attr('text-anchor', (d, i) => i === 0 ? 'start' : i === ns.length - 1 ? 'end' : 'middle')
+      .attr('font-size', 12).attr('fill', 'var(--color-fg-muted)').text((d) => 'n = ' + d);
+    const line = d3.line().x((p) => x(p.n)).y((p) => y(p[field]));
+    const paths = svg.append('g').selectAll('path').data(series).join('path')
+      .attr('d', (s) => line(s.pts)).attr('fill', 'none').attr('stroke', (s) => color(s.fam))
+      .attr('stroke-width', (s) => s.fam === FAM[0] ? 2.5 : 2).attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round');
+    const st = styles(rows);
+    const dots = svg.append('g').selectAll('path').data(data).join('path')
+      .attr('transform', (r) => `translate(${x(r.n)},${y(r[field])})`).attr('d', (r) => symPath(st.get(r.impl), 36))
+      .attr('fill', (r) => color(r.family));
+    const t = tip(el);
+    const hot = svg.append('circle').attr('r', 5).attr('fill', 'none').attr('stroke-width', 2).attr('visibility', 'hidden');
+    svg.append('rect').attr('x', m.l).attr('y', m.t).attr('width', W - m.l - m.r).attr('height', H - m.t - m.b)
+      .attr('fill', 'transparent')
+      .on('pointermove', (ev) => {
+        const [px, py] = d3.pointer(ev);
+        const p = d3.least(data, (r) => (x(r.n) - px) ** 2 + (y(r[field]) - py) ** 2);
+        paths.attr('opacity', (s) => s.impl === p.impl ? 1 : 0.12);
+        dots.attr('opacity', (r) => r.impl === p.impl ? 1 : 0.12);
+        hot.attr('cx', x(p.n)).attr('cy', y(p[field])).attr('stroke', color(p.family)).attr('visibility', 'visible');
+        t.replaceChildren();
+        const a = document.createElement('div'); a.className = 't'; a.textContent = `${p.family} · n = ${p.n}`;
+        const b = document.createElement('div'); b.textContent = `${p.impl}: ${fmt(p[field])} ${unit}`;
+        t.append(a, b);
+        const r = el.getBoundingClientRect(), s = svg.node().getBoundingClientRect();
+        placeTip(el, t, x(p.n) * s.width / W + s.left - r.left, y(p[field]) * s.height / H + s.top - r.top);
+      })
+      .on('pointerleave', () => { paths.attr('opacity', 1); dots.attr('opacity', 1); hot.attr('visibility', 'hidden'); t.hidden = true; });
+  }
+
+  // Horizontal bars, one per method at the selected size.
+  function bars(el, items, fmt, log) {
+    el.replaceChildren();
+    if (!items.length) { el.textContent = '—'; return; }
+    const W = Math.max(260, el.clientWidth), rowH = 20, m = {t: 4, r: 8, b: 22};
+    const svg = d3.select(el).append('svg').attr('width', '100%').style('display', 'block');
+    const lw = Math.ceil(measure(svg, items.map((d) => d.label))) + 8;
+    const vw = Math.ceil(measure(svg, items.map((d) => fmt(d.value)))) + 8;
+    const H = m.t + items.length * rowH + m.b;
+    svg.attr('viewBox', `0 0 ${W} ${H}`);
+    const max = d3.max(items, (d) => d.value), min = d3.min(items, (d) => d.value);
+    const x = log ? d3.scaleLog().domain([Math.min(min, max / 10), max]).nice() : d3.scaleLinear().domain([0, max]).nice();
+    x.range([lw, W - m.r - vw]);
+    const y = d3.scaleBand().domain(items.map((d) => d.label)).range([m.t, H - m.b]).padding(0.25);
+    const ticks = (log ? x.ticks().filter(pow10) : x.ticks(4));
+    svg.append('g').selectAll('line').data(ticks).join('line').attr('x1', x).attr('x2', x).attr('y1', m.t).attr('y2', H - m.b).attr('stroke', 'var(--cds-chart-grid)');
+    svg.append('g').selectAll('text').data(ticks).join('text').attr('x', x).attr('y', H - 6).attr('text-anchor', 'middle')
+      .attr('font-size', 11).attr('fill', 'var(--color-fg-muted)').text((v) => log ? d3.format('~g')(v) : d3.format('~s')(v));
+    const x0 = log ? x.range()[0] : x(0);
+    svg.append('g').selectAll('rect').data(items).join('rect')
+      .attr('x', x0).attr('y', (d) => y(d.label)).attr('height', y.bandwidth())
+      .attr('width', (d) => Math.max(1, x(d.value) - x0)).attr('rx', 2).attr('fill', (d) => color(d.fam));
+    svg.append('g').selectAll('text').data(items).join('text').attr('x', lw - 6).attr('y', (d) => y(d.label) + y.bandwidth() / 2)
+      .attr('dy', '0.32em').attr('text-anchor', 'end').attr('font-size', 12).attr('fill', 'var(--color-fg)').text((d) => d.label);
+    svg.append('g').selectAll('text').data(items).join('text').attr('x', (d) => x(d.value) + 4).attr('y', (d) => y(d.label) + y.bandwidth() / 2)
+      .attr('dy', '0.32em').attr('font-size', 11).attr('fill', 'var(--color-fg-muted)').style('font-variant-numeric', 'tabular-nums').text((d) => fmt(d.value));
+  }
+
+  // Three accuracy measures per method on one log axis.
+  function accuracy(el, rows) {
+    el.replaceChildren();
+    if (!rows.length) { el.textContent = '—'; return; }
+    rows = rows.slice().sort((a, b) => a.recon_err - b.recon_err);
+    const W = Math.max(260, el.clientWidth), rowH = 20, m = {t: 4, r: 24, b: 22};
+    const svg = d3.select(el).append('svg').attr('width', '100%').style('display', 'block');
+    const lw = Math.ceil(measure(svg, rows.map((r) => r.impl))) + 8;
+    const H = m.t + rows.length * rowH + m.b;
+    svg.attr('viewBox', `0 0 ${W} ${H}`);
+    const vals = rows.flatMap((r) => [r.recon_err, r.sv_err, Math.max(r.orth_u, r.orth_v)]).filter((v) => v > 0);
+    const x = d3.scaleLog().domain(d3.extent(vals)).nice().range([lw, W - m.r]);
+    const y = d3.scaleBand().domain(rows.map((r) => r.impl)).range([m.t, H - m.b]).padding(0.25);
+    const ticks = x.ticks().filter(pow10);
+    svg.append('g').selectAll('line').data(ticks).join('line').attr('x1', x).attr('x2', x).attr('y1', m.t).attr('y2', H - m.b).attr('stroke', 'var(--cds-chart-grid)');
+    svg.append('g').selectAll('text').data(ticks).join('text').attr('x', x).attr('y', H - 6).attr('text-anchor', 'middle')
+      .attr('font-size', 11).attr('fill', 'var(--color-fg-muted)').text((v) => d3.format('.0e')(v));
+    svg.append('g').selectAll('text').data(rows).join('text').attr('x', lw - 6).attr('y', (r) => y(r.impl) + y.bandwidth() / 2)
+      .attr('dy', '0.32em').attr('text-anchor', 'end').attr('font-size', 12).attr('fill', 'var(--color-fg)').text((r) => r.impl);
+    svg.append('g').selectAll('line').data(rows).join('line').attr('x1', lw).attr('x2', W - m.r)
+      .attr('y1', (r) => y(r.impl) + y.bandwidth() / 2).attr('y2', (r) => y(r.impl) + y.bandwidth() / 2).attr('stroke', 'var(--cds-chart-grid)');
+    [['recon_err', 0], ['sv_err', 1], ['orth', 2]].forEach(([f, i]) => {
+      const val = (r) => f === 'orth' ? Math.max(r.orth_u, r.orth_v) : r[f];
+      svg.append('g').selectAll('circle').data(rows.filter((r) => val(r) > 0)).join('circle')
+        .attr('cx', (r) => x(val(r))).attr('cy', (r) => y(r.impl) + y.bandwidth() / 2).attr('r', 4)
+        .attr('fill', metricColor(i)).attr('fill-opacity', 0.85);
+    });
+  }
+
+  // Method legend grouped by family.
+  function legend(el, rows) {
+    const st = styles(rows);
+    el.replaceChildren();
+    FAM.forEach((fam) => {
+      const impls = [...st.entries()].filter(([, v]) => v.fam === fam).map(([k]) => k);
+      if (!impls.length) return;
+      const h = document.createElement('span'); h.className = 'fam'; h.textContent = fam; el.append(h);
+      impls.forEach((impl) => {
+        const sp = document.createElement('span');
+        const sv = d3.create('svg').attr('width', 12).attr('height', 12).attr('viewBox', '-6 -6 12 12');
+        sv.append('path').attr('d', symPath(st.get(impl), 48)).attr('fill', st.get(impl).color);
+        sp.append(sv.node(), document.createTextNode(impl));
+        el.append(sp);
+      });
+    });
+  }
+
+  // Latency (x) vs reconstruction error (y), log-log; n = 0 means every size, joined per method.
+  function scatter(el, rows, n) {
+    el.replaceChildren();
+    const st = styles(rows);
+    const data = rows.filter((r) => r.dtype === 'float32' && r.status === 'ok' && r.median_ms > 0 && r.recon_err > 0 && (!n || r.n === n));
+    if (!data.length) { el.textContent = '—'; return; }
+    const W = Math.max(280, el.clientWidth), H = Math.round(Math.max(340, Math.min(520, W * 0.55)));
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).style('display', 'block');
+    const y = d3.scaleLog().domain(d3.extent(data, (r) => r.recon_err)).nice();
+    const x = d3.scaleLog().domain(d3.extent(data, (r) => r.median_ms)).nice();
+    let yt = y.ticks().filter(pow10); if (yt.length < 2) yt = y.ticks(4);
+    let xt = x.ticks().filter(pow10); if (xt.length < 2) xt = x.ticks(4);
+    const yl = (v) => d3.format('.0e')(v);
+    const m = {l: Math.ceil(measure(svg, yt.map(yl))) + 12, r: 24, t: 10, b: 40};
+    y.range([H - m.b, m.t]); x.range([m.l, W - m.r]);
+    svg.append('g').selectAll('line').data(yt).join('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', y).attr('y2', y).attr('stroke', 'var(--cds-chart-grid)');
+    svg.append('g').selectAll('line').data(xt).join('line').attr('y1', m.t).attr('y2', H - m.b).attr('x1', x).attr('x2', x).attr('stroke', 'var(--cds-chart-grid)');
+    svg.append('g').selectAll('text').data(yt).join('text').attr('x', m.l - 8).attr('y', y).attr('dy', '0.32em').attr('text-anchor', 'end')
+      .attr('font-size', 12).attr('fill', 'var(--color-fg-muted)').text(yl);
+    svg.append('g').selectAll('text').data(xt).join('text').attr('x', x).attr('y', H - m.b + 16).attr('text-anchor', 'middle')
+      .attr('font-size', 12).attr('fill', 'var(--color-fg-muted)').text((v) => d3.format('~g')(v));
+    svg.append('text').attr('x', W - m.r).attr('y', H - 6).attr('text-anchor', 'end').attr('font-size', 12).attr('fill', 'var(--color-fg-muted)').text('median time, ms');
+    svg.append('text').attr('x', m.l).attr('y', m.t + 4).attr('dx', 6).attr('dy', '0.7em').attr('font-size', 12).attr('fill', 'var(--color-fg-muted)').text('reconstruction error');
+    const series = d3.groups(data, (r) => r.impl).map(([impl, rs]) => ({impl, pts: rs.slice().sort((a, b) => a.n - b.n)}));
+    const line = d3.line().x((r) => x(r.median_ms)).y((r) => y(r.recon_err));
+    const paths = svg.append('g').selectAll('path').data(n ? [] : series).join('path').attr('d', (s) => line(s.pts))
+      .attr('fill', 'none').attr('stroke', (s) => st.get(s.impl).color).attr('stroke-width', 1.5).attr('stroke-opacity', 0.55)
+      .attr('stroke-linejoin', 'round');
+    const size = (r) => n ? 70 : 20 + 14 * Math.log2(r.n / 16);
+    const pts = svg.append('g').selectAll('path').data(data).join('path')
+      .attr('transform', (r) => `translate(${x(r.median_ms)},${y(r.recon_err)})`).attr('d', (r) => symPath(st.get(r.impl), size(r)))
+      .attr('fill', (r) => st.get(r.impl).color).attr('fill-opacity', 0.9);
+    if (n) {
+      svg.append('g').selectAll('text').data(data).join('text').attr('x', (r) => x(r.median_ms) > W * 0.7 ? x(r.median_ms) - 7 : x(r.median_ms) + 7).attr('y', (r) => y(r.recon_err))
+        .attr('text-anchor', (r) => x(r.median_ms) > W * 0.7 ? 'end' : 'start').attr('dy', '0.32em').attr('font-size', 10).attr('fill', 'var(--color-fg-muted)').text((r) => r.impl);
+    }
+    const t = tip(el);
+    svg.append('rect').attr('x', m.l).attr('y', m.t).attr('width', W - m.l - m.r).attr('height', H - m.t - m.b).attr('fill', 'transparent')
+      .on('pointermove', (ev) => {
+        const [px, py] = d3.pointer(ev);
+        const p = d3.least(data, (r) => (x(r.median_ms) - px) ** 2 + (y(r.recon_err) - py) ** 2);
+        pts.attr('opacity', (r) => r.impl === p.impl ? 1 : 0.15);
+        paths.attr('opacity', (s) => s.impl === p.impl ? 1 : 0.1);
+        t.replaceChildren();
+        const a = document.createElement('div'); a.className = 't'; a.textContent = `${p.family} · n = ${p.n}`;
+        const b = document.createElement('div'); b.textContent = `${p.impl}: ${ms(p.median_ms)} ms, error ${sci(p.recon_err)}`;
+        t.append(a, b);
+        const r = el.getBoundingClientRect(), s = svg.node().getBoundingClientRect();
+        placeTip(el, t, x(p.median_ms) * s.width / W + s.left - r.left, y(p.recon_err) * s.height / H + s.top - r.top);
+      })
+      .on('pointerleave', () => { pts.attr('opacity', 1); paths.attr('opacity', 1); t.hidden = true; });
+  }
+
+  return {FAM, color, metricColor, legend, scatter, ms, sci, fl, gf, state, ready, lines, bars, accuracy};
+})();
+</script>
+
+<script>
+dash.calc('headline', {
+  inputs: ['runs'],
+  title: 'Headline at the largest size',
+  description: 'At the largest n where torch.linalg.svd ran in float32: its median time, the fastest and highest-throughput repository SVD, and the count of failed or skipped cases.',
+  fn: (runs) => {
+    const ok = runs.filter((r) => r.dtype === 'float32' && r.status === 'ok');
+    const n = Math.max(...ok.filter((r) => r.impl === 'torch.linalg.svd').map((r) => r.n));
+    const at = ok.filter((r) => r.n === n);
+    const torch = at.find((r) => r.impl === 'torch.linalg.svd');
+    const repo = at.filter((r) => r.impl !== 'torch.linalg.svd');
+    const best = repo.reduce((a, b) => (b.median_ms < a.median_ms ? b : a));
+    const rated = repo.filter((r) => r.gflops != null);
+    const fast = rated.reduce((a, b) => (b.gflops > a.gflops ? b : a));
+    return [{n, torch_ms: torch.median_ms, best_impl: best.impl, best_ms: best.median_ms,
+      ratio: best.median_ms / torch.median_ms, best_gflops: fast.gflops, best_gflops_impl: fast.impl,
+      failed: runs.filter((r) => r.status !== 'ok').length}];
+  },
+});
+
+const head = (name, field, fmt) => dash.draw(name, (el) => {
+  const d = dash.data('headline');
+  el.classList.toggle('dash-skeleton', d.status === 'loading');
+  el.textContent = d.status === 'ok' && d.data.length ? fmt(d.data[0][field]) : '—';
+});
+head('h-n', 'n', String);
+head('h-torch', 'torch_ms', SV.ms);
+head('h-best', 'best_impl', String);
+head('h-bestms', 'best_ms', SV.ms);
+head('h-ratio', 'ratio', (v) => d3.format(',.0f')(v));
+head('t-torch', 'torch_ms', SV.ms);
+head('t-bestms', 'best_ms', SV.ms);
+head('t-best', 'best_impl', String);
+head('t-rate', 'best_gflops', SV.gf);
+head('t-rateimpl', 'best_gflops_impl', String);
+head('t-fail', 'failed', String);
+
+document.querySelectorAll('.svd [data-fam]').forEach((el) => { el.style.background = SV.color(el.dataset.fam); });
+document.querySelectorAll('.svd [data-metric]').forEach((el) => { el.style.background = SV.metricColor(+el.dataset.metric); });
+</script>
+
+<script>
+dash.draw('mlegend', (el) => { const rows = SV.ready(el, 'runs'); if (rows) SV.legend(el, rows); });
+SV.state.sn = 0;
+dash.draw('scatter', (el) => { const rows = SV.ready(el, 'runs'); if (rows) SV.scatter(el, rows, SV.state.sn); });
+document.querySelectorAll('.svd [data-sn]').forEach((b) => {
+  b.addEventListener('click', () => {
+    SV.state.sn = +b.dataset.sn;
+    document.querySelectorAll('.svd [data-sn]').forEach((o) => o.setAttribute('aria-pressed', String(o === b)));
+    dash.draw('scatter');
+  });
+});
+dash.draw('time', (el) => { const rows = SV.ready(el, 'runs'); if (rows) SV.lines(el, rows, 'median_ms', SV.ms, 'ms'); });
+dash.draw('flops', (el) => { const rows = SV.ready(el, 'runs'); if (rows) SV.lines(el, rows, 'total_flops', SV.fl, 'FLOP'); });
+
+const atSize = (rows) => rows.filter((r) => r.dtype === 'float32' && r.status === 'ok' && r.n === SV.state.n);
+dash.draw('sel-n', (el) => { el.textContent = String(SV.state.n); });
+dash.draw('tbars', (el) => {
+  const rows = SV.ready(el, 'runs'); if (!rows) return;
+  const items = atSize(rows).map((r) => ({label: r.impl, value: r.median_ms, fam: r.family})).sort((a, b) => a.value - b.value);
+  SV.bars(el, items, SV.ms, true);
+});
+dash.draw('rbars', (el) => {
+  const rows = SV.ready(el, 'runs'); if (!rows) return;
+  const items = atSize(rows).filter((r) => r.gflops != null).map((r) => ({label: r.impl, value: r.gflops, fam: r.family})).sort((a, b) => b.value - a.value);
+  SV.bars(el, items, SV.gf, true);
+});
+dash.draw('abars', (el) => { const rows = SV.ready(el, 'runs'); if (rows) SV.accuracy(el, atSize(rows)); });
+
+document.querySelectorAll('.svd [data-n]').forEach((b) => {
+  b.addEventListener('click', () => {
+    SV.state.n = +b.dataset.n;
+    document.querySelectorAll('.svd [data-n]').forEach((o) => o.setAttribute('aria-pressed', String(o === b)));
+    ['sel-n', 'tbars', 'rbars', 'abars'].forEach((d) => dash.draw(d));
+  });
+});
+</script>
+
+<script>
+const td = (text, cls) => { const c = document.createElement('td'); c.textContent = text; if (cls) c.className = cls; return c; };
+const statusClass = (s) => s === 'ok' ? 'good' : s === 'failed' ? 'bad' : 'warn';
+
+dash.draw('runs-body', (tb) => {
+  const d = dash.data('runs');
+  if (d.status !== 'ok') { tb.replaceChildren(); return; }
+  const {key, dir, key2} = SV.state.sort;
+  const q = SV.state.query.trim().toLowerCase();
+  const cmp = (a, b, k) => {
+    const x = a[k], y = b[k];
+    if (x == null && y == null) return 0;
+    if (x == null) return 1;
+    if (y == null) return -1;
+    return typeof x === 'number' ? x - y : String(x).localeCompare(String(y));
+  };
+  const rows = d.data
+    .filter((r) => !q || [r.impl, r.family, r.n, r.dtype, r.status, r.iterations, r.error].join(' ').toLowerCase().includes(q))
+    .sort((a, b) => dir * cmp(a, b, key) || cmp(a, b, key2) || cmp(a, b, 'impl'));
+  tb.replaceChildren(...rows.map((r) => {
+    const tr = document.createElement('tr');
+    tr.dataset.key = r.key;
+    tr.append(td(r.impl), td(r.family), td(String(r.n), 'num'), td(r.dtype), td(r.status, statusClass(r.status)),
+      td(SV.ms(r.median_ms), 'num'), td(SV.ms(r.min_ms), 'num'), td(SV.sci(r.recon_err), 'num'),
+      td(SV.sci(r.orth_u), 'num'), td(SV.sci(r.orth_v), 'num'), td(SV.sci(r.sv_err), 'num'),
+      td(SV.fl(r.total_flops), 'num'), td(SV.fl(r.matmul_flops), 'num'), td(SV.gf(r.gflops), 'num'),
+      td(r.iterations, 'wrap'), td(r.error, r.error ? 'wrap bad' : ''));
+    return tr;
+  }));
+});
+
+document.querySelectorAll('#runs-table th button').forEach((b) => {
+  b.addEventListener('click', () => {
+    const k = b.dataset.sort, s = SV.state.sort;
+    s.dir = s.key === k ? -s.dir : 1;
+    s.key = k;
+    document.querySelectorAll('#runs-table th').forEach((th) => th.removeAttribute('aria-sort'));
+    b.parentElement.setAttribute('aria-sort', s.dir > 0 ? 'ascending' : 'descending');
+    dash.draw('runs-body');
+  });
+});
+document.querySelectorAll('#runs-search').forEach((inp) => {
+  inp.addEventListener('input', () => { SV.state.query = inp.value; dash.draw('runs-body'); });
+});
+
+dash.draw('algo-body', (tb) => {
+  const d = dash.data('algorithms');
+  if (d.status !== 'ok') { tb.replaceChildren(); return; }
+  tb.replaceChildren(...d.data.map((r) => {
+    const tr = document.createElement('tr');
+    tr.append(td(r.impl), td(r.family), td(r.steps, 'wrap'), td(r.iterative, 'wrap'), td(r.rank, 'wrap'));
+    return tr;
+  }));
+});
+
+dash.draw('score-body', (tb) => {
+  const d = dash.data('scorecard');
+  if (d.status !== 'ok') { tb.replaceChildren(); return; }
+  tb.replaceChildren(...d.data.map((r) => {
+    const tr = document.createElement('tr');
+    tr.dataset.key = r.key;
+    tr.append(td(r.method), td(r.case), td(r.shape), td(r.dtype), td(r.ok, r.ok === 'ok' ? 'good' : 'bad'),
+      td(r.gpu_check, r.gpu_check === 'PASS' ? 'good' : r.gpu_check ? 'bad' : ''),
+      td(SV.ms(r.time_ms), 'num'), td(SV.sci(r.recon), 'num'), td(SV.sci(r.sv_rel), 'num'), td(SV.sci(r.orth), 'num'));
+    return tr;
+  }));
+});
+</script>

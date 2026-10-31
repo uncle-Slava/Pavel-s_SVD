@@ -1,4 +1,4 @@
-# Larger SVD workloads on Hetzner — 12 October 2026
+# Larger SVD workloads on the RTX PRO 4000 server — 12 October 2026
 
 **Randomized SVD with library QR/SVD primitives wins both speed and memory on the
 two low-rank workloads.** Full-spectrum winners depend on shape and conditioning:
@@ -164,7 +164,7 @@ limited to four. The 60-second timeout covers the **whole worker**, not one SVD.
 
 Full matrices and FP64 factors were downloaded into the local source checkout's
 `experiments/broad-20261012` and `experiments/broad-20261012-supplement`; copies remain
-under `/root/svd-standalone-20261011/experiments/` on Hetzner. These large arrays are
+under `/srv/svdlab/experiments/` on the RTX PRO 4000 server. These large arrays are
 excluded from Git. Configurations, source, measurements, logs and plots are tracked.
 All 14 input hashes, supplement copies and the solver-source fingerprint were
 verified after downloading. The playground service has been restored.
